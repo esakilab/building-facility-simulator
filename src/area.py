@@ -22,6 +22,8 @@ class Area:
     
     def update(self, ext_env: ExternalEnvironment, area_env: AreaEnvironment):
         """ext_envとarea_envに応じて温度と消費電力を更新する
+
+        2.6節の2,3に対応
         """
 
         beta = area_env.calc_beta()

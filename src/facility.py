@@ -25,6 +25,9 @@ T = TypeVar('T', bound='Facility')
 @dataclass
 class Facility:
     """設備を表すオブジェクト
+
+    TODO: おそらくAIから操作される対象？なので、
+        : 設定温度などの内部設定と、それを変化させるメソッドが必要
     """
 
     facility_type: FacilityType
@@ -32,6 +35,8 @@ class Facility:
 
     def update(self, ext_env: ExternalEnvironment, area_env: AreaEnvironment) -> FacilityEffect:
         """環境変数に応じて設備の状態を更新し、エリアへの影響を返す
+
+        TODO: 各設備の挙動を定める（↓はテキトー）
         """
 
         effect_dict = {

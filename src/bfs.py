@@ -6,6 +6,8 @@ import xml.etree.ElementTree as ET
 
 class BuildingFacilitySimulator:
     """シミュレータを表すオブジェクトで、外部プログラムとのやり取りを担当
+
+    TODO: AI側からアクセスするときのメソッドを用意する（値取得、設定変更など）
     """
 
     areas: Dict[str, Area] = {}
@@ -38,6 +40,9 @@ class BuildingFacilitySimulator:
 
         
     def next_step(self) -> float:
+        """2.6節のシミュレーションを1サイクル分進めるメソッド
+        """
+
         for t, ext_env in enumerate(self.ext_envs):
             total_power_consumption = 0.
             for area_id, area in self.areas.items():
