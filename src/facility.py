@@ -31,6 +31,9 @@ class Facility:
     params: dict
 
     def update(self, ext_env: ExternalEnvironment, area_env: AreaEnvironment) -> FacilityEffect:
+        """環境変数に応じて設備の状態を更新し、エリアへの影響を返す
+        """
+
         effect_dict = {
             FacilityType.PV: FacilityEffect(
                 power=-ext_env.solar_radiation/10, 

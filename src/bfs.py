@@ -5,6 +5,9 @@ import xml.etree.ElementTree as ET
 
 
 class BuildingFacilitySimulator:
+    """シミュレータを表すオブジェクトで、外部プログラムとのやり取りを担当
+    """
+
     areas: Dict[str, Area] = {}
     ext_envs: List[ExternalEnvironment] = []
     area_envs: Dict[str, List[AreaEnvironment]] = {}

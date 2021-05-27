@@ -26,7 +26,7 @@ if __name__ == "__main__":
     for i, total_power in enumerate(bfs.next_step()):
         sleep(1)
         
-        print(f"\n{i}th iteration")
+        print(f"\niteration {i}")
         for area_id, area in bfs.areas.items():
             print_area(area_id, area)
         print(f"total power consumption: {total_power:.2f}")
