@@ -25,7 +25,7 @@
       <parameter name="max-power" value="100"/>
       <parameter name="capacity" value="20000"/>
     </facility>
-   </area>
+  </area>
 
   <environment>
     <value solar-radiation="0" temperature="28.0" electric-price-unit="16" />

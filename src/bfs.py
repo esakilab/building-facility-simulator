@@ -1,4 +1,3 @@
-from typing import Dict, List
 from src.environment import AreaEnvironment, ExternalEnvironment
 from src.area import Area
 import xml.etree.ElementTree as ET
@@ -10,9 +9,9 @@ class BuildingFacilitySimulator:
     TODO: AI側からアクセスするときのメソッドを用意する（値取得、設定変更など）
     """
 
-    areas: Dict[str, Area] = {}
-    ext_envs: List[ExternalEnvironment] = []
-    area_envs: Dict[str, List[AreaEnvironment]] = {}
+    areas: list[Area] = []
+    ext_envs: list[ExternalEnvironment] = []
+    area_envs: dict[str, list[AreaEnvironment]] = {}
 
 
     def __init__(self, cfg_path: str):

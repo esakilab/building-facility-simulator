@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Type, TypeVar
+from typing import Type, TypeVar
 from xml.etree.ElementTree import Element
 from src.facility import Facility
 from src.environment import ExternalEnvironment, AreaEnvironment
@@ -15,7 +15,7 @@ class Area:
     """
 
     name: str
-    facilities: List[Facility]
+    facilities: list[Facility]
     capacity: float
     temperature: float
     power_consumption: float = 0

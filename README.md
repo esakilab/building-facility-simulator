@@ -10,7 +10,6 @@ $ path/to/python main.py
 
 ## requirements
 ```
-python>=3.7?
+python>=3.9.0
 ```
-* @shugo256 は`3.9.5`で開発しています
 * 今のところ標準ライブラリのみで動いています
