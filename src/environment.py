@@ -8,9 +8,9 @@ class ExternalEnvironment(NamedTuple):
     """2.4節(a) '全体の環境変数' を表すオブジェクト
     """
 
-    solar_radiation: float
-    temperature: float
-    electric_price_unit: float
+    solar_radiation:     float # [W/m^2]
+    temperature:         float # [℃]
+    electric_price_unit: float # [¥/kWh]
 
     @classmethod
     def from_xml_element(cls: Type[T], elem: Element) -> T:
@@ -28,14 +28,14 @@ class AreaEnvironment(NamedTuple):
     """
 
     people: int
-    heat_source: float
+    heat_source: float # [W]
 
     def calc_beta(self) -> float:
         """peopleとheat_sourceから、2.3節の熱量betaのうち、環境による部分を計算する
 
         TODO: 計算方法を定める（↓はテキトー）
         """
-        return self.people * 10 + self.heat_source
+        return self.heat_source * 60 / 1000
 
 
     @classmethod
@@ -45,4 +45,12 @@ class AreaEnvironment(NamedTuple):
         return cls(
             people=int(elem.attrib['people']),
             heat_source=float(elem.attrib['heat-source'])
+        )
+    
+    @classmethod
+    def empty(cls: Type[T]) -> T:
+
+        return cls(
+            people=0,
+            heat_source=0
         )

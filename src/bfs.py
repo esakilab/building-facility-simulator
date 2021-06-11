@@ -11,7 +11,7 @@ class BuildingFacilitySimulator:
 
     areas: list[Area] = []
     ext_envs: list[ExternalEnvironment] = []
-    area_envs: dict[str, list[AreaEnvironment]] = {}
+    area_envs: dict[int, list[AreaEnvironment]] = {}
 
 
     def __init__(self, cfg_path: str):
@@ -19,23 +19,26 @@ class BuildingFacilitySimulator:
         
         assert root.tag == "BFS", "invalid BFS XML"
 
-        for child in root:
-            if child.tag == 'area':
-                self.areas[child.attrib['id']] = Area.from_xml_element(child)
+        area_elems = filter(lambda elem: elem.tag == 'area', root)
+        area_env_elems = filter(lambda elem: elem.tag == 'area-environment', root)
 
-            elif child.tag == 'environment':
-                self.ext_envs = [
-                    ExternalEnvironment.from_xml_element(elem) for elem in child
-                ]
+        for area_elem in sorted(area_elems, key=lambda elem: elem.attrib['id']):
+            assert int(area_elem.attrib['id']) == len(self.areas), \
+                "Area IDs must start from 0 and must be consecutive."
 
-            elif child.tag == 'area-environment':
-                area_id = child.attrib['area-id']
-                self.area_envs[area_id] = [
-                    AreaEnvironment.from_xml_element(elem) for elem in child
-                ]
+            self.areas.append(Area.from_xml_element(area_elem))
+        
+        for area_env_elem in area_env_elems:
+            area_id = int(area_env_elem.attrib['area-id'])
+            self.area_envs[area_id] = [
+                AreaEnvironment.from_xml_element(child) for child in area_env_elem
+            ]
+        
+        ext_env_elem = next(filter(lambda elem: elem.tag == 'environment', root))
 
-            else:
-                print(f"Ignoring an element with unknown tag: {child}")
+        self.ext_envs = [
+            ExternalEnvironment.from_xml_element(child) for child in ext_env_elem
+        ]
 
         
     def next_step(self) -> float:
@@ -44,8 +47,11 @@ class BuildingFacilitySimulator:
 
         for t, ext_env in enumerate(self.ext_envs):
             total_power_consumption = 0.
-            for area_id, area in self.areas.items():
-                area.update(ext_env, self.area_envs[area_id][t])
+            for area_id, area in enumerate(self.areas):
+                if area_id in self.area_envs:
+                    area.update(ext_env, self.area_envs[area_id][t])
+                else:
+                    area.update(ext_env)
                 total_power_consumption += area.power_consumption
 
             yield total_power_consumption
