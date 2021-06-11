@@ -38,7 +38,7 @@ class ElectricStorage(Facility):
         self.mode = ESMode.Standby
 
 
-    def update(self, ext_env: ExternalEnvironment, area_env: AreaEnvironment) -> FacilityEffect:
+    def update(self, **_) -> FacilityEffect:
         if self.mode == ESMode.Charge and self.charge_ratio < 0.98:
             # status = charge
             self.charge_ratio += (self.charge_power / 60) / self.capacity
@@ -67,3 +67,7 @@ class ElectricStorage(Facility):
         facility.capacity = float(facility.params['capacity'])
 
         return facility
+
+
+    def __repr__(self) -> str:
+        return f"ES(charge_ratio={self.charge_ratio:.3f})"

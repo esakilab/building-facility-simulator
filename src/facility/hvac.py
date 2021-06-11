@@ -28,7 +28,7 @@ class HVAC(Facility):
 
     # AI inputs
     status: bool = False
-    tempreture_setting: float = 0 # [℃]
+    temperature_setting: float = 0 # [℃]
 
     def turn_on(self):
         self.status = True
@@ -36,14 +36,14 @@ class HVAC(Facility):
     def turn_off(self):
         self.status = False
 
-    def set_tempreture(self, target_tempreture: float):
-        self.tempreture_setting = target_tempreture
+    def set_temperature(self, target_temperature: float):
+        self.temperature_setting = target_temperature
 
 
-    def update(self, ext_env: ExternalEnvironment, area_env: AreaEnvironment) -> FacilityEffect:
-        self.update_mode(ext_env.temperature)
+    def update(self, area_temperature: float, **_) -> FacilityEffect:
+        self.update_mode(area_temperature)
 
-        temp_dif = ext_env.temperature - self.tempreture_setting
+        temp_dif = area_temperature - self.temperature_setting
 
         clamp_to_01 = lambda x: min(max(x, 0), 1)
 
@@ -63,10 +63,10 @@ class HVAC(Facility):
         """モードの更新
         """
         if self.status:
-            abs_temp_dif = abs(self.tempreture_setting - ext_temperature)
+            abs_temp_dif = abs(self.temperature_setting - ext_temperature)
 
             if self.mode == HVACMode.Off or abs_temp_dif > HVAC.GUARD_TEMPERATURE:
-                if self.tempreture_setting < ext_temperature:
+                if self.temperature_setting > ext_temperature:
                     self.mode = HVACMode.Heat
                 else:
                     self.mode = HVACMode.Cool
@@ -83,3 +83,6 @@ class HVAC(Facility):
         facility.heat_cop = float(facility.params['heat-cop'])
 
         return facility
+
+    def __repr__(self) -> str:
+        return f"HVAC(mode={self.mode}, temp_setting={self.temperature_setting:.1f})"
