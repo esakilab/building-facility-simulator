@@ -28,14 +28,8 @@ class ElectricStorage(Facility):
     mode: ESMode = ESMode.Standby
 
 
-    def start_charging(self):
-        self.mode = ESMode.Charge
-
-    def start_discharging(self):
-        self.mode = ESMode.Discharge
-
-    def start_standing_by(self):
-        self.mode = ESMode.Standby
+    def change_setting(self, mode: ESMode):
+        self.mode = mode
 
 
     def update(self, **_) -> FacilityEffect:

@@ -30,14 +30,10 @@ class HVAC(Facility):
     status: bool = False
     temperature_setting: float = 0 # [℃]
 
-    def turn_on(self):
-        self.status = True
 
-    def turn_off(self):
-        self.status = False
-
-    def set_temperature(self, target_temperature: float):
-        self.temperature_setting = target_temperature
+    def change_setting(self, status: bool, temperature: float):
+        self.status = status
+        self.temperature_setting = temperature
 
 
     def update(self, area_temperature: float, **_) -> FacilityEffect:

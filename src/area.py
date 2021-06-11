@@ -36,7 +36,6 @@ class Area:
                 ext_env=ext_env, 
                 area_env=area_env, 
                 area_temperature=self.temperature)
-            print(f"{self.name}: {effect.heat}, {beta}")
 
             beta += effect.heat
             self.power_consumption += effect.power
