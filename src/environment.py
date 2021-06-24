@@ -32,8 +32,6 @@ class AreaEnvironment(NamedTuple):
 
     def calc_beta(self) -> float:
         """peopleとheat_sourceから、2.3節の熱量betaのうち、環境による部分を計算する
-
-        TODO: 計算方法を定める（↓はテキトー）
         """
         return self.heat_source * 60 / 1000
 

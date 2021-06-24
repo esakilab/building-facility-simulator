@@ -5,7 +5,7 @@ from src.facility import Facility, xml_element_to_facility
 from src.environment import ExternalEnvironment, AreaEnvironment
 
 
-ALPHA = 0.3
+ALPHA = 0.02
 
 T = TypeVar('T', bound='Area')
 
@@ -37,7 +37,7 @@ class Area:
                 area_env=area_env, 
                 area_temperature=self.temperature)
 
-            beta += effect.heat
+            beta += effect.heat * 60
             self.power_consumption += effect.power
 
 
