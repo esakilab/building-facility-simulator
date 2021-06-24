@@ -1,6 +1,8 @@
-from src.environment import AreaEnvironment, ExternalEnvironment
-from src.area import Area
 import xml.etree.ElementTree as ET
+
+from src.area import Area
+from src.environment import AreaEnvironment, ExternalEnvironment
+from src.io import BuildingState, Reward
 
 
 class BuildingFacilitySimulator:
@@ -40,19 +42,26 @@ class BuildingFacilitySimulator:
             ExternalEnvironment.from_xml_element(child) for child in ext_env_elem
         ]
 
+
+    def get_area_env(self, area_id: int, timestamp: int):
+        if area_id in self.area_envs:
+            return self.area_envs[area_id][timestamp]
+        else:
+            return AreaEnvironment.empty()
+
         
-    def next_step(self) -> float:
+    def step(self) -> tuple[BuildingState, Reward]:
         """2.6節のシミュレーションを1サイクル分進めるメソッド
         """
 
         for t, ext_env in enumerate(self.ext_envs):
-            total_power_consumption = 0.
-            for area_id, area in enumerate(self.areas):
-                if area_id in self.area_envs:
-                    area.update(ext_env, self.area_envs[area_id][t])
-                else:
-                    area.update(ext_env)
-                total_power_consumption += area.power_consumption
 
-            yield total_power_consumption
-            
+            area_states = [
+                area.update(ext_env, self.get_area_env(area_id, t))
+                for area_id, area in enumerate(self.areas)
+            ]
+
+            yield (
+                BuildingState.from_area_states(area_states),
+                Reward.from_area_states(area_states)
+            )

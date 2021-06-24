@@ -1,8 +1,10 @@
 from dataclasses import dataclass
 from typing import Type, TypeVar
 from xml.etree.ElementTree import Element
+
 from src.facility import Facility, xml_element_to_facility
 from src.environment import ExternalEnvironment, AreaEnvironment
+from src.io import AreaState
 
 
 ALPHA = 0.02
@@ -19,17 +21,17 @@ class Area:
     simulate_temperature: bool
     capacity: float
     temperature: float
-    power_consumption: float = 0
     
+
     def update(self, ext_env: ExternalEnvironment, 
-            area_env: AreaEnvironment = AreaEnvironment.empty()):
+            area_env: AreaEnvironment = AreaEnvironment.empty()) -> AreaState:
         """ext_envとarea_envに応じて温度と消費電力を更新する
 
         2.6節の2,3に対応
         """
 
         beta = area_env.calc_beta()
-        self.power_consumption = 0.
+        power_consumption = 0.
 
         for facility in self.facilities:
             effect = facility.update(
@@ -38,8 +40,7 @@ class Area:
                 area_temperature=self.temperature)
 
             beta += effect.heat * 60
-            self.power_consumption += effect.power
-
+            power_consumption += effect.power
 
         if self.simulate_temperature:
             temp_dif = self.temperature - ext_env.temperature
@@ -47,6 +48,12 @@ class Area:
 
         else:
             self.temperature = ext_env.temperature
+
+        return AreaState(
+            power_consumption=power_consumption,
+            temperature=self.temperature,
+            people=area_env.people
+        )
     
 
     @classmethod
