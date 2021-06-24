@@ -4,7 +4,7 @@ from xml.etree.ElementTree import Element
 
 from src.facility import Facility, xml_element_to_facility
 from src.environment import ExternalEnvironment, AreaEnvironment
-from src.io import AreaState
+from src.io import AreaAction, AreaState
 
 
 ALPHA = 0.02
@@ -23,8 +23,12 @@ class Area:
     temperature: float
     
 
-    def update(self, ext_env: ExternalEnvironment, 
-            area_env: AreaEnvironment = AreaEnvironment.empty()) -> AreaState:
+    def update(
+        self, 
+        action: AreaAction,
+        ext_env: ExternalEnvironment, 
+        area_env: AreaEnvironment = AreaEnvironment.empty(),
+    ) -> AreaState:
         """ext_envとarea_envに応じて温度と消費電力を更新する
 
         2.6節の2,3に対応
@@ -33,8 +37,9 @@ class Area:
         beta = area_env.calc_beta()
         power_consumption = 0.
 
-        for facility in self.facilities:
+        for fid, facility in enumerate(self.facilities):
             effect = facility.update(
+                action=action[fid],
                 ext_env=ext_env, 
                 area_env=area_env, 
                 area_temperature=self.temperature)
@@ -60,11 +65,19 @@ class Area:
     def from_xml_element(cls: Type[T], elem: Element) -> T:
         assert elem.tag == "area", f"invalid element for {cls}"
 
-        child_facilities = filter(lambda child: child.tag == 'facility', elem)
+        facility_elems = filter(lambda child: child.tag == 'facility', elem)
+
+        facilities = []
+
+        for facility_elem in sorted(facility_elems, key=lambda elem: elem.attrib['id']):
+            assert int(facility_elem.attrib['id']) == len(facilities), \
+                "Area IDs must start from 0 and must be consecutive."
+
+            facilities.append(xml_element_to_facility(facility_elem))
 
         return cls(
             name=elem.attrib['name'],
-            facilities=list(map(xml_element_to_facility, child_facilities)),
+            facilities=facilities,
             simulate_temperature=('capacity' in elem.attrib),
             capacity=float(elem.attrib.get('capacity', "-1")),
             temperature=float(elem.attrib.get('temperature', "25"))

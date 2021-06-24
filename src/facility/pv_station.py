@@ -11,9 +11,6 @@ class PVStation(Facility):
     # static settings
     max_power: float = 0 # [kW]
 
-    def change_setting(self):
-        pass
-
     def update(self, ext_env: ExternalEnvironment, **_) -> FacilityEffect:
         return FacilityEffect(
             power = -self.max_power * ext_env.solar_radiation / 1000,

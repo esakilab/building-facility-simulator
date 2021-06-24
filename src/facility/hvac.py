@@ -2,8 +2,10 @@ from dataclasses import dataclass
 import enum
 from typing import Type
 from xml.etree.ElementTree import Element
+
 from src.environment import AreaEnvironment, ExternalEnvironment
 from src.facility.facility_base import Facility, FacilityEffect, T
+from src.io.action import FacilityAction
 
 
 class HVACMode(enum.Enum):
@@ -31,12 +33,14 @@ class HVAC(Facility):
     temperature_setting: float = 0 # [℃]
 
 
-    def change_setting(self, status: bool, temperature: float):
-        self.status = status
-        self.temperature_setting = temperature
+    def update_setting(self, action: FacilityAction):
+        self.status = bool(action.get("status", self.status))
+        self.temperature_setting = float(action.get("temperature", self.temperature_setting))
 
 
-    def update(self, area_temperature: float, **_) -> FacilityEffect:
+    def update(self, area_temperature: float, action: FacilityAction, **_) -> FacilityEffect:
+        self.update_setting(action)
+
         self.update_mode(area_temperature)
 
         temp_dif = area_temperature - self.temperature_setting

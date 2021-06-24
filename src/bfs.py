@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 
 from src.area import Area
 from src.environment import AreaEnvironment, ExternalEnvironment
-from src.io import BuildingState, Reward
+from src.io import BuildingAction, BuildingState, Reward
 
 
 class BuildingFacilitySimulator:
@@ -50,14 +50,14 @@ class BuildingFacilitySimulator:
             return AreaEnvironment.empty()
 
         
-    def step(self) -> tuple[BuildingState, Reward]:
+    def step(self, action: BuildingAction) -> tuple[BuildingState, Reward]:
         """2.6節のシミュレーションを1サイクル分進めるメソッド
         """
 
         for t, ext_env in enumerate(self.ext_envs):
 
             area_states = [
-                area.update(ext_env, self.get_area_env(area_id, t))
+                area.update(action[area_id], ext_env, self.get_area_env(area_id, t))
                 for area_id, area in enumerate(self.areas)
             ]
 

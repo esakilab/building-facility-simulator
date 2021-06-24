@@ -2,14 +2,16 @@ from dataclasses import dataclass
 import enum
 from typing import Type
 from xml.etree.ElementTree import Element
+
 from src.environment import AreaEnvironment, ExternalEnvironment
 from src.facility.facility_base import Facility, FacilityEffect, T
+from src.io import FacilityAction
 
 
 class ESMode(enum.Enum):
-    Standby = enum.auto()
-    Charge = enum.auto()
-    Discharge = enum.auto()
+    Standby = "stand_by"
+    Charge = "charge"
+    Discharge = "discharge"
 
 
 @dataclass
@@ -28,11 +30,13 @@ class ElectricStorage(Facility):
     mode: ESMode = ESMode.Standby
 
 
-    def change_setting(self, mode: ESMode):
-        self.mode = mode
+    def update_setting(self, action: FacilityAction):
+        self.mode = ESMode(action.get("mode", self.mode.value))
 
 
-    def update(self, **_) -> FacilityEffect:
+    def update(self, action: FacilityAction, **_) -> FacilityEffect:
+        self.update_setting(action)
+
         if self.mode == ESMode.Charge and self.charge_ratio < 0.98:
             # status = charge
             self.charge_ratio += (self.charge_power / 60) / self.capacity

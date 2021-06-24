@@ -4,6 +4,7 @@ from typing import NamedTuple, Type, TypeVar
 from xml.etree.ElementTree import Element
 
 from src.environment import AreaEnvironment, ExternalEnvironment
+from src.io import FacilityAction
 
 class FacilityEffect(NamedTuple):
     """設備によるエリアの働きかけ(2.2節)を表すオブジェクト
@@ -23,15 +24,14 @@ class Facility(ABC):
     params: dict[str, str]
 
     @abstractmethod
-    def change_setting(self, **settings):
-        """AIによる施設の設定変更用の関数
-        """
-        
-        raise NotImplementedError()
+    def update(
+        self, 
+        action: FacilityAction,
+        ext_env: ExternalEnvironment, 
+        area_env: AreaEnvironment, 
+        area_temperature: float,
+    ) -> FacilityEffect:
 
-    @abstractmethod
-    def update(self, ext_env: ExternalEnvironment, 
-            area_env: AreaEnvironment, area_temperature: float) -> FacilityEffect:
         """環境変数に応じて設備の状態を更新し、エリアへの影響を返す
         """
         

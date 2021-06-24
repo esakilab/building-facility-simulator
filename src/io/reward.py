@@ -1,10 +1,13 @@
 from typing import NamedTuple, Type, TypeVar
 
-from src.io.building_state import AreaState
+from src.io.state import AreaState
 
 T = TypeVar('T', bound='Reward')
 
 class Reward(NamedTuple):
+    """報酬を表すタプルオブジェクト
+    """
+
     metric1: float
 
     @classmethod
