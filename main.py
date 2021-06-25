@@ -21,7 +21,7 @@ if __name__ == "__main__":
     action.add(area_id=4, facility_id=0, mode="charge")
 
     for i, (building_state, reward) in enumerate(bfs.step(action)):
-        sleep(0.03)
+        sleep(0.1)
         
         print(f"\niteration {i}")
         print(bfs.ext_envs[i])
