@@ -49,7 +49,7 @@ class Area:
 
         if self.simulate_temperature:
             temp_dif = self.temperature - ext_env.temperature
-            self.temperature += (-ALPHA * temp_dif + beta) / (self.capacity * 1.189)
+            self.temperature += -ALPHA * temp_dif + beta / (self.capacity * 1.189)
 
         else:
             self.temperature = ext_env.temperature
