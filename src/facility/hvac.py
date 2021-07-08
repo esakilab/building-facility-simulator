@@ -5,7 +5,7 @@ from xml.etree.ElementTree import Element
 
 from src.environment import ExternalEnvironment
 from src.facility.facility_base import Facility, FacilityEffect, T
-from src.io.action import FacilityAction
+from src.io import FacilityAction, FacilityState
 
 
 class HVACMode(enum.Enum):
@@ -23,7 +23,7 @@ class HVACMode(enum.Enum):
         
 
 @dataclass
-class HVACState:
+class HVACStateInternal:
     """HVACの内部状態を表すオブジェクト
     3.2節の内部状態の遷移が複雑なため、HVACクラスから分離した
     """
@@ -55,7 +55,7 @@ class HVACState:
                 else:
                     self.mode = HVACMode.Cool
 
-                self.stand_by = (calc_deficit() < HVACState.STAND_BY_GUARD_TEMPERATURE)
+                self.stand_by = (calc_deficit() < HVACStateInternal.STAND_BY_GUARD_TEMPERATURE)
 
             else:
                 # 状態遷移
@@ -65,12 +65,12 @@ class HVACState:
                     deficit = area_temperature - set_temperature
                 
 
-                if deficit < -HVACState.MODE_GUARD_TEMPERATURE:
+                if deficit < -HVACStateInternal.MODE_GUARD_TEMPERATURE:
                     self.mode = self.mode.switch()
                 
-                if self.stand_by and deficit >= HVACState.STAND_BY_GUARD_TEMPERATURE:
+                if self.stand_by and deficit >= HVACStateInternal.STAND_BY_GUARD_TEMPERATURE:
                     self.stand_by = False
-                elif not self.stand_by and deficit <= -HVACState.STAND_BY_GUARD_TEMPERATURE:
+                elif not self.stand_by and deficit <= -HVACStateInternal.STAND_BY_GUARD_TEMPERATURE:
                     self.stand_by = True
             
         else:
@@ -92,7 +92,7 @@ class HVAC(Facility):
     heat_cop: float = 0 # []
     
     # internal state
-    state: HVACState = HVACState()
+    state: HVACStateInternal = HVACStateInternal()
 
     # AI inputs
     status: bool = False
@@ -104,7 +104,9 @@ class HVAC(Facility):
         self.set_temperature = float(action.get("temperature", self.set_temperature))
 
 
-    def update(self, action: FacilityAction, ext_env: ExternalEnvironment, area_temperature: float, **_) -> FacilityEffect:
+    def update(self, action: FacilityAction, ext_env: ExternalEnvironment, 
+            area_temperature: float, **_) -> tuple[FacilityState, FacilityEffect]:
+
         self.update_setting(action)
 
         self.state.update(self.status, area_temperature, self.set_temperature)
@@ -126,13 +128,15 @@ class HVAC(Facility):
             
             # print(f"heat: {heat_coef * cop * power}, state: {self.state}")
             
-            return FacilityEffect(
+            effect = FacilityEffect(
                 power=power, 
                 heat=heat_coef * cop * power
             )
         
         else:
-            return FacilityEffect(power=0, heat=0)
+            effect = FacilityEffect(power=0, heat=0)
+        
+        return (FacilityState.empty(), effect)
 
     
     @classmethod
@@ -143,7 +147,7 @@ class HVAC(Facility):
         facility.heat_max_power = float(facility.params['heat-max-power'])
         facility.cool_cop = float(facility.params['cool-cop'])
         facility.heat_cop = float(facility.params['heat-cop'])
-        facility.state = HVACState()
+        facility.state = HVACStateInternal()
 
         return facility
 

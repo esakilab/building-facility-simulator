@@ -37,12 +37,16 @@ class Area:
         beta = area_env.calc_beta()
         power_consumption = 0.
 
+        facility_states = []
+
         for fid, facility in enumerate(self.facilities):
-            effect = facility.update(
+            state, effect = facility.update(
                 action=action[fid],
                 ext_env=ext_env, 
                 area_env=area_env, 
                 area_temperature=self.temperature)
+
+            facility_states.append(state)
 
             beta += effect.heat * 60
             power_consumption += effect.power
@@ -57,7 +61,8 @@ class Area:
         return AreaState(
             power_consumption=power_consumption,
             temperature=self.temperature,
-            people=area_env.people
+            people=area_env.people,
+            facilities=facility_states
         )
     
 

@@ -62,6 +62,6 @@ class BuildingFacilitySimulator:
             ]
 
             yield (
-                BuildingState.from_area_states(area_states),
+                BuildingState.create(area_states, ext_env.electric_price_unit),
                 Reward.from_area_states(area_states)
             )

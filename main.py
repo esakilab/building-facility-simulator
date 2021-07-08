@@ -2,7 +2,6 @@ from time import sleep
 
 from src.area import Area
 from src.bfs import BuildingFacilitySimulator
-from src.facility.electric_storage import ESMode
 from src.io import AreaState, BuildingAction
 
 
@@ -26,5 +25,7 @@ if __name__ == "__main__":
         print(f"\niteration {i}")
         print(bfs.ext_envs[i])
         for area_id, area in enumerate(bfs.areas):
-            print_area(area_id, area, building_state.area_states[area_id])
+            print_area(area_id, area, building_state.areas[area_id])
+        
+        # print(f"es ratio: {building_state.areas[4].facilities[0].charge_ratio}")
         print(f"total power consumption: {building_state.power_balance:.2f}")
