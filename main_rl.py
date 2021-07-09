@@ -9,7 +9,7 @@ import math
 import numpy as np
 import torch
 import sac
-from torch.utils.tensorboard import SummaryWriter
+# from torch.utils.tensorboard import SummaryWriter
 
 # とりあえず変数を定義
 lambda1 = 1
@@ -30,8 +30,7 @@ def get_reward(temp, electric_price_unit, charge_ratio):
     R += - lambda2 * (np.where((temp - T_max) < 0, 0, (temp - T_max)).sum())
     R += - lambda3 * electric_price_unit
     #R += lambda4 * charge_ratio
-    # R += - lambda2 * (max(0, T_min - temp) + max(0, temp - T_max)) - \
-    #    lambda3 * electric_price_unit + lambda4 * charge_ratio
+
     '''
     print(np.exp(-lambda1 * (temp - T_target) ** 2).sum())
     print(-lambda2 * (np.where((T_min - temp) < 0, 0, (T_min - temp)).sum()))
@@ -70,7 +69,7 @@ def print_area(area_id: str, area: Area, area_state: AreaState):
 
 
 if __name__ == "__main__":
-    writer = SummaryWriter(log_dir="./logs")
+    #writer = SummaryWriter(log_dir="./logs")
     bfs = BuildingFacilitySimulator("BFS_environment.xml")
 
     action = BuildingAction()
@@ -92,25 +91,23 @@ if __name__ == "__main__":
     temp = np.zeros(3)
     charge_ratio = 0
     for i, (building_state, reward) in enumerate(bfs.step(action)):
-        # sleep(0.1)
-        #print(f"\niteration {i}")
-        # print(bfs.ext_envs[i])
+        sleep(0.1)
+        print(f"\niteration {i}")
+        print(bfs.ext_envs[i])
         next_state = []
         for area_id, area in enumerate(bfs.areas):
 
-            #print_area(area_id, area, building_state.area_states[area_id])
+            print_area(area_id, area, building_state.area_states[area_id])
 
             # 状態を獲得
 
             people = building_state.area_states[area_id].people
             temperature = building_state.area_states[area_id].temperature
             power = building_state.area_states[area_id].power_consumption
-            # print(people, temperature, power)
             each_state = np.array([people, temperature, power])
             next_state.extend(each_state)
-            # print(area.facilities[0])
+
             if area_id == 4:
-                # print(area.facilities[0].charge_ratio)
                 charge_ratio = area.facilities[0].charge_ratio
                 next_state.append(area.facilities[0].charge_ratio)
         price = bfs.ext_envs[i].electric_price_unit
@@ -118,7 +115,7 @@ if __name__ == "__main__":
         next_state.append(price)
         next_state = np.array(next_state)
         reward = get_reward(temp, price, charge_ratio)
-        # print(reward.metric1)
+
         if i >= 1:
             Agent.replay_buffer.add(
                 state, action_, next_state, reward, done=False)
@@ -129,15 +126,14 @@ if __name__ == "__main__":
             action_, _ = Agent.choose_action(state)
         else:
             action_ = np.random.uniform(low=-1, high=1, size=4)
-        # print(state.shape)
-        # print(action_)
+
         temp = action_to_temp(action_[:-1])  # 一番最後のESは除く
         mode = action_to_ES(action_[-1])
         action.add(area_id=1, facility_id=0, status=True, temperature=temp[0])
         action.add(area_id=2, facility_id=0, status=True, temperature=temp[1])
         action.add(area_id=3, facility_id=0, status=True, temperature=temp[2])
         action.add(area_id=4, facility_id=0, mode=mode)
-
+        '''
         writer.add_scalar("set_temperature_area1", temp[0], i)
         writer.add_scalar("set_temperature_area2", temp[1], i)
         writer.add_scalar("set_temperature_area3", temp[2], i)
@@ -156,6 +152,7 @@ if __name__ == "__main__":
         # writer.add_scalar('charge_mode_per_price', price, mode_)
         writer.add_scalar('charge_mode_per_time', mode_, i)
         writer.add_scalar('charge_ratio', area.facilities[0].charge_ratio, i)
+        '''
         Agent.update()
-        # print(
-        #    f"total power consumption: {building_state.power_balance:.2f} charge_mode: {mode}")
+        print(
+            f"total power consumption: {building_state.power_balance:.2f} charge_mode: {mode}")
