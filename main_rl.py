@@ -9,22 +9,36 @@ import math
 import numpy as np
 import torch
 import sac
+from torch.utils.tensorboard import SummaryWriter
 
 # とりあえず変数を定義
-lambda1 = 0.2
+lambda1 = 1
 lambda2 = 0.1
 lambda3 = 0.1
-T_max = 30
-T_min = 20
+lambda4 = 20
+T_max = 27
+T_min = 23
 T_target = 25
-state_shape = (3,)
-action_shape = (1,)
+state_shape = (17,)  # エリアごとに順に1+5+5+5+1
+action_shape = (4,)  # 各HVACの制御(3つ) + Electric Storageの制御(1つ)
 
 
-def get_reward(temp: float, electric_price_unit: float):
-    R = np.exp(-lambda1 * (temp - T_target)**2) - lambda2 * \
-        (max(0, T_min - temp) + max(0, temp - T_max)) - \
-        lambda3 * electric_price_unit
+def get_reward(temp, electric_price_unit, charge_ratio):
+    R = np.exp(-lambda1 * (temp - T_target) ** 2).sum()
+
+    R += - lambda2 * (np.where((T_min - temp) < 0, 0, (T_min - temp)).sum())
+    R += - lambda2 * (np.where((temp - T_max) < 0, 0, (temp - T_max)).sum())
+    R += - lambda3 * electric_price_unit
+    #R += lambda4 * charge_ratio
+    # R += - lambda2 * (max(0, T_min - temp) + max(0, temp - T_max)) - \
+    #    lambda3 * electric_price_unit + lambda4 * charge_ratio
+    '''
+    print(np.exp(-lambda1 * (temp - T_target) ** 2).sum())
+    print(-lambda2 * (np.where((T_min - temp) < 0, 0, (T_min - temp)).sum()))
+    print(-lambda2 * (np.where((temp - T_max) < 0, 0, (temp - T_max)).sum()))
+    print(-lambda3 * electric_price_unit)
+    print(lambda4*charge_ratio)
+    '''
 # 人数の項を考える
 # 太陽光の発電状況
 # 蓄電池の残量
@@ -32,10 +46,22 @@ def get_reward(temp: float, electric_price_unit: float):
     return R
 
 
-def action_to_temp(action: float):
+def action_to_temp(action):
     # action = [-1,1] -> temp = [15, 30]
+
     temp = action * 7.5 + 22.5
-    return math.floor(temp)
+    return np.floor(temp)
+
+
+def action_to_ES(action):
+
+    if - 1 <= action < -1 / 3:
+        mode = 'charge'
+    elif - 1 / 3 <= action <= 1 / 3:
+        mode = 'stand_by'
+    else:
+        mode = 'discharge'
+    return mode
 
 
 def print_area(area_id: str, area: Area, area_state: AreaState):
@@ -44,6 +70,7 @@ def print_area(area_id: str, area: Area, area_state: AreaState):
 
 
 if __name__ == "__main__":
+    writer = SummaryWriter(log_dir="./logs")
     bfs = BuildingFacilitySimulator("BFS_environment.xml")
 
     action = BuildingAction()
@@ -51,58 +78,84 @@ if __name__ == "__main__":
     action.add(area_id=2, facility_id=0, status=True, temperature=25)
     action.add(area_id=3, facility_id=0, status=True, temperature=28)
     action.add(area_id=4, facility_id=0, mode="charge")
-    # 強化学習を行うエージェントを作成 (Soft-Actor-Critic という手法を仮に用いている)
-    Agent = []
-    for _ in range(3):
-        Agent.append(sac.SAC(state_shape=state_shape,
-                             action_shape=action_shape,  device='cpu'))
-    # ここはとりあえず状態, 行動, 報酬, 設定温度の変数を初期化
-    states = np.zeros((3, *state_shape))
-    next_states = np.zeros((3, *state_shape))
-    actions = np.zeros((3, 1))
-    rewards = np.zeros((3, 1))
-    temp = np.zeros((3, 1))
 
+    # 強化学習を行うエージェントを作成 (Soft-Actor-Critic という手法を仮に用いている)
+
+    Agent = sac.SAC(state_shape=state_shape,
+                    action_shape=action_shape, device='cpu')
+
+    # ここはとりあえず状態, 行動, 報酬, 設定温度の変数を初期化
+    state = np.zeros(*state_shape)
+    next_state = np.zeros(*state_shape)
+    action_ = np.zeros(*action_shape)
+    reward = np.zeros(1)
+    temp = np.zeros(3)
+    charge_ratio = 0
     for i, (building_state, reward) in enumerate(bfs.step(action)):
-        sleep(0.1)
-        print(f"\niteration {i}")
-        print(bfs.ext_envs[i])
+        # sleep(0.1)
+        #print(f"\niteration {i}")
+        # print(bfs.ext_envs[i])
+        next_state = []
         for area_id, area in enumerate(bfs.areas):
 
-            print_area(area_id, area, building_state.area_states[area_id])
-            # 一旦エアコン制御だけなので idが1から3で状態は各温度 電力消費量, 電力単価の3つのみで行なっている
-            if 1 <= area_id <= 3:
+            #print_area(area_id, area, building_state.area_states[area_id])
 
-                power_consumption = building_state.area_states[area_id].power_consumption
-                next_states[area_id - 1] = np.array([area.temperature,
-                                                     power_consumption, bfs.ext_envs[i].electric_price_unit])
+            # 状態を獲得
 
-                # ここも一旦自作関数で報酬を獲得
-                rewards[area_id - 1] = get_reward(
-                    area.temperature, bfs.ext_envs[i].electric_price_unit)
+            people = building_state.area_states[area_id].people
+            temperature = building_state.area_states[area_id].temperature
+            power = building_state.area_states[area_id].power_consumption
+            # print(people, temperature, power)
+            each_state = np.array([people, temperature, power])
+            next_state.extend(each_state)
+            # print(area.facilities[0])
+            if area_id == 4:
+                # print(area.facilities[0].charge_ratio)
+                charge_ratio = area.facilities[0].charge_ratio
+                next_state.append(area.facilities[0].charge_ratio)
+        price = bfs.ext_envs[i].electric_price_unit
 
-                # 強化学習では過去のデータを記憶させて学習させるため過去データを保存
-                Agent[area_id - 1].replay_buffer.add(
-                    states[area_id - 1], actions[area_id - 1], next_states[area_id - 1], rewards[area_id - 1], False)
-                states[area_id - 1] = next_states[area_id - 1]
+        next_state.append(price)
+        next_state = np.array(next_state)
+        reward = get_reward(temp, price, charge_ratio)
+        # print(reward.metric1)
+        if i >= 1:
+            Agent.replay_buffer.add(
+                state, action_, next_state, reward, done=False)
+        state = next_state
+        if i == 0:
+            continue
+        if i >= 100:
+            action_, _ = Agent.choose_action(state)
+        else:
+            action_ = np.random.uniform(low=-1, high=1, size=4)
+        # print(state.shape)
+        # print(action_)
+        temp = action_to_temp(action_[:-1])  # 一番最後のESは除く
+        mode = action_to_ES(action_[-1])
+        action.add(area_id=1, facility_id=0, status=True, temperature=temp[0])
+        action.add(area_id=2, facility_id=0, status=True, temperature=temp[1])
+        action.add(area_id=3, facility_id=0, status=True, temperature=temp[2])
+        action.add(area_id=4, facility_id=0, mode=mode)
 
-                # 各areaごとに Agent.exploreでエアコンの設定温度を決める
-                if i >= 1000:
-                    actions[area_id - 1], _ = Agent[area_id -
-                                                    1].explore(states[area_id - 1])
-                else:
-                    # 最初の1000ステップはランダムに制御
-                    actions[area_id - 1] = np.random.uniform(low=-1, high=1)
-
-                # Agent.exploreの出力が-1から1なのでそれを設定温度領域に変換する
-                temp[area_id - 1] = action_to_temp(actions[area_id - 1])
-        # actionに設定温度を変えて入力
-        for id in range(3):
-            action.add(area_id=id+1, facility_id=0,
-                       status=True, temperature=temp[id])
-
-            # 強化学習のポリシーをアップデート
-            if i >= 1000:
-                Agent[id].update()
-
-        print(f"total power consumption: {building_state.power_balance:.2f}")
+        writer.add_scalar("set_temperature_area1", temp[0], i)
+        writer.add_scalar("set_temperature_area2", temp[1], i)
+        writer.add_scalar("set_temperature_area3", temp[2], i)
+        writer.add_scalar(
+            "temperature_area1", building_state.area_states[1].temperature, i)
+        writer.add_scalar(
+            "temperature_area2", building_state.area_states[2].temperature, i)
+        writer.add_scalar(
+            "temperature_area3", building_state.area_states[3].temperature, i)
+        if mode == 'charge':
+            mode_ = 1
+        elif mode == 'stand_by':
+            mode_ = 0
+        else:
+            mode_ = -1
+        # writer.add_scalar('charge_mode_per_price', price, mode_)
+        writer.add_scalar('charge_mode_per_time', mode_, i)
+        writer.add_scalar('charge_ratio', area.facilities[0].charge_ratio, i)
+        Agent.update()
+        # print(
+        #    f"total power consumption: {building_state.power_balance:.2f} charge_mode: {mode}")
