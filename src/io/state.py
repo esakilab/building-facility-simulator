@@ -23,7 +23,7 @@ class AreaState(NamedTuple):
     power_consumption: float
     temperature: float
     people: int
-    facilities: FacilityState
+    facilities: list[FacilityState]
 
 
 class BuildingState(NamedTuple):
