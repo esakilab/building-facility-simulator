@@ -6,7 +6,7 @@ from typing import NamedTuple, Type, TypeVar
 T = TypeVar('T', bound='BuildingState')
 
 
-class FacilityState:
+class FacilityState(ABC):
     """AIに出力する、設備の状態を表す抽象クラス
     """
     pass
