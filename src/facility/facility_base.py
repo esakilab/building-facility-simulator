@@ -4,7 +4,7 @@ from typing import NamedTuple, Type, TypeVar
 from xml.etree.ElementTree import Element
 
 from src.environment import AreaEnvironment, ExternalEnvironment
-from src.io import FacilityAction
+from src.io import FacilityAction, FacilityState
 
 class FacilityEffect(NamedTuple):
     """設備によるエリアの働きかけ(2.2節)を表すオブジェクト
@@ -30,7 +30,7 @@ class Facility(ABC):
         ext_env: ExternalEnvironment, 
         area_env: AreaEnvironment, 
         area_temperature: float,
-    ) -> FacilityEffect:
+    ) -> tuple[FacilityState, FacilityEffect]:
 
         """環境変数に応じて設備の状態を更新し、エリアへの影響を返す
         """
