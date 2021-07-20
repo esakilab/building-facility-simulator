@@ -4,7 +4,7 @@ from typing import Type
 from xml.etree.ElementTree import Element
 
 from src.environment import AreaEnvironment, ExternalEnvironment
-from src.facility.facility_base import Facility, FacilityEffect, T
+from src.facility.facility_base import Facility, FacilityEffect, FacilityState, T
 from src.io import FacilityAction
 
 
@@ -12,6 +12,11 @@ class ESMode(enum.Enum):
     Standby = "stand_by"
     Charge = "charge"
     Discharge = "discharge"
+
+
+@dataclass
+class ESState(FacilityState):
+    charge_ratio: float
 
 
 @dataclass
@@ -34,7 +39,7 @@ class ElectricStorage(Facility):
         self.mode = ESMode(action.get("mode", self.mode.value))
 
 
-    def update(self, action: FacilityAction, **_) -> FacilityEffect:
+    def update(self, action: FacilityAction, **_) -> tuple[ESState, FacilityEffect]:
         self.update_setting(action)
 
         if self.mode == ESMode.Charge and self.charge_ratio < 0.98:
@@ -53,7 +58,9 @@ class ElectricStorage(Facility):
         
         self.charge_ratio = min(max(self.charge_ratio, 0), 1)
 
-        return FacilityEffect(power=power, heat=0)
+        return (
+            ESState(charge_ratio=self.charge_ratio), 
+            FacilityEffect(power=power, heat=0))
 
     
     @classmethod

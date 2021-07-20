@@ -1,8 +1,10 @@
 from dataclasses import dataclass
 from typing import Type
 from xml.etree.ElementTree import Element
+
 from src.environment import AreaEnvironment, ExternalEnvironment
 from src.facility.facility_base import Facility, FacilityEffect, T
+from src.io import FacilityState
 
 @dataclass
 class PVStation(Facility):
@@ -11,11 +13,12 @@ class PVStation(Facility):
     # static settings
     max_power: float = 0 # [kW]
 
-    def update(self, ext_env: ExternalEnvironment, **_) -> FacilityEffect:
-        return FacilityEffect(
+    def update(self, ext_env: ExternalEnvironment, **_) -> tuple[FacilityState, FacilityEffect]:
+        effect = FacilityEffect(
             power = -self.max_power * ext_env.solar_radiation / 1000,
             heat  = 0
         )
+        return (FacilityState.empty(), effect)
     
     @classmethod
     def from_xml_element(cls: Type[T], elem: Element) -> T:

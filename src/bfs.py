@@ -61,7 +61,9 @@ class BuildingFacilitySimulator:
                 for area_id, area in enumerate(self.areas)
             ]
 
+            state = BuildingState.create(area_states, ext_env.electric_price_unit)
+
             yield (
-                BuildingState.from_area_states(area_states),
-                Reward.from_area_states(area_states)
+                state,
+                Reward.from_state(state)
             )
