@@ -11,6 +11,8 @@ class BuildingFacilitySimulator:
     TODO: AI側からアクセスするときのメソッドを用意する（値取得、設定変更など）
     """
 
+    steps: int = 0
+    last_state: BuildingState
     areas: list[Area] = []
     ext_envs: list[ExternalEnvironment] = []
     area_envs: dict[int, list[AreaEnvironment]] = {}
@@ -63,7 +65,20 @@ class BuildingFacilitySimulator:
 
             state = BuildingState.create(area_states, ext_env.electric_price_unit)
 
+            self.steps = t
+            self.last_state = state
+
             yield (
                 state,
                 Reward.from_state(state)
             )
+
+
+    def print_cur_state(self):
+        print(f"\niteration {self.steps}")
+        print(self.ext_envs[self.steps])
+
+        for aid, (area, st) in enumerate(zip(self.areas, self.last_state.areas)):
+            print(f"area {aid}: temp={area.temperature:.2f}, power={st.power_consumption:.2f}, {area.facilities[0]}")
+
+        print(f"total power consumption: {self.last_state.power_balance:.2f}")
