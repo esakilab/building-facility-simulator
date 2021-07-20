@@ -77,9 +77,12 @@ if __name__ == "__main__":
     temp = np.zeros(3)
     charge_ratio = 0
 
+
     for i, (state_obj, reward_obj) in enumerate(bfs.step(action)):
         next_state = cvt_state_to_ndarray(state_obj)
         reward = reward_obj.metric1
+
+    
 
         if i >= 1:
             Agent.replay_buffer.add(
