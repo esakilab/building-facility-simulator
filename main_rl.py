@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
         next_state.append(price)
         next_state = np.array(next_state)
-        reward = get_reward(temp, price, charge_ratio)
+        # reward = get_reward(temp, price, charge_ratio)
 
         if i >= 1:
             Agent.replay_buffer.add(
