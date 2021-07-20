@@ -17,19 +17,22 @@ class Reward(NamedTuple):
 
     metric1: float
 
+
+    @classmethod
+    def calc_metrix1(cls, state: BuildingState) -> float:
+        area_temp = np.array([area.temperature for area in state.areas])
+        
+        reward = np.exp(-cls.LAMBDA1 * (area_temp - cls.T_TARGET) ** 2).sum()
+        reward += - cls.LAMBDA2 * (np.where((cls.T_MIN - area_temp) < 0, 0, (cls.T_MIN - area_temp)).sum())
+        reward += - cls.LAMBDA2 * (np.where((area_temp - cls.T_MAX) < 0, 0, (area_temp - cls.T_MAX)).sum())
+        reward += - cls.LAMBDA3 * state.electric_price_unit
+
+        return reward
+
+
     @classmethod
     def from_state(cls: Type[T], state: BuildingState) -> T:
-        metric1 = []
-        
-        for area in state.areas:
-            temp_reward1 = np.exp(-cls.LAMBDA1 * (area.temperature - cls.T_TARGET)**2)
-            temp_reward2 = \
-                -cls.LAMBDA2 * (max(0, cls.T_MIN - area.temperature) + max(0, area.temperature - cls.T_MAX))
-
-            electric_reward = cls.LAMBDA3 * area.power_consumption * state.electric_price_unit
-
-            metric1.append(temp_reward1 + temp_reward2 + electric_reward)
-
         return cls(
-            metric1=(metric1)
+            metric1=cls.calc_metrix1(state)
         )
+    
