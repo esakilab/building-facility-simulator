@@ -81,7 +81,7 @@ class Actor_network(nn.Module):
 
 class Algorithm(ABC):
 
-    def explore(self, state):
+    def choose_action(self, state):
         """ 確率論的な行動と，その行動の確率密度の対数 \log(\pi(a|s)) を返す． """
         state = torch.tensor(state, dtype=torch.float,
                              device=self.device).unsqueeze_(0)

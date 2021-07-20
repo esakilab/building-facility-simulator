@@ -16,10 +16,9 @@ python>=3.9.0
 
 ## reinforcement learning
 1. conda, pyenvなどのお好みのpython環境を用意
-
 2. まず以下を実行
 ```
-pip3 install numpy=1.21.0
+pip install numpy=1.21.0
 
 ```
 3. そのあとLinuxなら
