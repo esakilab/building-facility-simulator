@@ -23,26 +23,24 @@ state_shape = (17,)  # エリアごとに順に1+5+5+5+1
 action_shape = (4,)  # 各HVACの制御(3つ) + Electric Storageの制御(1つ)
 
 
-def get_reward(temp, electric_price_unit, charge_ratio):
-    R = np.exp(-lambda1 * (temp - T_target) ** 2).sum()
+def cvt_state_to_ndarray(state):
+    state_arr = []
+    for area_id, area_state in enumerate(state.areas):
+        # 状態を獲得
+        state_arr.extend([
+            area_state.people, 
+            area_state.temperature, 
+            area_state.power_consumption
+        ])
 
-    R += - lambda2 * (np.where((T_min - temp) < 0, 0, (T_min - temp)).sum())
-    R += - lambda2 * (np.where((temp - T_max) < 0, 0, (temp - T_max)).sum())
-    R += - lambda3 * electric_price_unit
-    #R += lambda4 * charge_ratio
+        if area_id == 4:
+            state_arr.append(area_state.facilities[0].charge_ratio)
 
-    '''
-    print(np.exp(-lambda1 * (temp - T_target) ** 2).sum())
-    print(-lambda2 * (np.where((T_min - temp) < 0, 0, (T_min - temp)).sum()))
-    print(-lambda2 * (np.where((temp - T_max) < 0, 0, (temp - T_max)).sum()))
-    print(-lambda3 * electric_price_unit)
-    print(lambda4*charge_ratio)
-    '''
-# 人数の項を考える
-# 太陽光の発電状況
-# 蓄電池の残量
-# 異なるrewardを考えた状況設定
-    return R
+    price = state.electric_price_unit
+
+    state_arr.append(price)
+    
+    return np.array(state_arr)
 
 
 def action_to_temp(action):
@@ -61,11 +59,6 @@ def action_to_ES(action):
     else:
         mode = 'discharge'
     return mode
-
-
-def print_area(area_id: str, area: Area, area_state: AreaState):
-    print(
-        f"area {area_id}: temp={area.temperature:.2f}, power={area_state.power_consumption:.2f}, {area.facilities[0]}")
 
 
 if __name__ == "__main__":
@@ -90,38 +83,19 @@ if __name__ == "__main__":
     reward = np.zeros(1)
     temp = np.zeros(3)
     charge_ratio = 0
-    for i, (building_state, reward) in enumerate(bfs.step(action)):
-        sleep(0.1)
-        print(f"\niteration {i}")
-        print(bfs.ext_envs[i])
-        next_state = []
-        for area_id, area in enumerate(bfs.areas):
 
-            print_area(area_id, area, building_state.area_states[area_id])
-
-            # 状態を獲得
-
-            people = building_state.area_states[area_id].people
-            temperature = building_state.area_states[area_id].temperature
-            power = building_state.area_states[area_id].power_consumption
-            each_state = np.array([people, temperature, power])
-            next_state.extend(each_state)
-
-            if area_id == 4:
-                charge_ratio = area.facilities[0].charge_ratio
-                next_state.append(area.facilities[0].charge_ratio)
-        price = bfs.ext_envs[i].electric_price_unit
-
-        next_state.append(price)
-        next_state = np.array(next_state)
-        reward = get_reward(temp, price, charge_ratio)
+    for i, (state_obj, reward_obj) in enumerate(bfs.step(action)):
+        next_state = cvt_state_to_ndarray(state_obj)
+        reward = reward_obj.metric1
 
         if i >= 1:
             Agent.replay_buffer.add(
                 state, action_, next_state, reward, done=False)
         state = next_state
+
         if i == 0:
             continue
+
         if i >= 100:
             action_, _ = Agent.choose_action(state)
         else:
@@ -154,5 +128,6 @@ if __name__ == "__main__":
         writer.add_scalar('charge_ratio', area.facilities[0].charge_ratio, i)
         '''
         Agent.update()
-        print(
-            f"total power consumption: {building_state.power_balance:.2f} charge_mode: {mode}")
+
+        if i % 60 == 0:
+            bfs.print_cur_state()
