@@ -107,11 +107,13 @@ class BuildingFacilitySimulator:
 
 class BFSList(list[BuildingFacilitySimulator]):
     def __init__(self, 
-            xml_pathes: list[str] = [], 
-            xml_dir_path: Optional[str] = None):
+            xml_dir_path: Optional[str] = None,
+            xml_pathes: list[str] = []):
         
         if xml_dir_path:
             xml_pathes.extend(glob.glob(os.path.join(xml_dir_path, '*.xml')))
+        
+        print(f"Loading xml files from: \n{xml_pathes}")
         
         super().__init__(BuildingFacilitySimulator(xml_path) for xml_path in xml_pathes)
 
