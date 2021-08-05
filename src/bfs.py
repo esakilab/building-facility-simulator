@@ -8,7 +8,7 @@ from src.environment import AreaEnvironment, ExternalEnvironment
 from src.io import BuildingAction, BuildingState, Reward
 
 
-class BFSList(list[BuildingAction]):
+class BFSList(list[BuildingFacilitySimulator]):
     def __init__(self, 
             xml_pathes: list[str] = [], 
             xml_dir_path: Optional[str] = None):
