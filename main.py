@@ -4,7 +4,7 @@ import numpy as np
 import torch
 from torch.utils.tensorboard import SummaryWriter
 
-from simulator.bfs import BFSList, BuildingFacilitySimulator
+from simulator.bfs import BFSList
 from simulator.io import BuildingAction
 from rl import sac
 
@@ -49,6 +49,28 @@ def action_to_ES(action):
     else:
         mode = 'discharge'
     return mode
+
+
+def write_to_tensorboard(bfs_list, state_obj, temp, mode):
+        
+    writer.add_scalar("set_temperature_area1", temp[0], bfs_list[0].cur_steps)
+    writer.add_scalar("set_temperature_area2", temp[1], bfs_list[0].cur_steps)
+    writer.add_scalar("set_temperature_area3", temp[2], bfs_list[0].cur_steps)
+    writer.add_scalar(
+        "temperature_area1", state_obj.areas[1].temperature, bfs_list[0].cur_steps)
+    writer.add_scalar(
+        "temperature_area2", state_obj.areas[2].temperature, bfs_list[0].cur_steps)
+    writer.add_scalar(
+        "temperature_area3", state_obj.areas[3].temperature, bfs_list[0].cur_steps)
+    
+    mode_dict = {
+        'charge': 1,
+        'stand_by': 0,
+        'discharge': -1
+    }
+    # writer.add_scalar('charge_mode_per_price', price, mode_)
+    writer.add_scalar('charge_mode_per_time', mode_dict[mode], bfs_list[0].cur_steps)
+    writer.add_scalar('charge_ratio', state_obj.areas[4].facilities[0].charge_ratio, bfs_list[0].cur_steps)
 
 
 if __name__ == "__main__":
@@ -101,25 +123,8 @@ if __name__ == "__main__":
         action.add(area_id=2, facility_id=0, status=True, temperature=temp[1])
         action.add(area_id=3, facility_id=0, status=True, temperature=temp[2])
         action.add(area_id=4, facility_id=0, mode=mode)
-        
-        writer.add_scalar("set_temperature_area1", temp[0], bfs_list[0].cur_steps)
-        writer.add_scalar("set_temperature_area2", temp[1], bfs_list[0].cur_steps)
-        writer.add_scalar("set_temperature_area3", temp[2], bfs_list[0].cur_steps)
-        writer.add_scalar(
-            "temperature_area1", state_obj.areas[1].temperature, bfs_list[0].cur_steps)
-        writer.add_scalar(
-            "temperature_area2", state_obj.areas[2].temperature, bfs_list[0].cur_steps)
-        writer.add_scalar(
-            "temperature_area3", state_obj.areas[3].temperature, bfs_list[0].cur_steps)
-        
-        mode_dict = {
-            'charge': 1,
-            'stand_by': 0,
-            'discharge': -1
-        }
-        # writer.add_scalar('charge_mode_per_price', price, mode_)
-        writer.add_scalar('charge_mode_per_time', mode_dict[mode], bfs_list[0].cur_steps)
-        writer.add_scalar('charge_ratio', state_obj.areas[4].facilities[0].charge_ratio, bfs_list[0].cur_steps)
+
+        write_to_tensorboard(bfs_list, state_obj, temp, mode)
         
         Agent.update()
 
