@@ -2,9 +2,9 @@ from dataclasses import dataclass
 from typing import Type
 from xml.etree.ElementTree import Element
 
-from src.environment import AreaEnvironment, ExternalEnvironment
-from src.facility.facility_base import Facility, FacilityEffect, T
-from src.io import FacilityState
+from simulator.environment import AreaEnvironment, ExternalEnvironment
+from simulator.facility.facility_base import Facility, FacilityEffect, T
+from simulator.io import FacilityState
 
 @dataclass
 class PVStation(Facility):

@@ -1,9 +1,9 @@
 from xml.etree.ElementTree import Element
 from typing import Type
-from src.facility.facility_base import Facility
-from src.facility.hvac import HVAC
-from src.facility.pv_station import PVStation
-from src.facility.electric_storage import ElectricStorage
+from simulator.facility.facility_base import Facility
+from simulator.facility.hvac import HVAC
+from simulator.facility.pv_station import PVStation
+from simulator.facility.electric_storage import ElectricStorage
 
 
 def xml_element_to_facility(elem: Element) -> Facility:

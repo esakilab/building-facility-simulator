@@ -3,9 +3,9 @@ import enum
 from typing import NamedTuple, Type
 from xml.etree.ElementTree import Element
 
-from src.environment import ExternalEnvironment
-from src.facility.facility_base import Facility, FacilityEffect, T
-from src.io import FacilityAction, FacilityState
+from simulator.environment import ExternalEnvironment
+from simulator.facility.facility_base import Facility, FacilityEffect, T
+from simulator.io import FacilityAction, FacilityState
 
 
 class HVACMode(enum.Enum):

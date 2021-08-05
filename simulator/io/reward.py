@@ -1,7 +1,7 @@
 from typing import NamedTuple, Type, TypeVar
 import numpy as np
 
-from src.io.state import AreaState, BuildingState
+from simulator.io.state import AreaState, BuildingState
 
 T = TypeVar('T', bound='Reward')
 

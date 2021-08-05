@@ -2,9 +2,9 @@ from dataclasses import dataclass
 from typing import Type, TypeVar
 from xml.etree.ElementTree import Element
 
-from src.facility import Facility, xml_element_to_facility
-from src.environment import ExternalEnvironment, AreaEnvironment
-from src.io import AreaAction, AreaState
+from simulator.facility import Facility, xml_element_to_facility
+from simulator.environment import ExternalEnvironment, AreaEnvironment
+from simulator.io import AreaAction, AreaState
 
 
 ALPHA = 0.02
