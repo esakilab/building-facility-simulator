@@ -12,9 +12,7 @@ $ path/to/python main.py
 ```
 python>=3.9.0
 ```
-* 今のところ標準ライブラリのみで動いています
 
-## reinforcement learning
 1. conda, pyenvなどのお好みのpython環境を用意
 2. まず以下を実行
 ```
