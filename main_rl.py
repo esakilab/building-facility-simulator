@@ -12,13 +12,6 @@ import sac
 # from torch.utils.tensorboard import SummaryWriter
 
 # とりあえず変数を定義
-lambda1 = 1
-lambda2 = 0.1
-lambda3 = 0.1
-lambda4 = 20
-T_max = 27
-T_min = 23
-T_target = 25
 state_shape = (17,)  # エリアごとに順に1+5+5+5+1
 action_shape = (4,)  # 各HVACの制御(3つ) + Electric Storageの制御(1つ)
 
