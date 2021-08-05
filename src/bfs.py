@@ -1,4 +1,6 @@
-from typing import Optional
+from typing import List, Optional
+import os
+import glob
 import xml.etree.ElementTree as ET
 
 from src.area import Area
@@ -94,9 +96,29 @@ class BuildingFacilitySimulator:
 
     def print_cur_state(self):
         print(f"\niteration {self.cur_steps}")
-        print(self.ext_envs[self.cur_steps])
+        if not self.has_finished():
+            print(self.ext_envs[self.cur_steps])
 
         for aid, (area, st) in enumerate(zip(self.areas, self.last_state.areas)):
             print(f"area {aid}: temp={area.temperature:.2f}, power={st.power_consumption:.2f}, {area.facilities[0]}")
 
         print(f"total power consumption: {self.last_state.power_balance:.2f}")
+
+
+class BFSList(list[BuildingFacilitySimulator]):
+    def __init__(self, 
+            xml_pathes: list[str] = [], 
+            xml_dir_path: Optional[str] = None):
+        
+        if xml_dir_path:
+            xml_pathes.extend(glob.glob(os.path.join(xml_dir_path, '*.xml')))
+        
+        super().__init__(BuildingFacilitySimulator(xml_path) for xml_path in xml_pathes)
+
+
+    def step(self, actions: List[BuildingAction]) -> List[tuple[BuildingState, Reward]]:
+        assert len(actions) == len(self), "len(actions) must be as same as the number of buildings"
+
+        return [
+            bfs.step(action) for action, bfs in zip(actions, self)
+        ]
