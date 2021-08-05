@@ -12,13 +12,6 @@ import sac
 # from torch.utils.tensorboard import SummaryWriter
 
 # とりあえず変数を定義
-lambda1 = 1
-lambda2 = 0.1
-lambda3 = 0.1
-lambda4 = 20
-T_max = 27
-T_min = 23
-T_target = 25
 state_shape = (17,)  # エリアごとに順に1+5+5+5+1
 action_shape = (4,)  # 各HVACの制御(3つ) + Electric Storageの制御(1つ)
 
@@ -85,21 +78,22 @@ if __name__ == "__main__":
     charge_ratio = 0
 
 
-    for i, (state_obj, reward_obj) in enumerate(bfs.step(action)):
+    while not bfs.has_finished():
+            
+        (state_obj, reward_obj) = bfs.step(action)
+
         next_state = cvt_state_to_ndarray(state_obj)
         reward = reward_obj.metric1
 
-    
-
-        if i >= 1:
+        if bfs.cur_steps >= 1:
             Agent.replay_buffer.add(
                 state, action_, next_state, reward, done=False)
         state = next_state
 
-        if i == 0:
+        if bfs.cur_steps == 0:
             continue
 
-        if i >= 100:
+        if bfs.cur_steps >= 100:
             action_, _ = Agent.choose_action(state)
         else:
             action_ = np.random.uniform(low=-1, high=1, size=4)
@@ -132,5 +126,5 @@ if __name__ == "__main__":
         '''
         Agent.update()
 
-        if i % 60 == 0:
+        if bfs.cur_steps % 60 == 0:
             bfs.print_cur_state()
