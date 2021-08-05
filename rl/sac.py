@@ -2,9 +2,10 @@ import torch
 import torch.nn as nn
 import numpy as np
 import math
-import buffer
 from time import time
 from abc import ABC, abstractmethod
+
+from rl import buffer
 
 
 def caluculate_log_pi(log_stds, noises, actions):
