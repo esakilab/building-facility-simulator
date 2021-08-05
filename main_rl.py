@@ -28,8 +28,8 @@ def cvt_state_to_ndarray(state):
     for area_id, area_state in enumerate(state.areas):
         # 状態を獲得
         state_arr.extend([
-            area_state.people, 
-            area_state.temperature, 
+            area_state.people,
+            area_state.temperature,
             area_state.power_consumption
         ])
 
@@ -39,7 +39,7 @@ def cvt_state_to_ndarray(state):
     price = state.electric_price_unit
 
     state_arr.append(price)
-    
+
     return np.array(state_arr)
 
 
@@ -63,7 +63,7 @@ def action_to_ES(action):
 
 if __name__ == "__main__":
     #writer = SummaryWriter(log_dir="./logs")
-    bfs = BuildingFacilitySimulator("BFS_environment.xml")
+    bfs = BuildingFacilitySimulator("BFS_00.xml")
 
     action = BuildingAction()
     action.add(area_id=1, facility_id=0, status=True, temperature=22)
@@ -83,54 +83,56 @@ if __name__ == "__main__":
     reward = np.zeros(1)
     temp = np.zeros(3)
     charge_ratio = 0
+    t = 0
+    while t < 5:
+        t += 1
+        for i, (state_obj, reward_obj) in enumerate(bfs.step(action)):
+            next_state = cvt_state_to_ndarray(state_obj)
+            reward = reward_obj.metric1
 
+            if i >= 1:
+                Agent.replay_buffer.add(
+                    state, action_, next_state, reward, done=False)
+            state = next_state
 
-    for i, (state_obj, reward_obj) in enumerate(bfs.step(action)):
-        next_state = cvt_state_to_ndarray(state_obj)
-        reward = reward_obj.metric1
+            if i == 0:
+                continue
 
+            if i >= 100:
+                action_, _ = Agent.choose_action(state)
+            else:
+                action_ = np.random.uniform(low=-1, high=1, size=4)
+
+            temp = action_to_temp(action_[:-1])  # 一番最後のESは除く
+            mode = action_to_ES(action_[-1])
+            action.add(area_id=1, facility_id=0, status=True, temperature=temp[0])
+            action.add(area_id=2, facility_id=0, status=True, temperature=temp[1])
+            action.add(area_id=3, facility_id=0, status=True, temperature=temp[2])
+            action.add(area_id=4, facility_id=0, mode=mode)
+            '''
+            writer.add_scalar("set_temperature_area1", temp[0], i)
+            writer.add_scalar("set_temperature_area2", temp[1], i)
+            writer.add_scalar("set_temperature_area3", temp[2], i)
+            writer.add_scalar(
+                "temperature_area1", building_state.area_states[1].temperature, i)
+            writer.add_scalar(
+                "temperature_area2", building_state.area_states[2].temperature, i)
+            writer.add_scalar(
+                "temperature_area3", building_state.area_states[3].temperature, i)
+            if mode == 'charge':
+                mode_ = 1
+            elif mode == 'stand_by':
+                mode_ = 0
+            else:
+                mode_ = -1
+            # writer.add_scalar('charge_mode_per_price', price, mode_)
+            writer.add_scalar('charge_mode_per_time', mode_, i)
+            writer.add_scalar('charge_ratio', area.facilities[0].charge_ratio, i)
+            '''
+            Agent.update()
+
+            if i % 60 == 0:
+                bfs.print_cur_state()
     
-
-        if i >= 1:
-            Agent.replay_buffer.add(
-                state, action_, next_state, reward, done=False)
-        state = next_state
-
-        if i == 0:
-            continue
-
-        if i >= 100:
-            action_, _ = Agent.choose_action(state)
-        else:
-            action_ = np.random.uniform(low=-1, high=1, size=4)
-
-        temp = action_to_temp(action_[:-1])  # 一番最後のESは除く
-        mode = action_to_ES(action_[-1])
-        action.add(area_id=1, facility_id=0, status=True, temperature=temp[0])
-        action.add(area_id=2, facility_id=0, status=True, temperature=temp[1])
-        action.add(area_id=3, facility_id=0, status=True, temperature=temp[2])
-        action.add(area_id=4, facility_id=0, mode=mode)
-        '''
-        writer.add_scalar("set_temperature_area1", temp[0], i)
-        writer.add_scalar("set_temperature_area2", temp[1], i)
-        writer.add_scalar("set_temperature_area3", temp[2], i)
-        writer.add_scalar(
-            "temperature_area1", building_state.area_states[1].temperature, i)
-        writer.add_scalar(
-            "temperature_area2", building_state.area_states[2].temperature, i)
-        writer.add_scalar(
-            "temperature_area3", building_state.area_states[3].temperature, i)
-        if mode == 'charge':
-            mode_ = 1
-        elif mode == 'stand_by':
-            mode_ = 0
-        else:
-            mode_ = -1
-        # writer.add_scalar('charge_mode_per_price', price, mode_)
-        writer.add_scalar('charge_mode_per_time', mode_, i)
-        writer.add_scalar('charge_ratio', area.facilities[0].charge_ratio, i)
-        '''
-        Agent.update()
-
-        if i % 60 == 0:
-            bfs.print_cur_state()
+model_path = 'model_pth'
+torch.save(Agent.actor.state_dict(), model_path)
