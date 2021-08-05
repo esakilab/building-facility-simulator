@@ -78,7 +78,7 @@ if __name__ == "__main__":
     charge_ratio = 0
 
 
-    for i, (state_obj, reward_obj) in enumerate(bfs.step(action)):
+    for i, (state_obj, reward_obj) in enumerate(bfs.advance_steps(action)):
         next_state = cvt_state_to_ndarray(state_obj)
         reward = reward_obj.metric1
 

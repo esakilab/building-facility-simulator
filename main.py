@@ -19,7 +19,7 @@ if __name__ == "__main__":
     action.add(area_id=3, facility_id=0, status=True, temperature=28)
     action.add(area_id=4, facility_id=0, mode="charge")
 
-    for i, (building_state, reward) in enumerate(bfs.step(action)):
+    for i, (building_state, reward) in enumerate(bfs.advance_steps(action)):
         sleep(0.1)
         
         print(f"\niteration {i}")

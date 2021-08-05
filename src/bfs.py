@@ -1,3 +1,4 @@
+from typing import Optional
 import xml.etree.ElementTree as ET
 
 from src.area import Area
@@ -11,7 +12,7 @@ class BuildingFacilitySimulator:
     TODO: AI側からアクセスするときのメソッドを用意する（値取得、設定変更など）
     """
 
-    steps: int = 0
+    next_step: int = 0
     last_state: BuildingState
     areas: list[Area] = []
     ext_envs: list[ExternalEnvironment] = []
@@ -51,12 +52,32 @@ class BuildingFacilitySimulator:
         else:
             return AreaEnvironment.empty()
 
+    
+    def has_finished(self):
+        return self.next_step == len(self.ext_envs)
+
         
-    def step(self, action: BuildingAction) -> tuple[BuildingState, Reward]:
-        """2.6節のシミュレーションを1サイクル分進めるメソッド
+    def advance_steps(
+            self, action: BuildingAction, 
+            steps: Optional[int] = None) -> tuple[BuildingState, Reward]:
+
+        """2.6節のシミュレーションを指定したサイクル分進めるメソッド
+        while not bfs.has_finished():
+            for (state, reward) in bfs.advance_steps(10):
+                do_something()
+
+        みたいにすると、10stepずつ進めながら処理を行える
         """
 
-        for t, ext_env in enumerate(self.ext_envs):
+        start = self.next_step
+        if steps == None or self.next_step + steps > len(self.ext_envs):
+            stop = len(self.ext_envs)
+        else:
+            stop = self.next_step + steps
+
+
+        for t in range(start, stop):
+            ext_env = self.ext_envs[t]
 
             area_states = [
                 area.update(action[area_id], ext_env, self.get_area_env(area_id, t))
@@ -65,7 +86,7 @@ class BuildingFacilitySimulator:
 
             state = BuildingState.create(area_states, ext_env.electric_price_unit)
 
-            self.steps = t
+            self.next_step = t
             self.last_state = state
 
             yield (
@@ -75,8 +96,8 @@ class BuildingFacilitySimulator:
 
 
     def print_cur_state(self):
-        print(f"\niteration {self.steps}")
-        print(self.ext_envs[self.steps])
+        print(f"\niteration {self.next_step}")
+        print(self.ext_envs[self.next_step])
 
         for aid, (area, st) in enumerate(zip(self.areas, self.last_state.areas)):
             print(f"area {aid}: temp={area.temperature:.2f}, power={st.power_consumption:.2f}, {area.facilities[0]}")
