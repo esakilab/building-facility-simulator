@@ -8,25 +8,6 @@ from src.environment import AreaEnvironment, ExternalEnvironment
 from src.io import BuildingAction, BuildingState, Reward
 
 
-class BFSList(list[BuildingFacilitySimulator]):
-    def __init__(self, 
-            xml_pathes: list[str] = [], 
-            xml_dir_path: Optional[str] = None):
-        
-        if xml_dir_path:
-            xml_pathes.extend(glob.glob(os.path.join(xml_dir_path, '*.xml')))
-        
-        super().__init__(BuildingFacilitySimulator(xml_path) for xml_path in xml_pathes)
-
-
-    def step(self, actions: List[BuildingAction]) -> List[tuple[BuildingState, Reward]]:
-        assert len(actions) == len(self), "len(actions) must be as same as the number of buildings"
-
-        return [
-            bfs.step(action) for action, bfs in zip(actions, self)
-        ]
-
-
 class BuildingFacilitySimulator:
     """シミュレータを表すオブジェクトで、外部プログラムとのやり取りを担当
 
@@ -121,3 +102,22 @@ class BuildingFacilitySimulator:
             print(f"area {aid}: temp={area.temperature:.2f}, power={st.power_consumption:.2f}, {area.facilities[0]}")
 
         print(f"total power consumption: {self.last_state.power_balance:.2f}")
+
+
+class BFSList(list[BuildingFacilitySimulator]):
+    def __init__(self, 
+            xml_pathes: list[str] = [], 
+            xml_dir_path: Optional[str] = None):
+        
+        if xml_dir_path:
+            xml_pathes.extend(glob.glob(os.path.join(xml_dir_path, '*.xml')))
+        
+        super().__init__(BuildingFacilitySimulator(xml_path) for xml_path in xml_pathes)
+
+
+    def step(self, actions: List[BuildingAction]) -> List[tuple[BuildingState, Reward]]:
+        assert len(actions) == len(self), "len(actions) must be as same as the number of buildings"
+
+        return [
+            bfs.step(action) for action, bfs in zip(actions, self)
+        ]
