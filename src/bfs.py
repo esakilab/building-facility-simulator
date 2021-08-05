@@ -1,3 +1,4 @@
+from typing import Optional
 import xml.etree.ElementTree as ET
 
 from src.area import Area
@@ -11,7 +12,8 @@ class BuildingFacilitySimulator:
     TODO: AI側からアクセスするときのメソッドを用意する（値取得、設定変更など）
     """
 
-    steps: int = 0
+    cur_steps: int = 0
+    total_steps: int
     last_state: BuildingState
     areas: list[Area] = []
     ext_envs: list[ExternalEnvironment] = []
@@ -44,6 +46,8 @@ class BuildingFacilitySimulator:
             ExternalEnvironment.from_xml_element(child) for child in ext_env_elem
         ]
 
+        self.total_steps = len(self.ext_envs)
+
 
     def get_area_env(self, area_id: int, timestamp: int):
         if area_id in self.area_envs:
@@ -51,32 +55,46 @@ class BuildingFacilitySimulator:
         else:
             return AreaEnvironment.empty()
 
+    
+    def has_finished(self):
+        return self.cur_steps == self.total_steps
+
         
     def step(self, action: BuildingAction) -> tuple[BuildingState, Reward]:
         """2.6節のシミュレーションを1サイクル分進めるメソッド
+        while not bfs.has_finished():
+            for i in range(10):
+                action = compute_action()
+                (state, reward) = bfs.step(action)
+            
+            update_model()
+
+        みたいにすると、10stepごとにモデルの更新を行える
         """
+        if self.has_finished():
+            return (None, None)
 
-        for t, ext_env in enumerate(self.ext_envs):
+        ext_env = self.ext_envs[self.cur_steps]
 
-            area_states = [
-                area.update(action[area_id], ext_env, self.get_area_env(area_id, t))
-                for area_id, area in enumerate(self.areas)
-            ]
+        area_states = [
+            area.update(action[area_id], ext_env, self.get_area_env(area_id, self.cur_steps))
+            for area_id, area in enumerate(self.areas)
+        ]
 
-            state = BuildingState.create(area_states, ext_env.electric_price_unit)
+        state = BuildingState.create(area_states, ext_env.electric_price_unit)
 
-            self.steps = t
-            self.last_state = state
+        self.cur_steps += 1
+        self.last_state = state
 
-            yield (
-                state,
-                Reward.from_state(state)
-            )
+        return (
+            state,
+            Reward.from_state(state)
+        )
 
 
     def print_cur_state(self):
-        print(f"\niteration {self.steps}")
-        print(self.ext_envs[self.steps])
+        print(f"\niteration {self.cur_steps}")
+        print(self.ext_envs[self.cur_steps])
 
         for aid, (area, st) in enumerate(zip(self.areas, self.last_state.areas)):
             print(f"area {aid}: temp={area.temperature:.2f}, power={st.power_consumption:.2f}, {area.facilities[0]}")
