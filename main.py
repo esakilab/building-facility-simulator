@@ -4,7 +4,7 @@ import numpy as np
 import torch
 from torch.utils.tensorboard import SummaryWriter
 
-from simulator.bfs import BuildingFacilitySimulator
+from simulator.bfs import BFSList, BuildingFacilitySimulator
 from simulator.io import BuildingAction
 from rl import sac
 
@@ -53,7 +53,7 @@ def action_to_ES(action):
 
 if __name__ == "__main__":
     writer = SummaryWriter(log_dir="./logs")
-    bfs = BuildingFacilitySimulator("BFS_environment.xml")
+    bfs_list = BFSList(xml_dir_path='./input_xmls/example')
 
     action = BuildingAction()
     action.add(area_id=1, facility_id=0, status=True, temperature=22)
@@ -75,22 +75,22 @@ if __name__ == "__main__":
     charge_ratio = 0
 
 
-    while not bfs.has_finished():
+    while not bfs_list[0].has_finished():
             
-        (state_obj, reward_obj) = bfs.step(action)
+        (state_obj, reward_obj) = bfs_list[0].step(action)
 
         next_state = cvt_state_to_ndarray(state_obj)
         reward = reward_obj.metric1
 
-        if bfs.cur_steps >= 1:
+        if bfs_list[0].cur_steps >= 1:
             Agent.replay_buffer.add(
                 state, action_, next_state, reward, done=False)
         state = next_state
 
-        if bfs.cur_steps == 0:
+        if bfs_list[0].cur_steps == 0:
             continue
 
-        if bfs.cur_steps >= 100:
+        if bfs_list[0].cur_steps >= 100:
             action_, _ = Agent.choose_action(state)
         else:
             action_ = np.random.uniform(low=-1, high=1, size=4)
@@ -102,15 +102,15 @@ if __name__ == "__main__":
         action.add(area_id=3, facility_id=0, status=True, temperature=temp[2])
         action.add(area_id=4, facility_id=0, mode=mode)
         
-        writer.add_scalar("set_temperature_area1", temp[0], bfs.cur_steps)
-        writer.add_scalar("set_temperature_area2", temp[1], bfs.cur_steps)
-        writer.add_scalar("set_temperature_area3", temp[2], bfs.cur_steps)
+        writer.add_scalar("set_temperature_area1", temp[0], bfs_list[0].cur_steps)
+        writer.add_scalar("set_temperature_area2", temp[1], bfs_list[0].cur_steps)
+        writer.add_scalar("set_temperature_area3", temp[2], bfs_list[0].cur_steps)
         writer.add_scalar(
-            "temperature_area1", state_obj.areas[1].temperature, bfs.cur_steps)
+            "temperature_area1", state_obj.areas[1].temperature, bfs_list[0].cur_steps)
         writer.add_scalar(
-            "temperature_area2", state_obj.areas[2].temperature, bfs.cur_steps)
+            "temperature_area2", state_obj.areas[2].temperature, bfs_list[0].cur_steps)
         writer.add_scalar(
-            "temperature_area3", state_obj.areas[3].temperature, bfs.cur_steps)
+            "temperature_area3", state_obj.areas[3].temperature, bfs_list[0].cur_steps)
         
         mode_dict = {
             'charge': 1,
@@ -118,10 +118,10 @@ if __name__ == "__main__":
             'discharge': -1
         }
         # writer.add_scalar('charge_mode_per_price', price, mode_)
-        writer.add_scalar('charge_mode_per_time', mode_dict[mode], bfs.cur_steps)
-        writer.add_scalar('charge_ratio', state_obj.areas[4].facilities[0].charge_ratio, bfs.cur_steps)
+        writer.add_scalar('charge_mode_per_time', mode_dict[mode], bfs_list[0].cur_steps)
+        writer.add_scalar('charge_ratio', state_obj.areas[4].facilities[0].charge_ratio, bfs_list[0].cur_steps)
         
         Agent.update()
 
-        if bfs.cur_steps % 60 == 0:
-            bfs.print_cur_state()
+        if bfs_list[0].cur_steps % 60 == 0:
+            bfs_list[0].print_cur_state()
