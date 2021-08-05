@@ -96,7 +96,8 @@ class BuildingFacilitySimulator:
 
     def print_cur_state(self):
         print(f"\niteration {self.cur_steps}")
-        print(self.ext_envs[self.cur_steps])
+        if not self.has_finished():
+            print(self.ext_envs[self.cur_steps])
 
         for aid, (area, st) in enumerate(zip(self.areas, self.last_state.areas)):
             print(f"area {aid}: temp={area.temperature:.2f}, power={st.power_consumption:.2f}, {area.facilities[0]}")
