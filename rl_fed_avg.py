@@ -1,0 +1,199 @@
+from time import sleep
+
+from src.area import Area
+from src.bfs import BuildingFacilitySimulator
+from src.facility.electric_storage import ESMode
+from src.io import AreaState, BuildingAction
+
+import math
+import numpy as np
+import torch
+import torch.nn 
+import sac
+import argparse
+import pdb
+# from torch.utils.tensorboard import SummaryWriter
+
+# とりあえず変数を定義
+state_shape = (17,)  # エリアごとに順に1+5+5+5+1
+action_shape = (4,)  # 各HVACの制御(3つ) + Electric Storageの制御(1つ)
+
+
+def cvt_state_to_ndarray(state):
+    state_arr = []
+    for area_id, area_state in enumerate(state.areas):
+        # 状態を獲得
+        state_arr.extend([
+            area_state.people,
+            area_state.temperature,
+            area_state.power_consumption
+        ])
+
+        if area_id == 4:
+            state_arr.append(area_state.facilities[0].charge_ratio)
+
+    price = state.electric_price_unit
+
+    state_arr.append(price)
+
+    return np.array(state_arr)
+
+
+def action_to_temp(action):
+    # action = [-1,1] -> temp = [15, 30]
+
+    temp = action * 7.5 + 22.5
+    return np.floor(temp)
+
+
+def action_to_ES(action):
+
+    if - 1 <= action < -1 / 3:
+        mode = 'charge'
+    elif - 1 / 3 <= action <= 1 / 3:
+        mode = 'stand_by'
+    else:
+        mode = 'discharge'
+    return mode
+
+def apply_fed_avg(Agent, N):
+
+    # 各モデルを統一するパラメータを保存するためのzeoro-tensorを作成
+
+    actor_model = {}
+    critic_model = {}
+    critic_target_model = {}
+    actor_dict = Agent[0].actor.state_dict()
+    critic_dict = Agent[0].critic.state_dict()
+    critic_target_dict = Agent[0].critic_target.state_dict()
+    with torch.no_grad():
+        for u in actor_dict:
+            actor_model[u] = torch.zeros(actor_dict[u].shape)
+        
+        for u in critic_dict:
+            critic_model[u] = torch.zeros(critic_dict[u].shape)
+            critic_target_model[u] = torch.zeros(critic_dict[u].shape)
+
+        # 平均を求める
+        for i in range(N):
+            for u in Agent[i].actor.state_dict():
+                actor_model[u].add_(Agent[i].actor.state_dict()[u].data.clone())
+        
+        for u in actor_model:
+            actor_model[u].mul_(1 / N)
+        
+
+        for i in range(N):
+            for u in Agent[i].critic.state_dict():
+                critic_model[u].data.add_(Agent[i].critic.state_dict()[u].data.clone())
+        
+        for u in critic_model:
+            critic_model[u].data.mul_(1 / N)
+        
+        for i in range(N):
+            for u in Agent[i].critic_target.state_dict():
+                critic_target_model[u].data.add_(Agent[i].critic_target.state_dict()[u].data.clone())
+        
+        for u in critic_target_model:
+            critic_target_model[u].data.mul_(1 / N)
+        
+        # 各Agentにパラメータを分配
+        for i in range(N):
+            for u in Agent[i].actor.state_dict():
+                Agent[i].actor.state_dict()[u].data.copy_(actor_model[u])
+        for i in range(N):
+            for u in Agent[i].critic.state_dict():
+                Agent[i].critic.state_dict()[u].data.copy_(critic_model[u])
+        
+        for i in range(N):
+            for u in Agent[i].critic_target.state_dict():
+                Agent[i].critic_target.state_dict()[u].data.copy_(critic_target_model[u])
+    print('update complete')
+
+if __name__ == "__main__":
+    # writer = SummaryWriter(log_dir="./logs")
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--building_num', type=int, dest='N', default=1)
+    args = parser.parse_args()
+    N = args.N
+    bfs = []
+    
+    for i in range(N):
+       bfs.append(BuildingFacilitySimulator("BFS_0" + str(i) + ".xml"))
+    action = []
+    for i in range(N):
+        action.append(BuildingAction())
+        action[-1].add(area_id=1, facility_id=0, status=True, temperature=22)
+        action[-1].add(area_id=2, facility_id=0, status=True, temperature=25)
+        action[-1].add(area_id=3, facility_id=0, status=True, temperature=28)
+        action[-1].add(area_id=4, facility_id=0, mode="charge")
+
+    # 強化学習を行うエージェントを作成 (Soft-Actor-Critic という手法を仮に用いている)
+    Agent = []
+    for _ in range(N):
+        Agent.append(sac.SAC(state_shape=state_shape,action_shape=action_shape, device='cpu'))
+    
+    # ここはとりあえず状態, 行動, 報酬, 設定温度の変数を初期化
+    state = np.zeros((N,*state_shape))
+    next_state = np.zeros((N,*state_shape))
+    action_ = np.zeros((N,*action_shape))
+    reward = np.zeros((N,1))
+    temp = np.zeros((N,3))
+    charge_ratio = 0
+    for day in range(30):
+        # N: ビルの数
+        for i in range(N):
+            # 1日に1回全体のモデルを更新
+            for round in range(10):
+                if bfs[i].has_finished():
+                    break
+                (state_obj, reward_obj) = bfs[i].step(action[i])
+
+                next_state[i] = cvt_state_to_ndarray(state_obj)
+                reward[i] = reward_obj.metric1
+
+                if bfs[i].cur_steps >= 1:
+                    Agent[i].replay_buffer.add(state[i], action_[i], next_state[i], reward[i], done=False)
+                state[i] = next_state[i]
+
+                if bfs[i].cur_steps == 0:
+                    continue
+
+                if bfs[i].cur_steps >= 100:
+                    action_[i], _ = Agent[i].choose_action(state[i])
+                else:
+                    action_[i] = np.random.uniform(low=-1, high=1, size=4)
+
+                temp[i] = action_to_temp(action_[i][:-1])  # 一番最後のESは除く
+                mode = action_to_ES(action_[i][-1])
+                action[i].add(area_id=1, facility_id=0, status=True, temperature=temp[i][0])
+                action[i].add(area_id=2, facility_id=0, status=True, temperature=temp[i][1])
+                action[i].add(area_id=3, facility_id=0, status=True, temperature=temp[i][2])
+                action[i].add(area_id=4, facility_id=0, mode=mode)
+                '''
+                writer.add_scalar("set_temperature_area1", temp[0], i)
+                writer.add_scalar("set_temperature_area2", temp[1], i)
+                writer.add_scalar("set_temperature_area3", temp[2], i)
+                writer.add_scalar(
+                    "temperature_area1", building_state.area_states[1].temperature, i)
+                writer.add_scalar(
+                    "temperature_area2", building_state.area_states[2].temperature, i)
+                writer.add_scalar(
+                    "temperature_area3", building_state.area_states[3].temperature, i)
+                if mode == 'charge':
+                    mode_ = 1
+                elif mode == 'stand_by':
+                    mode_ = 0
+                else:
+                    mode_ = -1
+                # writer.add_scalar('charge_mode_per_price', price, mode_)
+                writer.add_scalar('charge_mode_per_time', mode_, i)
+                writer.add_scalar('charge_ratio', area.facilities[0].charge_ratio, i)
+                '''
+                Agent[i].update()
+
+                if bfs[i].cur_steps % 60 == 0:
+                    bfs[i].print_cur_state()
+
+        # fedlated_learningを適用 (モデルのparameterを全体平均を用いて更新)
+        apply_fed_avg(Agent,N)
