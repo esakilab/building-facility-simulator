@@ -77,10 +77,10 @@ def apply_fed_avg(Agent, N):
         # 平均を求める
         for i in range(N):
             for u in Agent[i].actor.state_dict():
-                actor_model[u].add_(Agent[i].actor.state_dict()[u].data.clone())
+                actor_model[u].data.add_(Agent[i].actor.state_dict()[u].data.clone())
         
         for u in actor_model:
-            actor_model[u].mul_(1 / N)
+            actor_model[u].data.mul_(1 / N)
         
 
         for i in range(N):
