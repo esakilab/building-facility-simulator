@@ -10,19 +10,14 @@ from src.io import BuildingAction, BuildingState, Reward
 
 class BuildingFacilitySimulator:
     """シミュレータを表すオブジェクトで、外部プログラムとのやり取りを担当
-
-    TODO: AI側からアクセスするときのメソッドを用意する（値取得、設定変更など）
     """
 
-    cur_steps: int = 0
-    total_steps: int
-    last_state: BuildingState
-    areas: list[Area] = []
-    ext_envs: list[ExternalEnvironment] = []
-    area_envs: dict[int, list[AreaEnvironment]] = {}
-
-
     def __init__(self, cfg_path: str):
+        self.cur_steps = 0
+        self.areas = []
+        self.ext_envs = []
+        self.area_envs = {}
+        
         root = ET.parse(cfg_path).getroot()
         
         assert root.tag == "BFS", "invalid BFS XML"
@@ -107,13 +102,17 @@ class BuildingFacilitySimulator:
 
 class BFSList(list[BuildingFacilitySimulator]):
     def __init__(self, 
-            xml_pathes: list[str] = [], 
-            xml_dir_path: Optional[str] = None):
+            xml_dir_path: Optional[str] = None,
+            xml_pathes: list[str] = []):
         
         if xml_dir_path:
             xml_pathes.extend(glob.glob(os.path.join(xml_dir_path, '*.xml')))
         
-        super().__init__(BuildingFacilitySimulator(xml_path) for xml_path in xml_pathes)
+        super().__init__()
+
+        for xml_path in sorted(xml_pathes):
+            print(f"Loading from {xml_path}")
+            self.append(BuildingFacilitySimulator(xml_path))
 
 
     def step(self, actions: List[BuildingAction]) -> List[tuple[BuildingState, Reward]]:
