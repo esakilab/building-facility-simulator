@@ -75,7 +75,7 @@ def write_to_tensorboard(bfs_list, state_obj, temp, mode):
 
 if __name__ == "__main__":
     writer = SummaryWriter(log_dir="./logs")
-    bfs_list = BFSList('./input_xmls/example')
+    bfs_list = BFSList('./input_xmls', load_xml_num=1)
 
     action = BuildingAction()
     action.add(area_id=1, facility_id=0, status=True, temperature=22)

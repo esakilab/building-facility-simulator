@@ -1,3 +1,5 @@
+from __future__ import annotations
+from copy import deepcopy
 from typing import List, Optional
 import os
 import glob
@@ -98,6 +100,29 @@ class BuildingFacilitySimulator:
             print(f"area {aid}: temp={area.temperature:.2f}, power={st.power_consumption:.2f}, {area.facilities[0]}")
 
         print(f"total power consumption: {self.last_state.power_balance:.2f}")
+    
+
+    def __add__(self, other: BuildingFacilitySimulator) -> BuildingFacilitySimulator:
+        assert self.area_envs.keys() == other.area_envs.keys()
+        result = deepcopy(self)
+
+        result.total_steps += other.total_steps
+        result.ext_envs += other.ext_envs
+        for key in result.area_envs:
+            result.area_envs[key] += other.area_envs[key]
+
+        return result
+    
+
+    def __mul__(self, other: int) -> BuildingFacilitySimulator:
+        result = deepcopy(self)
+
+        result.total_steps *= other
+        result.ext_envs *= other
+        for key in result.area_envs:
+            result.area_envs[key] *= other
+        
+        return result
 
 
 class BFSList(list[BuildingFacilitySimulator]):
