@@ -9,26 +9,31 @@ from simulator.io import BuildingAction
 from rl import sac
 
 # とりあえず変数を定義
-state_shape = (17,)  # エリアごとに順に1+5+5+5+1
+state_shape = (4,)  # エリアごとに順に1+5+5+5+1
 action_shape = (4,)  # 各HVACの制御(3つ) + Electric Storageの制御(1つ)
 
 
-def cvt_state_to_ndarray(state):
+def cvt_state_to_ndarray(state, step):
     state_arr = []
     for area_id, area_state in enumerate(state.areas):
         # 状態を獲得
-        state_arr.extend([
-            area_state.people, 
-            area_state.temperature, 
-            area_state.power_consumption
-        ])
+        if area_id == 1:
+            state_arr.extend([
+                # area_state.people, 
+                area_state.temperature, 
+                # area_state.power_consumption
+            ])
 
-        if area_id == 4:
-            state_arr.append(area_state.facilities[0].charge_ratio)
+    #     if area_id == 4:
+    #         state_arr.append(area_state.facilities[0].charge_ratio)
+    # price = state.electric_price_unit
 
-    price = state.electric_price_unit
+    # state_arr.append(price)
 
-    state_arr.append(price)
+    state_arr.append(state.temperature)
+    state_arr.append(state.solar_radiation)
+    state_arr.append(step % (60 * 24)) # time
+    # state_arr.append((step // (60 * 24)) % 7) # day of week
     
     return np.array(state_arr)
 
@@ -51,8 +56,10 @@ def action_to_ES(action):
     return mode
 
 
-def write_to_tensorboard(bfs_list, state_obj, temp, mode):
+def write_to_tensorboard(bfs_list, state_obj, reward_obj, temp, mode):
         
+    writer.add_scalar("reward", reward_obj.metric1, bfs_list[0].cur_steps)
+
     writer.add_scalar("set_temperature_area1", temp[0], bfs_list[0].cur_steps)
     writer.add_scalar("set_temperature_area2", temp[1], bfs_list[0].cur_steps)
     writer.add_scalar("set_temperature_area3", temp[2], bfs_list[0].cur_steps)
@@ -96,12 +103,17 @@ if __name__ == "__main__":
     temp = np.zeros(3)
     charge_ratio = 0
 
+    bfs_list[0].total_steps *= 100
+    bfs_list[0].ext_envs *= 100
+    for i in range(1, 4):
+        bfs_list[0].area_envs[i] *= 100
+
 
     while not bfs_list[0].has_finished():
             
         (state_obj, reward_obj) = bfs_list[0].step(action)
 
-        next_state = cvt_state_to_ndarray(state_obj)
+        next_state = cvt_state_to_ndarray(state_obj, bfs_list[0].cur_steps)
         reward = reward_obj.metric1
 
         if bfs_list[0].cur_steps >= 1:
@@ -124,7 +136,7 @@ if __name__ == "__main__":
         action.add(area_id=3, facility_id=0, status=True, temperature=temp[2])
         action.add(area_id=4, facility_id=0, mode=mode)
 
-        write_to_tensorboard(bfs_list, state_obj, temp, mode)
+        write_to_tensorboard(bfs_list, state_obj, reward_obj, temp, mode)
         
         Agent.update()
 

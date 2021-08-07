@@ -78,7 +78,7 @@ class BuildingFacilitySimulator:
             for area_id, area in enumerate(self.areas)
         ]
 
-        state = BuildingState.create(area_states, ext_env.electric_price_unit)
+        state = BuildingState.create(area_states, ext_env)
 
         self.cur_steps += 1
         self.last_state = state
