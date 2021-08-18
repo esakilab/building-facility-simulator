@@ -108,9 +108,9 @@ class SAC(Algorithm):
                  batch_size=256, gamma=0.99, lr=3e-4, alpha=0.2, buff_size=10**4, start_steps=2*10**3, tau=5e-3, reward_scale=1.0):
         super().__init__()
 
-        np.random.seed(seed)
-        torch.manual_seed(seed)
-        torch.cuda.manual_seed(seed)
+        #np.random.seed(seed)
+        #torch.manual_seed(seed)
+        #torch.cuda.manual_seed(seed)
 
         self.replay_buffer = buffer.ReplayBuffer(
             buff_size=buff_size, state_shape=state_shape, action_shape=action_shape, device=device)
