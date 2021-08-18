@@ -3,9 +3,9 @@ import os
 import glob
 import xml.etree.ElementTree as ET
 
-from src.area import Area
-from src.environment import AreaEnvironment, ExternalEnvironment
-from src.io import BuildingAction, BuildingState, Reward
+from simulator.area import Area
+from simulator.environment import AreaEnvironment, ExternalEnvironment
+from simulator.io import BuildingAction, BuildingState, Reward
 
 
 class BuildingFacilitySimulator:

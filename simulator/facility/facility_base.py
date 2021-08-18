@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from typing import NamedTuple, Type, TypeVar
 from xml.etree.ElementTree import Element
 
-from src.environment import AreaEnvironment, ExternalEnvironment
-from src.io import FacilityAction, FacilityState
+from simulator.environment import AreaEnvironment, ExternalEnvironment
+from simulator.io import FacilityAction, FacilityState
 
 class FacilityEffect(NamedTuple):
     """設備によるエリアの働きかけ(2.2節)を表すオブジェクト
