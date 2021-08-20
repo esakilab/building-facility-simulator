@@ -1,3 +1,5 @@
+from __future__ import annotations
+from copy import deepcopy
 from typing import List, Optional
 import os
 import glob
@@ -98,19 +100,46 @@ class BuildingFacilitySimulator:
             print(f"area {aid}: temp={area.temperature:.2f}, power={st.power_consumption:.2f}, {area.facilities[0]}")
 
         print(f"total power consumption: {self.last_state.power_balance:.2f}")
+    
+
+    def __add__(self, other: BuildingFacilitySimulator) -> BuildingFacilitySimulator:
+        assert self.area_envs.keys() == other.area_envs.keys()
+        result = deepcopy(self)
+
+        result.total_steps += other.total_steps
+        result.ext_envs += other.ext_envs
+        for key in result.area_envs:
+            result.area_envs[key] += other.area_envs[key]
+
+        return result
+    
+
+    def __mul__(self, other: int) -> BuildingFacilitySimulator:
+        result = deepcopy(self)
+
+        result.total_steps *= other
+        result.ext_envs *= other
+        for key in result.area_envs:
+            result.area_envs[key] *= other
+        
+        return result
 
 
 class BFSList(list[BuildingFacilitySimulator]):
     def __init__(self, 
             xml_dir_path: Optional[str] = None,
+            load_xml_num: Optional[int] = None,
             xml_pathes: list[str] = []):
         
         if xml_dir_path:
             xml_pathes.extend(glob.glob(os.path.join(xml_dir_path, '*.xml')))
         
+        if load_xml_num == None:
+            load_xml_num = len(xml_pathes)
+        
         super().__init__()
 
-        for xml_path in sorted(xml_pathes):
+        for xml_path in sorted(xml_pathes)[:load_xml_num]:
             print(f"Loading from {xml_path}")
             self.append(BuildingFacilitySimulator(xml_path))
 
