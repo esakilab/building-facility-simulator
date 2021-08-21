@@ -12,6 +12,7 @@ import argparse
 state_shape = (17,)  # エリアごとに順に1+5+5+5+1
 action_shape = (4,)  # 各HVACの制御(3つ) + Electric Storageの制御(1つ)
 
+enable_tensorboard = False
 
 def write_to_tensorboard(bfs_list, state_obj, temp, mode, reward):
         
@@ -127,10 +128,11 @@ def apply_fed_avg(Agent, N, cuda):
     print('update complete')
 
 if __name__ == "__main__":
-    writer = SummaryWriter('reward1-2')
+    if enable_tensorboard:
+        writer = SummaryWriter('reward1-2')
     parser = argparse.ArgumentParser()
     parser.add_argument('--building_num', type=int, dest='N', default=1)
-    parser.add_argument('--cuda_name', type=int, dest='cuda', default='cuda:0')
+    parser.add_argument('--cuda_name', type=str, dest='cuda', default='cuda:0')
     args = parser.parse_args()
     N = args.N
     cuda = args.cuda
@@ -148,7 +150,7 @@ if __name__ == "__main__":
     Agent = []
     for _ in range(N):
         Agent.append(sac.SAC(state_shape=state_shape,action_shape=action_shape, device=cuda if torch.cuda.is_available() else 'cpu'))
-    print(torch.cuda.is_available()) 
+    # print(torch.cuda.is_available()) 
     # ここはとりあえず状態, 行動, 報酬, 設定温度の変数を初期化
     state = np.zeros((N,*state_shape))
     next_state = np.zeros((N,*state_shape))
@@ -198,7 +200,8 @@ if __name__ == "__main__":
                         print(f"{i}-th building",end = "")
                         bfs_list[i].print_cur_state()
                         if i == 0:
-                            write_to_tensorboard(bfs_list, state_obj, temp, mode, reward)
+                            if enable_tensorboard:
+                                write_to_tensorboard(bfs_list, state_obj, temp, mode, reward)
         
             # fedlated_learningを適用 (モデルのparameterを全体平均を用いて更新)
             apply_fed_avg(Agent,N, cuda)

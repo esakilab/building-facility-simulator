@@ -52,3 +52,4 @@ nvidia-smi
 python3 fed_avg.py --builging_num 3 --cuda_name cuda:0
 ```
 * またxmlデータは個々人でサーバに保存すると無駄があるので現状 '/home/kfujita/data' 以下にあります. 
+* 1つのcudaで2つくらいの実験は同時に走らせられるのでtmuxなどを用いて複数ターミナルから同時に実行可能です.
