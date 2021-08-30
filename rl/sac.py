@@ -43,8 +43,9 @@ def average_models(local_models):
 
 
 def average_sac(local_sacs):
-    average_models([local_sac.critic for local_sac in local_sacs])
     average_models([local_sac.actor for local_sac in local_sacs])
+    average_models([local_sac.critic for local_sac in local_sacs])
+    average_models([local_sac.critic_target for local_sac in local_sacs])
 
 
 class Critic_network(nn.Module):
