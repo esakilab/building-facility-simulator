@@ -48,11 +48,15 @@ class BuildingFacilitySimulator:
         self.total_steps = len(self.ext_envs)
 
 
-    def get_area_env(self, area_id: int, timestamp: int):
+    def get_next_area_env(self, area_id: int) -> AreaEnvironment:
         if area_id in self.area_envs:
-            return self.area_envs[area_id][timestamp]
+            return self.area_envs[area_id][self.cur_steps]
         else:
             return AreaEnvironment.empty()
+
+
+    def get_next_ext_env(self) -> ExternalEnvironment:
+        return self.ext_envs[self.cur_steps]
 
     
     def has_finished(self):
@@ -76,7 +80,7 @@ class BuildingFacilitySimulator:
         ext_env = self.ext_envs[self.cur_steps]
 
         area_states = [
-            area.update(action[area_id], ext_env, self.get_area_env(area_id, self.cur_steps))
+            area.update(action[area_id], ext_env, self.get_next_area_env(area_id))
             for area_id, area in enumerate(self.areas)
         ]
 
