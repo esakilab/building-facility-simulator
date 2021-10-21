@@ -58,7 +58,7 @@ def run_experiment(log_path):
                 
             (state_obj, _) = bfs_dict[exp_mode].step(action)
 
-            total_charge_dict[exp_mode] += state_obj.power_balance * state_obj.electric_price_unit
+            total_charge_dict[exp_mode] += state_obj.power_balance * state_obj.electric_price_unit / 60
             data_row.extend([state_obj.areas[1].temperature, state_obj.power_balance, total_charge_dict[exp_mode]])
             _actions.extend([hvac_status, es_mode])
 
