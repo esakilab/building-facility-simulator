@@ -11,9 +11,9 @@
   <!-- Bigroom -->
   <area id="1" name="room 101" capacity="2160" >
     <facility type="HVAC" id="0">
-      <!-- <parameter name="cool-max-power" value="6" /> -->
       <parameter name="cool-max-power" value="3" />
-      <parameter name="heat-max-power" value="8" />
+      <!-- <parameter name="cool-max-power" value="3" /> -->
+      <parameter name="heat-max-power" value="4" />
       <parameter name="cool-cop" value="5" />
       <parameter name="heat-cop" value="5" />
     </facility>
@@ -22,9 +22,9 @@
   <!-- Electric Facility Room -->
   <area id="2" name="cubicle" >
     <facility type="ES" id="0">
-      <parameter name="charge-power" value="10" />
-      <parameter name="discharge-power" value="10" />
-      <parameter name="capacity" value="1000" />
+      <parameter name="charge-power" value="2" />
+      <parameter name="discharge-power" value="2" />
+      <parameter name="capacity" value="15" />
     </facility>
   </area>
 
