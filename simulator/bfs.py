@@ -87,7 +87,7 @@ class BuildingFacilitySimulator:
 
         return (
             state,
-            Reward.from_state(state)
+            Reward.from_state(state,action)
         )
 
 

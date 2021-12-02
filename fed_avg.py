@@ -127,9 +127,10 @@ def apply_fed_avg(Agent, N):
     print('update complete')
 
 if __name__ == "__main__":
-    writer = SummaryWriter('simple_reward')
+    writer = SummaryWriter('area1_reward')
     parser = argparse.ArgumentParser()
     parser.add_argument('--building_num', type=int, dest='N', default=1)
+    
     args = parser.parse_args()
     N = args.N
 
@@ -164,10 +165,10 @@ if __name__ == "__main__":
             bfs_list[i].area_envs[j] *= 12
 
     for month in range(12):
-        for day in range(30):
+        for day in range(31):
             # N: ビルの数
             for i in range(N):
-                # 1日に1回全体のモデルを更新
+                # 10日に1回全体のモデルを更新
                 for round in range(14400):
                     if bfs_list[i].has_finished():
                         break
