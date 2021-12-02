@@ -12,6 +12,7 @@ import argparse
 state_shape = (17,)  # エリアごとに順に1+5+5+5+1
 action_shape = (4,)  # 各HVACの制御(3つ) + Electric Storageの制御(1つ)
 
+enable_tensorboard = False
 
 def write_to_tensorboard(bfs_list, state_obj, temp, mode, reward):
         
@@ -72,7 +73,7 @@ def action_to_ES(action):
         mode = 'discharge'
     return mode
 
-def apply_fed_avg(Agent, N):
+def apply_fed_avg(Agent, N, cuda):
 
     # 各モデルを統一するパラメータを保存するためのzeoro-tensorを作成
 
@@ -84,11 +85,11 @@ def apply_fed_avg(Agent, N):
     critic_target_dict = Agent[0].critic_target.state_dict()
     with torch.no_grad():
         for u in actor_dict:
-            actor_model[u] = torch.zeros(actor_dict[u].shape).to('cuda:0')
+            actor_model[u] = torch.zeros(actor_dict[u].shape).to(cuda)
         
         for u in critic_dict:
-            critic_model[u] = torch.zeros(critic_dict[u].shape).to('cuda:0')
-            critic_target_model[u] = torch.zeros(critic_dict[u].shape).to('cuda:0')
+            critic_model[u] = torch.zeros(critic_dict[u].shape).to(cuda)
+            critic_target_model[u] = torch.zeros(critic_dict[u].shape).to(cuda)
 
         # 平均を求める
         for i in range(N):
@@ -127,14 +128,15 @@ def apply_fed_avg(Agent, N):
     print('update complete')
 
 if __name__ == "__main__":
-    writer = SummaryWriter('area1_reward')
+    if enable_tensorboard:
+        writer = SummaryWriter('reward1-2')
     parser = argparse.ArgumentParser()
     parser.add_argument('--building_num', type=int, dest='N', default=1)
-    
+    parser.add_argument('--cuda_name', type=str, dest='cuda', default='cuda:0')
     args = parser.parse_args()
     N = args.N
-
-    bfs_list = BFSList('/data/local/kf022/')
+    cuda = args.cuda
+    bfs_list = BFSList('/home/kfujita/data')
     
     action = []    
     for i in range(N):
@@ -147,8 +149,8 @@ if __name__ == "__main__":
     # 強化学習を行うエージェントを作成 (Soft-Actor-Critic という手法を仮に用いている)
     Agent = []
     for _ in range(N):
-        Agent.append(sac.SAC(state_shape=state_shape,action_shape=action_shape, device='cuda:0' if torch.cuda.is_available() else 'cpu'))
-    print(torch.cuda.is_available())    
+        Agent.append(sac.SAC(state_shape=state_shape,action_shape=action_shape, device=cuda if torch.cuda.is_available() else 'cpu'))
+    # print(torch.cuda.is_available()) 
     # ここはとりあえず状態, 行動, 報酬, 設定温度の変数を初期化
     state = np.zeros((N,*state_shape))
     next_state = np.zeros((N,*state_shape))
@@ -158,12 +160,8 @@ if __name__ == "__main__":
     charge_ratio = 0
 
     for i in range(N):
-        bfs_list[0].total_steps *= 12
-        bfs_list[0].ext_envs *= 12
-    for i in range(N):
-        for j in range(1, 4):
-            bfs_list[i].area_envs[j] *= 12
-
+        bfs_list[i] *= 12
+        
     for month in range(12):
         for day in range(31):
             # N: ビルの数
@@ -202,7 +200,8 @@ if __name__ == "__main__":
                         print(f"{i}-th building",end = "")
                         bfs_list[i].print_cur_state()
                         if i == 0:
-                            write_to_tensorboard(bfs_list, state_obj, temp, mode, reward)
+                            if enable_tensorboard:
+                                write_to_tensorboard(bfs_list, state_obj, temp, mode, reward)
         
             # fedlated_learningを適用 (モデルのparameterを全体平均を用いて更新)
-            apply_fed_avg(Agent,N)
+            apply_fed_avg(Agent,N, cuda)
