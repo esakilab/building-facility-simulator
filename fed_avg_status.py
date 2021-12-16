@@ -226,4 +226,5 @@ if __name__ == "__main__":
             # fedlated_learningを適用 (モデルのparameterを全体平均を用いて更新)
             apply_fed_avg(Agent,N)
     # save NN model
-    torch.save(Agent[0].state_dict(), 'model.pth')
+    torch.save(Agent[0].actor.state_dict(), 'actor.pth')
+    torch.save(Agent[0].critic.state_dict(), 'actor.pth')
