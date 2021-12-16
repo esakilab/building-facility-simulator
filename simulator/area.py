@@ -21,6 +21,8 @@ class Area:
     simulate_temperature: bool
     capacity: float
     temperature: float
+    power_consumption: float = 0
+    people: int = 0
     
 
     def update(
@@ -33,11 +35,10 @@ class Area:
 
         2.6節の2,3に対応
         """
+        self.people = area_env.people
 
         beta = area_env.calc_beta()
-        power_consumption = 0.
-
-        facility_states = []
+        self.power_consumption = 0.
 
         for fid, facility in enumerate(self.facilities):
             state, effect = facility.update(
@@ -46,10 +47,8 @@ class Area:
                 area_env=area_env, 
                 area_temperature=self.temperature)
 
-            facility_states.append(state)
-
             beta += effect.heat * 60
-            power_consumption += effect.power
+            self.power_consumption += effect.power
 
         if self.simulate_temperature:
             temp_dif = self.temperature - ext_env.temperature
@@ -58,13 +57,17 @@ class Area:
         else:
             self.temperature = ext_env.temperature
 
-        return AreaState(
-            power_consumption=power_consumption,
-            temperature=self.temperature,
-            people=area_env.people,
-            facilities=facility_states
-        )
+        return self.get_state()
     
+
+    def get_state(self) -> AreaState:
+        return AreaState(
+            power_consumption=self.power_consumption,
+            temperature=self.temperature,
+            people=self.people,
+            facilities=[facility.get_state() for facility in self.facilities]
+        )
+
 
     @classmethod
     def from_xml_element(cls: Type[T], elem: Element) -> T:

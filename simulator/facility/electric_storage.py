@@ -59,9 +59,13 @@ class ElectricStorage(Facility):
         self.charge_ratio = min(max(self.charge_ratio, 0), 1)
 
         return (
-            ESState(charge_ratio=self.charge_ratio), 
+            self.get_state(), 
             FacilityEffect(power=power, heat=0))
 
+
+    def get_state(self) -> FacilityState:
+        return ESState(charge_ratio=self.charge_ratio)
+    
     
     @classmethod
     def from_xml_element(cls: Type[T], elem: Element) -> T:
