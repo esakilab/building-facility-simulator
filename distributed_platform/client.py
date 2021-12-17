@@ -18,6 +18,9 @@ class FLClient:
         while True:
             print(f"Saying hello to global..", flush=True)
             resp = self._send_request({'message': 'hello'}, SELECTION_PORT)
+
+            # TODO: 選ばれなかった場合の処理を書く
+            # 選ばれなかった場合は、学習はしないが、bfsのステップは進めて状態は更新するといいかも
             sac = resp['model']
             if 'simulator' in resp:
                 bfs = resp['simulator']

@@ -75,6 +75,8 @@ class FLServer:
     def reporting_phase(self):
         print("\n### Reporting Phase ###\n", flush=True)
 
+        # TODO: 遅すぎるクライアントへの対応
+
         connections = []
         models = []
 
