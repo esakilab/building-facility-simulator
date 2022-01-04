@@ -1,3 +1,4 @@
+from collections import defaultdict
 import torch
 import torch.nn as nn
 import numpy as np
@@ -24,6 +25,29 @@ def reparameterize(means, log_stds):
     actions = torch.tanh(us)
     log_pis = caluculate_log_pi(log_stds, noises, actions)
     return actions, log_pis
+
+
+def average_models(local_models):
+    state_dict_stacked = defaultdict(list)
+
+    for local_model in local_models:
+        for key, value in local_model.state_dict().items():
+            state_dict_stacked[key].append(value)
+
+    global_state_dict = dict()
+    for key in state_dict_stacked.keys():
+        global_state_dict[key] = torch.mean((torch.stack(state_dict_stacked[key])), dim=0)
+    
+    for local_model in local_models:
+        local_model.load_state_dict(global_state_dict)
+
+
+def average_sac(local_sacs):
+    average_models([local_sac.actor for local_sac in local_sacs])
+    average_models([local_sac.critic for local_sac in local_sacs])
+    average_models([local_sac.critic_target for local_sac in local_sacs])
+
+    return local_sacs[0]
 
 
 class Critic_network(nn.Module):

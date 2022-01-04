@@ -37,6 +37,14 @@ class Facility(ABC):
         
         raise NotImplementedError()
 
+    @abstractmethod
+    def get_state(self) -> FacilityState:
+
+        """現在の施設の状態を返す
+        """
+        
+        raise NotImplementedError()
+
     @classmethod
     @abstractmethod
     def from_xml_element(cls: Type[T], elem: Element) -> T:

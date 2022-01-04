@@ -18,8 +18,13 @@ class PVStation(Facility):
             power = -self.max_power * ext_env.solar_radiation / 1000,
             heat  = 0
         )
-        return (FacilityState.empty(), effect)
+        return (self.get_state(), effect)
+
+
+    def get_state(self) -> FacilityState:
+        return FacilityState.empty()
     
+
     @classmethod
     def from_xml_element(cls: Type[T], elem: Element) -> T:
         facility = super(PVStation, cls).from_xml_element(elem)

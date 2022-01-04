@@ -75,12 +75,10 @@ class BuildingFacilitySimulator:
 
         ext_env = self.ext_envs[self.cur_steps]
 
-        area_states = [
+        for area_id, area in enumerate(self.areas):
             area.update(action[area_id], ext_env, self.get_area_env(area_id, self.cur_steps))
-            for area_id, area in enumerate(self.areas)
-        ]
 
-        state = BuildingState.create(area_states, ext_env.electric_price_unit)
+        state = self.get_state()
 
         self.cur_steps += 1
         self.last_state = state
@@ -89,6 +87,11 @@ class BuildingFacilitySimulator:
             state,
             Reward.from_state(state)
         )
+
+
+    def get_state(self) -> BuildingState:
+        area_states = [area.get_state() for area in self.areas]
+        return BuildingState.create(area_states, self.ext_envs[self.cur_steps])
 
 
     def print_cur_state(self):

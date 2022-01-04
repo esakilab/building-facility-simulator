@@ -2,6 +2,8 @@ from abc import ABC
 from dataclasses import dataclass
 from typing import NamedTuple, Type, TypeVar
 
+from simulator.environment import ExternalEnvironment
+
 
 T = TypeVar('T', bound='BuildingState')
 
@@ -34,11 +36,16 @@ class BuildingState(NamedTuple):
     areas: list[AreaState]
     power_balance: float
     electric_price_unit: float
+    solar_radiation: float
+    temperature: float
+
 
     @classmethod
-    def create(cls: Type[T], area_states: list[AreaState], electric_price_unit: float) -> T:
+    def create(cls: Type[T], area_states: list[AreaState], ext_env: ExternalEnvironment) -> T:
         return cls(
             areas=area_states,
             power_balance=sum(state.power_consumption for state in area_states),
-            electric_price_unit=electric_price_unit
+            electric_price_unit=ext_env.electric_price_unit,
+            solar_radiation=ext_env.solar_radiation,
+            temperature=ext_env.temperature
         )

@@ -136,7 +136,11 @@ class HVAC(Facility):
         else:
             effect = FacilityEffect(power=0, heat=0)
         
-        return (FacilityState.empty(), effect)
+        return (self.get_state(), effect)
+
+
+    def get_state(self) -> FacilityState:
+        return FacilityState.empty()
 
     
     @classmethod
