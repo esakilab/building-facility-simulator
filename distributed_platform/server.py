@@ -31,6 +31,8 @@ class FLServer:
     def run(self):
         threading.Thread(target=self.selection_phase).start()
 
+        print("Started the Global Server!", flush=True)
+
         while True:
             time.sleep(0.1)
             if self.selected_client_queue.qsize() < self.round_client_num:
@@ -104,7 +106,7 @@ class FLServer:
 
     def _init_client(self, client):
         config_path = f"./input_xmls/BFS_{len(self.client_writer_dict):02}.xml"
-        self.client_writer_dict[client[0]] = SummaryWriter(log_dir=f"./logs/fl-with-platform/{client[0]}")
+        self.client_writer_dict[client[0]] = SummaryWriter(log_dir=f"./logs/distributed-platform-on-cluster/{client[0]}")
 
         print(f"- Initialized simulator for {client[0]} using {config_path}.", flush=True)
 

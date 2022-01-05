@@ -4,7 +4,7 @@ import time
 
 import numpy as np
 
-from distributed_platform.utils import ACTION_SHAPE, SELECTION_PORT, REPORTING_PORT, STATE_SHAPE, action_to_ES, action_to_temp, cvt_state_to_ndarray, recv_all, send_all
+from distributed_platform.utils import GLOBAL_HOSTNAME, ACTION_SHAPE, SELECTION_PORT, REPORTING_PORT, STATE_SHAPE, action_to_ES, action_to_temp, cvt_state_to_ndarray, recv_all, send_all
 from rl.sac import average_sac
 from simulator.io import BuildingAction
 
@@ -89,7 +89,7 @@ class FLClient:
 
     def _send_request(self, payload: dict, port):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect(('global', port))
+            s.connect((GLOBAL_HOSTNAME, port))
             send_all(pickle.dumps(payload), s)
 
             return pickle.loads(recv_all(s))

@@ -5,9 +5,15 @@ services:
     volumes:
       - ./logs:/work/logs
     command: python3 global.py
+    ports:
+      - "11113:11113"
+      - "11114:11114"
 
   local:
     build: .
     command: python3 local.py
-    deploy:
-      replicas: 10
+    environment:
+      - GLOBAL_HOSTNAME
+    network_mode: "host"
+    # deploy:
+    #   replicas: 10

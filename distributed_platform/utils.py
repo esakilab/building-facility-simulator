@@ -1,5 +1,7 @@
+import os
 import numpy as np
 
+GLOBAL_HOSTNAME = os.environ.get("GLOBAL_HOSTNAME", 'global')
 BUFF_SIZE = 65536
 SELECTION_PORT = 11113
 REPORTING_PORT = 11114
