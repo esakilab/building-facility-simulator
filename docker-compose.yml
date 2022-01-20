@@ -14,6 +14,5 @@ services:
     command: python3 local.py
     environment:
       - GLOBAL_HOSTNAME
-    network_mode: "host"
-    # deploy:
-    #   replicas: 10
+    deploy:
+      replicas: 8
