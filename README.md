@@ -31,5 +31,26 @@ pip3 install torch torchvision torchaudio
 
 4. 以下のコマンドを実行することで実行可能
 ```
-python3 main_rl.py
+python3 main.py
 ```
+
+## クラスタでの実行
+グローバルモデルを管理するグローバルサーバ（1台）と、ローカルモデルの実行を行うローカルサーバ（1台以上）
+を用意することで、
+準備段階として、
+1. グローバルサーバから各ローカルサーバにssh接続できるようにする
+1. グローバルサーバ上で本レポジトリをcloneし、`distributed_platform/local-server-hostnames`に全ローカルサーバでのユーザ名とホスト名をsshコマンドと同じ形式（`${user_name}@${host_name}`）で書き込む
+1. グローバルサーバで以下のコマンドを実行し、各ローカルサーバにdockerとdocker-composeをインストールする
+```bash
+$ ./install_docker_to_local_servers.sh
+```
+
+を完了した上で、グローバルサーバ上で
+```
+$ docker-compose up -d global
+$ ./start_local_servers.sh
+$ docker-compose logs -f
+```
+とすると、全てのサーバを立ち上げた上でグローバルサーバのログを見ることができる。
+
+各ローカルサーバで実行されているモデルたちの状態は、`logs/`に蓄積され、tensorboard上で確認することが可能である。
