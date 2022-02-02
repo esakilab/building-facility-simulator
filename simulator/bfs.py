@@ -1,5 +1,6 @@
 from __future__ import annotations
 from copy import deepcopy
+from datetime import timedelta, datetime
 from typing import List, Optional
 import os
 import glob
@@ -45,6 +46,9 @@ class BuildingFacilitySimulator:
             ExternalEnvironment.from_xml_element(child) for child in ext_env_elem
         ]
 
+        # TODO: add `start_time` to the config file
+        self.start_time = datetime.strptime(ext_env_elem[0].attrib["time"], "%Y-%m-%d %H:%M")
+
         self.total_steps = len(self.ext_envs)
 
 
@@ -88,6 +92,10 @@ class BuildingFacilitySimulator:
             Reward.from_state(state)
         )
 
+    
+    def get_current_datetime(self):
+        return self.start_time + timedelta(minutes=self.cur_steps)
+
 
     def get_state(self) -> BuildingState:
         area_states = [area.get_state() for area in self.areas]
@@ -95,14 +103,14 @@ class BuildingFacilitySimulator:
 
 
     def print_cur_state(self):
-        print(f"\niteration {self.cur_steps}")
+        print(f"\niteration {self.cur_steps} ({self.get_current_datetime()})")
         if not self.has_finished():
             print(self.ext_envs[self.cur_steps])
 
         for aid, (area, st) in enumerate(zip(self.areas, self.last_state.areas)):
             print(f"area {aid}: temp={area.temperature:.2f}, power={st.power_consumption:.2f}, {area.facilities[0]}")
 
-        print(f"total power consumption: {self.last_state.power_balance:.2f}")
+        print(f"total power consumption: {self.last_state.power_balance:.2f}", flush=True)
     
 
     def __add__(self, other: BuildingFacilitySimulator) -> BuildingFacilitySimulator:
