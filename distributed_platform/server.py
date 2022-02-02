@@ -1,3 +1,4 @@
+from datetime import timedelta
 import socket
 import pickle
 import threading
@@ -11,7 +12,10 @@ from simulator.bfs import BuildingFacilitySimulator
 from rl.sac import SAC
 
 class FLServer:
-    def __init__(self, round_client_num, initial_model, model_aggregation):
+    # TODO: 時刻（ステップ数）の管理
+    def __init__(self, start_time, steps_per_round, round_client_num, initial_model, model_aggregation):
+        self.cur_time = start_time
+        self.steps_per_round = steps_per_round
         self.round_client_num = round_client_num
         self.model_aggregation = model_aggregation
 
@@ -38,6 +42,8 @@ class FLServer:
             if self.selected_client_queue.qsize() < self.round_client_num:
                 continue
 
+            print(f"\n\nSTART NEW ROUND (time: {self.cur_time})\n", flush=True)
+
             self.configuration_phase()
             self.reporting_phase()
 
@@ -55,13 +61,18 @@ class FLServer:
     def configuration_phase(self):
         print("\n### Configuration Phase ###\n", flush=True)
 
+        end_time = self.cur_time + timedelta(minutes=self.steps_per_round)
+
         for _ in range(self.round_client_num):
             # 現状reqはは使っていない
             conn, client, req = self.selected_client_queue.get()
 
             client_id = req['client_id']
 
+            # TODO: 選択しなかった場合は、何分後にretryしてねという情報を入れる
             resp = {
+                'start_datetime': self.cur_time,
+                'end_datetime': end_time,
                 'model': self.global_model,
             }
 
@@ -75,6 +86,8 @@ class FLServer:
             print(f"Sending global model to {self._to_client_str(client_id, client)}...", flush=True)
             
             send_all(pickle.dumps(resp), conn)
+        
+        self.cur_time = end_time
     
 
     def reporting_phase(self):
