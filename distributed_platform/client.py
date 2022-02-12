@@ -42,7 +42,7 @@ class FLClient:
             }
 
             while bfs.get_current_datetime() < resp['start_datetime']:
-                action_arr = self._simulate_1step(bfs, action_arr, req)
+                action_arr = self._simulate_1step(bfs, action_arr, req, False)
 
             print(f"Start training from {bfs.get_current_datetime()}.", flush=True)
 
