@@ -4,5 +4,5 @@ from rl.sac import SAC, average_sac
 
 
 if __name__ == "__main__":
-    server = FLServer(3, SAC(state_shape=STATE_SHAPE, action_shape=ACTION_SHAPE, device="cpu"), average_sac)
+    server = FLServer(8, SAC(state_shape=STATE_SHAPE, action_shape=ACTION_SHAPE, device="cpu"), average_sac)
     server.run()

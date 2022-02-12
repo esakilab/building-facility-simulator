@@ -4,11 +4,12 @@ import time
 
 import numpy as np
 
-from distributed_platform.utils import ACTION_SHAPE, SELECTION_PORT, REPORTING_PORT, STATE_SHAPE, action_to_ES, action_to_temp, cvt_state_to_ndarray, recv_all, send_all
-from rl.sac import average_sac
+from distributed_platform.utils import GLOBAL_HOSTNAME, ACTION_SHAPE, SELECTION_PORT, REPORTING_PORT, STATE_SHAPE, action_to_ES, action_to_temp, cvt_state_to_ndarray, recv_all, send_all
 from simulator.io import BuildingAction
 
 class FLClient:
+    def __init__(self):
+        self.client_id = None
 
     def run(self):
         time.sleep(1)
@@ -18,6 +19,10 @@ class FLClient:
         while True:
             print(f"Saying hello to global..", flush=True)
             resp = self._send_request({'message': 'hello'}, SELECTION_PORT)
+
+            # 最初のアクセスで発行される
+            if 'client_id' in resp:
+                self.client_id = resp['client_id']
 
             # TODO: 選ばれなかった場合の処理を書く
             # 選ばれなかった場合は、学習はしないが、bfsのステップは進めて状態は更新するといいかも
@@ -88,8 +93,11 @@ class FLClient:
         
 
     def _send_request(self, payload: dict, port):
+        payload['client_id'] = self.client_id
+
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect(('global', port))
+            print(s.getsockname()[0], flush=True)
+            s.connect((GLOBAL_HOSTNAME, port))
             send_all(pickle.dumps(payload), s)
 
             return pickle.loads(recv_all(s))

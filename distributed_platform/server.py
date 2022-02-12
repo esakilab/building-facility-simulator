@@ -31,6 +31,8 @@ class FLServer:
     def run(self):
         threading.Thread(target=self.selection_phase).start()
 
+        print("Started the Global Server!", flush=True)
+
         while True:
             time.sleep(0.1)
             if self.selected_client_queue.qsize() < self.round_client_num:
@@ -46,7 +48,7 @@ class FLServer:
                 
             req = pickle.loads(recv_all(connection))
 
-            print(f"[SELECTOR] Selected {client[0]} for the next round.", flush=True)
+            print(f"[SELECTOR] Selected {self._to_client_str(req['client_id'], client)} for the next round.", flush=True)
             self.selected_client_queue.put((connection, client, req))
     
 
@@ -55,19 +57,22 @@ class FLServer:
 
         for _ in range(self.round_client_num):
             # 現状reqはは使っていない
-            conn, client, _ = self.selected_client_queue.get()
-            
-            print(f"Sending global model to {client[0]}...", flush=True)
+            conn, client, req = self.selected_client_queue.get()
 
-            if client[0] not in self.client_writer_dict:
-                resp =  {
-                    'model': self.global_model,
-                    'simulator': self._init_client(client),
-                }
-            else:
-                resp = {
-                    'model': self.global_model,
-                }
+            client_id = req['client_id']
+
+            resp = {
+                'model': self.global_model,
+            }
+
+            if client_id == None:
+                client_id, bfs = self._init_client(client)
+                resp.update({
+                    'client_id': client_id,
+                    'simulator': bfs
+                })
+            
+            print(f"Sending global model to {self._to_client_str(client_id, client)}...", flush=True)
             
             send_all(pickle.dumps(resp), conn)
     
@@ -85,11 +90,13 @@ class FLServer:
                 
             req = pickle.loads(recv_all(connection))
 
-            print(f"Got report from {client[0]}.", flush=True)
+            client_id = req['client_id']
+
+            print(f"Got report from {self._to_client_str(client_id, client)}.", flush=True)
 
             for step, state, reward, temp, mode in \
                     zip(req['steps'], req['states'], req['rewards'], req['temps'], req['modes']):
-                write_to_tensorboard(self.client_writer_dict[client[0]], step, state, reward, temp, mode)
+                write_to_tensorboard(self.client_writer_dict[client_id], step, state, reward, temp, mode)
             
             connections.append(connection)
             models.append(req["model"])
@@ -103,9 +110,17 @@ class FLServer:
     
 
     def _init_client(self, client):
-        config_path = f"./input_xmls/BFS_{len(self.client_writer_dict):02}.xml"
-        self.client_writer_dict[client[0]] = SummaryWriter(log_dir=f"./logs/fl-with-platform/{client[0]}")
+        client_id = len(self.client_writer_dict)
+        config_path = f"./input_xmls/BFS_{client_id:02}.xml"
+        self.client_writer_dict[client_id] = SummaryWriter(log_dir=f"./logs/distributed-platform-on-cluster/{client_id}")
 
-        print(f"- Initialized simulator for {client[0]} using {config_path}.", flush=True)
+        print(f"- Initialized simulator for {self._to_client_str(client_id, client)} using {config_path}.", flush=True)
 
-        return BuildingFacilitySimulator(cfg_path=config_path)
+        return client_id, BuildingFacilitySimulator(cfg_path=config_path)
+
+    
+    def _to_client_str(self, client_id, client):
+        if client_id != None:
+            return f"client{client_id}({client[0]})"
+        else:
+            return f"new_client({client[0]})"
