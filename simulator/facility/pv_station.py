@@ -2,13 +2,13 @@ from dataclasses import dataclass
 from typing import Type
 from xml.etree.ElementTree import Element
 
-from simulator.environment import AreaEnvironment, ExternalEnvironment
-from simulator.facility.facility_base import Facility, FacilityEffect, T
-from simulator.io import FacilityState
+from simulator.environment import ExternalEnvironment
+from simulator.facility.facility_base import EmptyFacilityAction, EmptyFacilityState, Facility, FacilityEffect, T, FacilityState
 
 @dataclass
 class PVStation(Facility):
     TYPE_STR = "PV"
+    ACTION_TYPE = EmptyFacilityAction
 
     # static settings
     max_power: float = 0 # [kW]
@@ -21,8 +21,8 @@ class PVStation(Facility):
         return (self.get_state(), effect)
 
 
-    def get_state(self) -> FacilityState:
-        return FacilityState.empty()
+    def get_state(self) -> EmptyFacilityState:
+        return EmptyFacilityState()
     
 
     @classmethod

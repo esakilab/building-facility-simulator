@@ -1,11 +1,12 @@
+from __future__ import annotations
 from dataclasses import dataclass
 import enum
 from typing import Type
 from xml.etree.ElementTree import Element
 
-from simulator.environment import AreaEnvironment, ExternalEnvironment
-from simulator.facility.facility_base import Facility, FacilityEffect, FacilityState, T
-from simulator.io import FacilityAction
+import numpy as np
+
+from simulator.facility.facility_base import Facility, FacilityAction, FacilityEffect, FacilityState, T
 
 
 class ESMode(enum.Enum):
@@ -13,15 +14,39 @@ class ESMode(enum.Enum):
     Charge = "charge"
     Discharge = "discharge"
 
+    def from_int(src: int) -> ESMode:
+        if src > 1 / 3:
+            return ESMode.Charge
+        elif src > -1 / 3:
+            return ESMode.Standby
+        else:
+            return ESMode.Discharge
+
 
 @dataclass
 class ESState(FacilityState):
     charge_ratio: float
 
 
+    def to_ndarray(self) -> np.ndarray:
+        return np.array([self.charge_ratio])
+
+
+@dataclass
+class ESAction(FacilityAction):
+    NDARRAY_SHAPE = (1,)
+
+    mode: ESMode
+
+    @classmethod
+    def from_ndarray(cls, src: np.ndarray) -> ESAction:
+        return cls(mode=ESMode.from_int(int(src[0])))
+
+
 @dataclass
 class ElectricStorage(Facility):
     TYPE_STR = "ES"
+    ACTION_TYPE = ESAction
 
     # static settings
     charge_power: float = 0 # [kW]
@@ -35,11 +60,11 @@ class ElectricStorage(Facility):
     mode: ESMode = ESMode.Standby
 
 
-    def update_setting(self, action: FacilityAction):
-        self.mode = ESMode(action.get("mode", self.mode.value))
+    def update_setting(self, action: ESAction):
+        self.mode = action.mode
 
 
-    def update(self, action: FacilityAction, **_) -> tuple[ESState, FacilityEffect]:
+    def update(self, action: ESAction, **_) -> tuple[ESState, FacilityEffect]:
         self.update_setting(action)
 
         if self.mode == ESMode.Charge and self.charge_ratio < 0.98:
