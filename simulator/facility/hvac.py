@@ -92,7 +92,7 @@ class HVACAction(FacilityAction):
     @classmethod
     def from_ndarray(cls, src: np.ndarray) -> HVACAction:
         return cls(
-            status=(src[0] > 1.), 
+            status=(src[0] > 0.), 
             set_temperature=int(src[1] * 7.5 + 22.5)
         )
 
