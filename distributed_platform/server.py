@@ -13,7 +13,7 @@ from rl.sac import SAC
 
 class FLServer:
     # TODO: 時刻（ステップ数）の管理
-    def __init__(self, start_time, steps_per_round, round_client_num, initial_model, model_aggregation):
+    def __init__(self, start_time, steps_per_round, round_client_num, model_aggregation):
         self.cur_time = start_time
         self.steps_per_round = steps_per_round
         self.round_client_num = round_client_num
@@ -21,7 +21,7 @@ class FLServer:
 
         self.client_writer_dict = dict()
         self.selected_client_queue = Queue()
-        self.global_model = initial_model
+        self.global_model = None
 
         self.selection_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.selection_socket.bind(('0.0.0.0', SELECTION_PORT))
@@ -80,8 +80,13 @@ class FLServer:
                 client_id, bfs = self._init_client(client)
                 resp.update({
                     'client_id': client_id,
-                    'simulator': bfs
+                    'simulator': bfs,
+                    # TODO: ここも設定できるようにする
+                    'model': SAC(state_shape=bfs.get_state_shape(), action_shape=bfs.get_action_shape(), device="cpu"),
                 })
+                
+                if self.global_model is None:
+                    self.global_model = resp['model']
             
             print(f"Sending global model to {self._to_client_str(client_id, client)}...", flush=True)
             
