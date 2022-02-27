@@ -6,15 +6,14 @@ from torch.utils.tensorboard import SummaryWriter
 
 from simulator.bfs import BFSList, BuildingFacilitySimulator
 from rl import sac
-from simulator.building import BuildingAction
-from simulator.io.reward import Reward
+from simulator.building import BuildingAction, BuildingState
 
 
-def write_to_tensorboard(bfs: BuildingFacilitySimulator, action_arr: np.ndarray, reward: Reward):
+def write_to_tensorboard(bfs: BuildingFacilitySimulator, action_arr: np.ndarray, reward: float):
     state = bfs.get_state()
     action = BuildingAction.from_ndarray(action_arr, bfs.areas)
         
-    writer.add_scalar("reward", reward.metric1, bfs.cur_steps)
+    writer.add_scalar("reward", reward, bfs.cur_steps)
 
     writer.add_scalar("set_temperature_area1", action.areas[1].facilities[0].set_temperature, bfs.cur_steps)
     writer.add_scalar("set_temperature_area2", action.areas[2].facilities[0].set_temperature, bfs.cur_steps)
@@ -32,9 +31,30 @@ def write_to_tensorboard(bfs: BuildingFacilitySimulator, action_arr: np.ndarray,
     writer.add_scalar('charge_ratio', state.areas[4].facilities[0].charge_ratio, bfs_list[0].cur_steps)
 
 
+def calc_reward(state: BuildingState, action: BuildingAction) -> np.ndarray:
+    LAMBDA1 = 0.2
+    LAMBDA2 = 0.1
+    LAMBDA3 = 0.01
+    LAMBDA4 = 20
+    T_MAX = 30
+    T_MIN = 20
+    T_TARGET = 25
+
+    # area_temp = np.array([area.temperature for area in state.areas])
+    area_temp = state.areas[1].temperature
+    
+    reward = np.exp(-LAMBDA1 * (area_temp - T_TARGET) ** 2).sum()
+    reward += - LAMBDA2 * (np.where((T_MIN - area_temp) < 0, 0, (T_MIN - area_temp)).sum())
+    reward += - LAMBDA2 * (np.where((area_temp - T_MAX) < 0, 0, (area_temp - T_MAX)).sum())
+    reward += - LAMBDA3 * state.electric_price_unit * state.power_balance
+    reward += LAMBDA4 * state.areas[4].facilities[0].charge_ratio
+
+    return np.array([reward])
+
+
 if __name__ == "__main__":
     writer = SummaryWriter(log_dir="./logs/3federated_only_area1")
-    bfs_list = BFSList('./input_xmls', 3)
+    bfs_list = BFSList(calc_reward, './input_xmls', 3)
 
     Agents = [sac.SAC(state_shape=bfs_list[i].get_state_shape(),
                       action_shape=bfs_list[i].get_action_shape(), 
@@ -56,13 +76,11 @@ if __name__ == "__main__":
                 if bfs_list[i].has_finished():
                     continue
             
-                (next_state, reward_obj) = bfs_list[i].step(actions[i])
-
-                reward = reward_obj.metric1
+                (next_state, reward) = bfs_list[i].step(actions[i])
 
                 if bfs_list[i].cur_steps >= 1:
                     Agents[i].replay_buffer.add(
-                        states[i], actions[i], next_state, reward, done=False)
+                        states[i], actions[i], next_state, reward[0], done=False)
                 states[i] = next_state
 
                 if bfs_list[i].cur_steps == 0:
@@ -76,7 +94,7 @@ if __name__ == "__main__":
                 Agents[i].update()
 
                 if i == 0:
-                    write_to_tensorboard(bfs_list[i], actions[i], reward_obj)
+                    write_to_tensorboard(bfs_list[i], actions[i], reward[0])
                     
                     if bfs_list[i].cur_steps % 60 == 0:
                         bfs_list[i].print_cur_state()
