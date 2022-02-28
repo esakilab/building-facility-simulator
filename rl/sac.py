@@ -7,6 +7,7 @@ from time import time
 from abc import ABC, abstractmethod
 
 from rl import buffer
+from simulator.model_interface import RlModel
 
 
 def caluculate_log_pi(log_stds, noises, actions):
@@ -128,10 +129,9 @@ class Algorithm(ABC):
         pass
 
 
-class SAC(Algorithm):
+class SAC(Algorithm, RlModel):
     def __init__(self, state_shape, action_shape,  device,  seed=0,
                  batch_size=256, gamma=0.99, lr=3e-4, alpha=0.2, buff_size=10**4, start_steps=2*10**3, tau=5e-3, reward_scale=1.0):
-        super().__init__()
 
         np.random.seed(seed)
         torch.manual_seed(seed)
@@ -164,6 +164,7 @@ class SAC(Algorithm):
         self.tau = tau
         self.alpha = alpha
         self.reward_scale = reward_scale
+        self.action_shape: tuple[int] = action_shape
 
     def update(self):
         states, actions, next_states, rewards, dones = self.replay_buffer.sample_buffer(
@@ -201,3 +202,18 @@ class SAC(Algorithm):
         for t, s in zip(self.critic_target.parameters(), self.critic.parameters()):
             t.data.mul_(1.0 - self.tau)
             t.data.add_(self.tau * s.data)
+
+    """
+    Methods from the `RlModel` interface
+    """
+    def select_action(self, state: np.ndarray) -> np.ndarray:
+        if len(self.replay_buffer) > 0:
+            action, _ = self.choose_action(state)
+        else:
+            action = np.random.uniform(low=-1, high=1, size=self.action_shape)
+
+        return action
+
+    def add_to_buffer(self, state: np.ndarray, action: np.ndarray, next_state: np.ndarray, reward: np.ndarray):
+        self.replay_buffer.add(state, action, next_state, reward, done=False)
+        self.update()
