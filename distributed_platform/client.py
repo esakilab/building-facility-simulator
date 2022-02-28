@@ -1,6 +1,7 @@
 import socket
 import pickle
 import time
+from typing import Any, Optional
 
 import numpy as np
 
@@ -9,7 +10,7 @@ from simulator.bfs import BuildingFacilitySimulator
 
 class FLClient:
     def __init__(self):
-        self.client_id = None
+        self.client_id: Optional[str] = None
 
     def run(self):
         time.sleep(1)
@@ -59,16 +60,15 @@ class FLClient:
             self, 
             bfs: BuildingFacilitySimulator, 
             action_arr: np.ndarray, 
-            reporting_req: dict, 
-            train_model: bool = True):
+            reporting_req: dict[str, Any], 
+            train_model: bool = True) -> np.ndarray:
 
         (state_arr, reward) = bfs.step(action_arr)
-        reward_val = reward.metric1
 
         if bfs.cur_steps == 0:
             return action_arr
         elif train_model:
-            reporting_req['model'].replay_buffer.add(state_arr, action_arr, state_arr, reward_val, done=False)
+            reporting_req['model'].replay_buffer.add(state_arr, action_arr, state_arr, reward[0], done=False)
 
         action_arr, _ = reporting_req['model'].choose_action(state_arr)
 
@@ -85,7 +85,7 @@ class FLClient:
         return action_arr
         
 
-    def _send_request(self, payload: dict, port):
+    def _send_request(self, payload: dict[str, Any], port) -> dict[str, Any]:
         payload['client_id'] = self.client_id
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:

@@ -1,33 +1,42 @@
-from datetime import timedelta
+from __future__ import annotations
+from datetime import datetime, timedelta
 import socket
 import pickle
 import threading
 from queue import Queue
 import time
+from typing import Callable, Optional, TypeVar
 
 from torch.utils.tensorboard import SummaryWriter
 
-from distributed_platform.utils import SELECTION_PORT, REPORTING_PORT, recv_all, send_all, write_to_tensorboard
+from distributed_platform.utils import SELECTION_PORT, REPORTING_PORT, calc_reward, recv_all, send_all, write_to_tensorboard
 from simulator.bfs import BuildingFacilitySimulator
 from rl.sac import SAC
 
+T = TypeVar('T')
+
 class FLServer:
-    # TODO: 時刻（ステップ数）の管理
-    def __init__(self, start_time, steps_per_round, round_client_num, model_aggregation):
-        self.cur_time = start_time
-        self.steps_per_round = steps_per_round
-        self.round_client_num = round_client_num
-        self.model_aggregation = model_aggregation
+    def __init__(
+            self, 
+            start_time: datetime, 
+            steps_per_round: int, 
+            round_client_num: int, 
+            model_aggregation: Callable[[list[T]], T]):
 
-        self.client_writer_dict = dict()
-        self.selected_client_queue = Queue()
-        self.global_model = None
+        self.cur_time: datetime = start_time
+        self.steps_per_round: int = steps_per_round
+        self.round_client_num: int = round_client_num
+        self.model_aggregation: Callable[[list[T]], T] = model_aggregation
 
-        self.selection_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.client_writer_dict: dict[str, SummaryWriter] = dict()
+        self.selected_client_queue: Queue[tuple[socket.socket, socket._RetAddress, dict]] = Queue()
+        self.global_model: Optional[T] = None
+
+        self.selection_socket: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.selection_socket.bind(('0.0.0.0', SELECTION_PORT))
         self.selection_socket.listen()
 
-        self.reporting_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.reporting_socket: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.reporting_socket.bind(('0.0.0.0', REPORTING_PORT))
         self.reporting_socket.listen()
 
@@ -127,17 +136,17 @@ class FLServer:
             conn.close()
     
 
-    def _init_client(self, client):
+    def _init_client(self, client: socket._RetAddress) -> tuple[str, BuildingFacilitySimulator]:
         client_id = len(self.client_writer_dict)
         config_path = f"./input_xmls/BFS_{client_id:02}.xml"
         self.client_writer_dict[client_id] = SummaryWriter(log_dir=f"./logs/distributed-platform-on-cluster/{client_id}")
 
         print(f"- Initialized simulator for {self._to_client_str(client_id, client)} using {config_path}.", flush=True)
 
-        return client_id, BuildingFacilitySimulator(cfg_path=config_path)
+        return client_id, BuildingFacilitySimulator(cfg_path=config_path, calc_reward=calc_reward)
 
     
-    def _to_client_str(self, client_id, client):
+    def _to_client_str(self, client_id: str, client: socket._RetAddress) -> str:
         if client_id != None:
             return f"client{client_id}({client[0]})"
         else:

@@ -1,6 +1,8 @@
 import os
 import numpy as np
 
+from simulator.building import BuildingAction, BuildingState
+
 GLOBAL_HOSTNAME = os.environ.get("GLOBAL_HOSTNAME", 'global')
 BUFF_SIZE = 65536
 SELECTION_PORT = 11113
@@ -41,9 +43,9 @@ def action_to_ES(action):
     return mode
 
 
-def write_to_tensorboard(writer, step, state_obj, reward_obj, temp, mode):
+def write_to_tensorboard(writer, step, state_obj, reward_arr, temp, mode):
         
-    writer.add_scalar("reward", reward_obj.metric1, step)
+    writer.add_scalar("reward", reward_arr[0], step)
 
     writer.add_scalar("set_temperature_area1", temp[0], step)
     writer.add_scalar("set_temperature_area2", temp[1], step)
@@ -63,3 +65,24 @@ def write_to_tensorboard(writer, step, state_obj, reward_obj, temp, mode):
     # writer.add_scalar('charge_mode_per_price', price, mode_)
     writer.add_scalar('charge_mode_per_time', mode_dict[mode], step)
     writer.add_scalar('charge_ratio', state_obj.areas[4].facilities[0].charge_ratio, step)
+
+
+def calc_reward(state: BuildingState, action: BuildingAction) -> np.ndarray:
+    LAMBDA1 = 0.2
+    LAMBDA2 = 0.1
+    LAMBDA3 = 0.01
+    LAMBDA4 = 20
+    T_MAX = 30
+    T_MIN = 20
+    T_TARGET = 25
+
+    area_temp = np.array([area.temperature for area in state.areas])
+    # area_temp = state.areas[1].temperature
+    
+    reward = np.exp(-LAMBDA1 * (area_temp - T_TARGET) ** 2).sum()
+    reward += - LAMBDA2 * (np.where((T_MIN - area_temp) < 0, 0, (T_MIN - area_temp)).sum())
+    reward += - LAMBDA2 * (np.where((area_temp - T_MAX) < 0, 0, (area_temp - T_MAX)).sum())
+    reward += - LAMBDA3 * state.electric_price_unit * state.power_balance
+    reward += LAMBDA4 * state.areas[4].facilities[0].charge_ratio
+
+    return np.array([reward])
