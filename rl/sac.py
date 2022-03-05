@@ -7,7 +7,7 @@ from time import time
 from abc import ABC, abstractmethod
 
 from rl import buffer
-from simulator.model_interface import RlModel
+from simulator.interfaces.model import RlModel
 
 
 def caluculate_log_pi(log_stds, noises, actions):

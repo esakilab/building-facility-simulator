@@ -11,7 +11,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 from distributed_platform.utils import SELECTION_PORT, REPORTING_PORT, calc_reward, recv_all, send_all, write_to_tensorboard
 from simulator.bfs import BuildingFacilitySimulator
-from simulator.model_interface import RlModel
+from simulator.interfaces.model import RlModel
 
 M = TypeVar('M', bound=RlModel)
 

@@ -11,7 +11,7 @@ import numpy as np
 from simulator.area import Area
 from simulator.building import BuildingAction, BuildingState
 from simulator.environment import AreaEnvironment, ExternalEnvironment
-from simulator.model_interface import RlModel
+from simulator.interfaces.model import RlModel
 
 
 class BuildingFacilitySimulator:
