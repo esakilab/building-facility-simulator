@@ -91,5 +91,5 @@ class ElectricStorage(Facility):
         return ESState(charge_ratio=self.charge_ratio)
 
 
-    def __repr__(self) -> str:
+    def __str__(self) -> str:
         return f"ES(charge_ratio={self.charge_ratio:.3f}, mode={self.mode})"

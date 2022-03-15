@@ -11,6 +11,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 from distributed_platform.utils import SELECTION_PORT, REPORTING_PORT, calc_reward, recv_all, send_all, write_to_tensorboard
 from simulator.bfs import BuildingFacilitySimulator
+from simulator.interfaces.config import SimulatorConfig
 from simulator.interfaces.model import RlModel
 
 M = TypeVar('M', bound=RlModel)
@@ -144,12 +145,15 @@ class FLServer():
 
     def _init_client(self, client: socket._RetAddress) -> tuple[str, BuildingFacilitySimulator]:
         client_id = len(self.client_writer_dict)
-        config_path = f"./input_xmls/BFS_{client_id:02}.xml"
+        config_path = f"./data/json/BFS_{client_id:02}/simulator_config.json"
         self.client_writer_dict[client_id] = SummaryWriter(log_dir=f"./logs/distributed-platform-on-cluster/{client_id}")
 
         print(f"- Initialized simulator for {self._to_client_str(client_id, client)} using {config_path}.", flush=True)
 
-        return client_id, BuildingFacilitySimulator(cfg_path=config_path, calc_reward=calc_reward)
+        return client_id, BuildingFacilitySimulator(
+            config=SimulatorConfig.parse_file(config_path), 
+            calc_reward=calc_reward
+        )
 
     
     def _to_client_str(self, client_id: str, client: socket._RetAddress) -> str:

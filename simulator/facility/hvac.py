@@ -160,5 +160,5 @@ class HVAC(Facility):
     def get_state(self) -> EmptyFacilityState:
         return EmptyFacilityState()
 
-    # def __repr__(self) -> str:
-    #     return f"HVAC(mode={self.state.mode}, stand_by={self.state.stand_by}, temp_setting={self.set_temperature:.1f})"
+    def __str__(self) -> str:
+        return f"HVAC(mode={self.state.mode}, stand_by={self.state.stand_by}, temp_setting={self.set_temperature:.1f})"

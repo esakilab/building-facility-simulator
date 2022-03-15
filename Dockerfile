@@ -5,7 +5,7 @@ RUN pip3 install numpy==1.21.0
 RUN pip3 install torch torchvision torchaudio tensorboard
 RUN pip3 install pydantic==1.9.0
 
-COPY ./input_xmls /work/input_xmls
+COPY ./data/json /work/data/json
 
 COPY ./simulator /work/simulator
 COPY ./rl /work/rl
