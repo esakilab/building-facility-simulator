@@ -156,31 +156,3 @@ class BuildingFacilitySimulator:
             result.area_envs[key] *= other
         
         return result
-
-
-# class BFSList(list[BuildingFacilitySimulator]):
-#     def __init__(self, 
-#             calc_reward: Callable[[BuildingState, BuildingAction], float],
-#             xml_dir_path: Optional[str] = None,
-#             load_xml_num: Optional[int] = None,
-#             xml_pathes: list[str] = []):
-        
-#         if xml_dir_path:
-#             xml_pathes.extend(glob.glob(os.path.join(xml_dir_path, '*.xml')))
-        
-#         if load_xml_num == None:
-#             load_xml_num = len(xml_pathes)
-        
-#         super().__init__()
-
-#         for xml_path in sorted(xml_pathes)[:load_xml_num]:
-#             print(f"Loading from {xml_path}")
-#             self.append(BuildingFacilitySimulator(xml_path, calc_reward))
-
-
-#     def step(self, actions: List[BuildingAction]) -> List[tuple[BuildingState, float]]:
-#         assert len(actions) == len(self), "len(actions) must be as same as the number of buildings"
-
-#         return [
-#             bfs.step(action) for action, bfs in zip(actions, self)
-#         ]

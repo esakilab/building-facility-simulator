@@ -1,8 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractclassmethod, abstractmethod
 from dataclasses import dataclass
-from typing import ClassVar, NamedTuple, Type, TypeVar
-from xml.etree.ElementTree import Element
+from typing import NamedTuple, Type, TypeVar
 
 import numpy as np
 from pydantic import BaseModel
@@ -45,16 +44,6 @@ class Facility(ABC, BaseModel):
         """
         
         raise NotImplementedError()
-
-    @classmethod
-    @abstractmethod
-    def from_xml_element(cls: Type[T], elem: Element) -> T:
-        child_params = filter(lambda child: child.tag == 'parameter', elem)
-
-        return cls(
-            params=dict((param.attrib['name'], param.attrib['value']) for param in child_params)
-        )
-
 
     @property
     @classmethod

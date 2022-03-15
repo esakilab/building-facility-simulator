@@ -2,10 +2,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 import enum
 from typing import Type
-from xml.etree.ElementTree import Element
 
 import numpy as np
-from pydantic import BaseModel
 
 from simulator.facility.facility_base import Facility, FacilityAction, FacilityEffect, FacilityState, T
 from simulator.facility.factory import FacilityFactory
@@ -91,17 +89,6 @@ class ElectricStorage(Facility):
 
     def get_state(self) -> FacilityState:
         return ESState(charge_ratio=self.charge_ratio)
-    
-    
-    @classmethod
-    def from_xml_element(cls: Type[T], elem: Element) -> T:
-        facility = super(ElectricStorage, cls).from_xml_element(elem)
-
-        facility.charge_power = float(facility.params['charge-power'])
-        facility.discharge_power = float(facility.params['discharge-power'])
-        facility.capacity = float(facility.params['capacity'])
-
-        return facility
 
 
     def __repr__(self) -> str:

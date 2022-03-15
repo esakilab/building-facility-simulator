@@ -1,11 +1,9 @@
 from __future__ import annotations
 from dataclasses import dataclass
 import enum
-from typing import ClassVar, Type
-from xml.etree.ElementTree import Element
+from typing import ClassVar
 
 import numpy as np
-from pydantic import BaseModel
 
 from simulator.environment import ExternalEnvironment
 from simulator.facility.facility_base import EmptyFacilityState, Facility, FacilityAction, FacilityEffect, T, FacilityState
@@ -161,19 +159,6 @@ class HVAC(Facility):
 
     def get_state(self) -> EmptyFacilityState:
         return EmptyFacilityState()
-
-    
-    @classmethod
-    def from_xml_element(cls: Type[T], elem: Element) -> T:
-        facility = super(HVAC, cls).from_xml_element(elem)
-
-        facility.cool_max_power = float(facility.params['cool-max-power'])
-        facility.heat_max_power = float(facility.params['heat-max-power'])
-        facility.cool_cop = float(facility.params['cool-cop'])
-        facility.heat_cop = float(facility.params['heat-cop'])
-        facility.state = HVACStateInternal()
-
-        return facility
 
     # def __repr__(self) -> str:
     #     return f"HVAC(mode={self.state.mode}, stand_by={self.state.stand_by}, temp_setting={self.set_temperature:.1f})"
