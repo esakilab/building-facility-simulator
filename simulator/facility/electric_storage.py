@@ -5,8 +5,10 @@ from typing import Type
 from xml.etree.ElementTree import Element
 
 import numpy as np
+from pydantic import BaseModel
 
 from simulator.facility.facility_base import Facility, FacilityAction, FacilityEffect, FacilityState, T
+from simulator.facility.factory import FacilityFactory
 
 
 class ESMode(enum.Enum):
@@ -43,15 +45,14 @@ class ESAction(FacilityAction):
         return cls(mode=ESMode.from_int(int(src[0])))
 
 
-@dataclass
+@FacilityFactory.register("ES")
 class ElectricStorage(Facility):
-    TYPE_STR = "ES"
     ACTION_TYPE = ESAction
 
     # static settings
-    charge_power: float = 0 # [kW]
-    discharge_power: float = 0 # [kW]
-    capacity: float = 0 # [kWh]
+    charge_power: float # [kW]
+    discharge_power: float # [kW]
+    capacity: float # [kWh]
     
     # internal state
     charge_ratio: float = 0

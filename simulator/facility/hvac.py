@@ -1,13 +1,15 @@
 from __future__ import annotations
 from dataclasses import dataclass
 import enum
-from typing import Type
+from typing import ClassVar, Type
 from xml.etree.ElementTree import Element
 
 import numpy as np
+from pydantic import BaseModel
 
 from simulator.environment import ExternalEnvironment
 from simulator.facility.facility_base import EmptyFacilityState, Facility, FacilityAction, FacilityEffect, T, FacilityState
+from simulator.facility.factory import FacilityFactory
 
 
 class HVACMode(enum.Enum):
@@ -97,18 +99,17 @@ class HVACAction(FacilityAction):
         )
 
 
-@dataclass
+@FacilityFactory.register("HVAC")
 class HVAC(Facility):
-    TYPE_STR = "HVAC"
     ACTION_TYPE = HVACAction
 
-    EFFICIENCY_THRESH_TEMPERATURE = 10
+    EFFICIENCY_THRESH_TEMPERATURE: ClassVar[int] = 10
 
     # static settings
-    cool_max_power: float = 0 # [kW]
-    heat_max_power: float = 0 # [kW]
-    cool_cop: float = 0 # []
-    heat_cop: float = 0 # []
+    cool_max_power: float # [kW]
+    heat_max_power: float # [kW]
+    cool_cop: float # []
+    heat_cop: float # []
     
     # internal state
     state: HVACStateInternal = HVACStateInternal()
@@ -174,5 +175,5 @@ class HVAC(Facility):
 
         return facility
 
-    def __repr__(self) -> str:
-        return f"HVAC(mode={self.state.mode}, stand_by={self.state.stand_by}, temp_setting={self.set_temperature:.1f})"
+    # def __repr__(self) -> str:
+    #     return f"HVAC(mode={self.state.mode}, stand_by={self.state.stand_by}, temp_setting={self.set_temperature:.1f})"

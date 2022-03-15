@@ -1,17 +1,17 @@
-from dataclasses import dataclass
 from typing import Type
 from xml.etree.ElementTree import Element
 
 from simulator.environment import ExternalEnvironment
 from simulator.facility.facility_base import EmptyFacilityAction, EmptyFacilityState, Facility, FacilityEffect, T, FacilityState
+from simulator.facility.factory import FacilityFactory
 
-@dataclass
+
+@FacilityFactory.register("PV")
 class PVStation(Facility):
-    TYPE_STR = "PV"
     ACTION_TYPE = EmptyFacilityAction
 
     # static settings
-    max_power: float = 0 # [kW]
+    max_power: float # [kW]
 
     def update(self, ext_env: ExternalEnvironment, **_) -> tuple[FacilityState, FacilityEffect]:
         effect = FacilityEffect(
