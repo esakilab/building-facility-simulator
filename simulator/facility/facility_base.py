@@ -1,10 +1,11 @@
 from __future__ import annotations
 from abc import ABC, abstractclassmethod, abstractmethod
 from dataclasses import dataclass
-from typing import NamedTuple, Type, TypeVar
+from typing import ClassVar, NamedTuple, Type, TypeVar
 from xml.etree.ElementTree import Element
 
 import numpy as np
+from pydantic import BaseModel
 
 from simulator.environment import AreaEnvironment, ExternalEnvironment
 
@@ -19,12 +20,9 @@ class FacilityEffect(NamedTuple):
 
 T = TypeVar('T', bound='Facility')
 
-@dataclass
-class Facility(ABC):
+class Facility(ABC, BaseModel):
     """設備を表す抽象クラス
     """
-    
-    params: dict[str, str]
 
     @abstractmethod
     def update(
@@ -51,21 +49,11 @@ class Facility(ABC):
     @classmethod
     @abstractmethod
     def from_xml_element(cls: Type[T], elem: Element) -> T:
-        assert elem.tag == "facility" and elem.attrib['type'] == cls.TYPE_STR, \
-            f"invalid element for {cls}"
-
         child_params = filter(lambda child: child.tag == 'parameter', elem)
 
         return cls(
             params=dict((param.attrib['name'], param.attrib['value']) for param in child_params)
         )
-
-
-    @property
-    @classmethod
-    @abstractmethod
-    def TYPE_STR(cls) -> str:
-        raise NotImplementedError()
 
 
     @property

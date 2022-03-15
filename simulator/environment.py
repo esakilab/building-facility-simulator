@@ -1,19 +1,21 @@
 from typing import NamedTuple, Type, TypeVar
 from xml.etree.ElementTree import Element
 
+from pydantic import BaseModel
 
-T = TypeVar('T', bound='NamedTuple')
 
-class ExternalEnvironment(NamedTuple):
+E = TypeVar('E', bound='ExternalEnvironment')
+
+class ExternalEnvironment(BaseModel):
     """2.4節(a) '全体の環境変数' を表すオブジェクト
     """
 
     solar_radiation:     float # [W/m^2]
     temperature:         float # [℃]
     electric_price_unit: float # [¥/kWh]
-
+    
     @classmethod
-    def from_xml_element(cls: Type[T], elem: Element) -> T:
+    def from_xml_element(cls: Type[E], elem: Element) -> E:
         assert elem.tag == "value", f"invalid element for {cls}"
 
         return cls(
@@ -23,7 +25,9 @@ class ExternalEnvironment(NamedTuple):
         )
 
 
-class AreaEnvironment(NamedTuple):
+A = TypeVar('A', bound='AreaEnvironment')
+
+class AreaEnvironment(BaseModel):
     """2.4節(b) '各エリアごとの環境変数' を表すオブジェクト
     """
 
@@ -37,7 +41,7 @@ class AreaEnvironment(NamedTuple):
 
 
     @classmethod
-    def from_xml_element(cls: Type[T], elem: Element) -> T:
+    def from_xml_element(cls: Type[A], elem: Element) -> A:
         assert elem.tag == "value", f"invalid element for {cls}"
 
         return cls(
@@ -46,7 +50,7 @@ class AreaEnvironment(NamedTuple):
         )
     
     @classmethod
-    def empty(cls: Type[T]) -> T:
+    def empty(cls: Type[A]) -> A:
 
         return cls(
             people=0,
