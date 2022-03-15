@@ -120,16 +120,22 @@ class AreaState(NamedTuple):
 
 
 @dataclass
-class AreaAction():
+class AreaAction:
     facilities: list[FacilityActionFactory]
+    consumed_ndarray_len: int
 
     def from_ndarray(src: np.ndarray, facilities: list[Facility]) -> AreaAction:
         facility_actions = []
+        cursor = 0
         for facility in facilities:
-            cut = src[:facility.ACTION_TYPE.NDARRAY_SHAPE[0]]
-            src = src[facility.ACTION_TYPE.NDARRAY_SHAPE[0]:]
+            next_cursor = cursor + facility.ACTION_TYPE.NDARRAY_SHAPE[0]
+            cut = src[cursor:next_cursor]
+            cursor = next_cursor
 
             facility_actions.append(
                 FacilityActionFactory.create_facility_action(cut, facility))
         
-        return AreaAction(facilities=facility_actions)
+        return AreaAction(
+            facilities=facility_actions,
+            consumed_ndarray_len=cursor
+        )
