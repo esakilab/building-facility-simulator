@@ -23,6 +23,7 @@ class FLServer():
             self, 
             ModelClass: Type[M],
             start_time: datetime, 
+            total_steps: int, 
             steps_per_round: int, 
             round_client_num: int, 
             model_aggregation: Callable[[list[M]], M],
@@ -32,6 +33,7 @@ class FLServer():
         self.model_constructor_kwargs: dict[str, Any] = model_constructor_kwargs
 
         self.cur_time: datetime = start_time
+        self.end_time: datetime = start_time + timedelta(minutes=total_steps)
         self.steps_per_round: int = steps_per_round
         self.round_client_num: int = round_client_num
         self.model_aggregation: Callable[[list[M]], M] = model_aggregation
@@ -48,25 +50,28 @@ class FLServer():
         self.reporting_socket.bind(('0.0.0.0', REPORTING_PORT))
         self.reporting_socket.listen()
 
+        self.experiment_dt: datetime = datetime.now()
+
 
     def run(self):
-        threading.Thread(target=self.selection_phase).start()
+        threading.Thread(target=self.selection_phase, daemon=True).start()
 
         print("Started the Global Server!", flush=True)
 
-        while True:
+        while self.cur_time < self.end_time:
             time.sleep(0.1)
             if self.selected_client_queue.qsize() < self.round_client_num:
+                print(f"Queue size: {self.selected_client_queue.qsize()})", end='\r')
                 continue
 
-            print(f"\n\nSTART NEW ROUND (time: {self.cur_time})\n", flush=True)
+            print(f"\n\nSTART NEW ROUND (time: {self.cur_time}, qsize: {self.selected_client_queue.qsize()})\n", flush=True)
 
             self.configuration_phase()
             self.reporting_phase()
 
 
     def selection_phase(self):
-        while True:
+        while self.cur_time < self.end_time:
             (connection, client) = self.selection_socket.accept()
                 
             req = pickle.loads(recv_all(connection))
@@ -145,8 +150,9 @@ class FLServer():
 
     def _init_client(self, client: socket._RetAddress) -> tuple[str, BuildingFacilitySimulator]:
         client_id = len(self.client_writer_dict)
-        config_path = f"./data/json/BFS_{client_id:02}/simulator_config.json"
-        self.client_writer_dict[client_id] = SummaryWriter(log_dir=f"./logs/distributed-platform-on-cluster/{client_id}")
+        config_path = f"./data/json/BFS_{(client_id%100):02}/simulator_config.json"
+        self.client_writer_dict[client_id] = \
+            SummaryWriter(log_dir=f"./logs/distributed-platform-on-cluster/{self.experiment_dt}/{client_id}")
 
         print(f"- Initialized simulator for {self._to_client_str(client_id, client)} using {config_path}.", flush=True)
 
