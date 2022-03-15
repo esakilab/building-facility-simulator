@@ -4,13 +4,13 @@ from datetime import timedelta, datetime
 from typing import Callable, List, Optional, Type, TypeVar
 import os
 import glob
-import xml.etree.ElementTree as ET
 
 import numpy as np
 
 from simulator.area import Area
 from simulator.building import BuildingAction, BuildingState
 from simulator.environment import AreaEnvironment, ExternalEnvironment
+from simulator.interfaces.config import AreaAttributes, SimulatorConfig
 from simulator.interfaces.model import RlModel
 
 
@@ -19,42 +19,17 @@ class BuildingFacilitySimulator:
     """
 
     # TODO: モデルが複数になると報酬が複数になりそう
-    def __init__(self, cfg_path: str, calc_reward: Callable[[BuildingState, BuildingAction], np.ndarray]):
-        self.cur_steps = 0
-        self.areas: list[Area] = []
-        self.ext_envs: list[ExternalEnvironment] = []
-        self.area_envs: dict[int, AreaEnvironment] = {}
+    def __init__(self, config: SimulatorConfig, calc_reward: Callable[[BuildingState, BuildingAction], np.ndarray]):
+        self.areas: list[Area] = list(map(AreaAttributes.to_area, config.building_attributes.areas))
+        self.ext_envs: list[ExternalEnvironment] = config.external_enviroment_time_series
+        self.area_envs: list[list[AreaEnvironment]] = \
+            list(map(lambda area: area.area_environment_time_series, config.building_attributes.areas))
+
         self.calc_reward: Callable[[BuildingState, BuildingAction], float] = calc_reward
         
-        root = ET.parse(cfg_path).getroot()
-        
-        assert root.tag == "BFS", "invalid BFS XML"
-
-        area_elems = filter(lambda elem: elem.tag == 'area', root)
-        area_env_elems = filter(lambda elem: elem.tag == 'area-environment', root)
-
-        for area_elem in sorted(area_elems, key=lambda elem: elem.attrib['id']):
-            assert int(area_elem.attrib['id']) == len(self.areas), \
-                "Area IDs must start from 0 and must be consecutive."
-
-            self.areas.append(Area.from_xml_element(area_elem))
-        
-        for area_env_elem in area_env_elems:
-            area_id = int(area_env_elem.attrib['area-id'])
-            self.area_envs[area_id] = [
-                AreaEnvironment.from_xml_element(child) for child in area_env_elem
-            ]
-        
-        ext_env_elem = next(filter(lambda elem: elem.tag == 'environment', root))
-
-        self.ext_envs = [
-            ExternalEnvironment.from_xml_element(child) for child in ext_env_elem
-        ]
-
-        # TODO: add `start_time` to the config file
-        self.start_time = datetime.strptime(ext_env_elem[0].attrib["time"], "%Y-%m-%d %H:%M")
-
-        self.total_steps = len(self.ext_envs)
+        self.start_time: datetime = config.start_time
+        self.cur_steps: int = 0
+        self.total_steps: int = min(len(self.ext_envs), *filter(None, map(len, self.area_envs)))
 
 
     M = TypeVar('M', bound=RlModel)
@@ -183,29 +158,29 @@ class BuildingFacilitySimulator:
         return result
 
 
-class BFSList(list[BuildingFacilitySimulator]):
-    def __init__(self, 
-            calc_reward: Callable[[BuildingState, BuildingAction], float],
-            xml_dir_path: Optional[str] = None,
-            load_xml_num: Optional[int] = None,
-            xml_pathes: list[str] = []):
+# class BFSList(list[BuildingFacilitySimulator]):
+#     def __init__(self, 
+#             calc_reward: Callable[[BuildingState, BuildingAction], float],
+#             xml_dir_path: Optional[str] = None,
+#             load_xml_num: Optional[int] = None,
+#             xml_pathes: list[str] = []):
         
-        if xml_dir_path:
-            xml_pathes.extend(glob.glob(os.path.join(xml_dir_path, '*.xml')))
+#         if xml_dir_path:
+#             xml_pathes.extend(glob.glob(os.path.join(xml_dir_path, '*.xml')))
         
-        if load_xml_num == None:
-            load_xml_num = len(xml_pathes)
+#         if load_xml_num == None:
+#             load_xml_num = len(xml_pathes)
         
-        super().__init__()
+#         super().__init__()
 
-        for xml_path in sorted(xml_pathes)[:load_xml_num]:
-            print(f"Loading from {xml_path}")
-            self.append(BuildingFacilitySimulator(xml_path, calc_reward))
+#         for xml_path in sorted(xml_pathes)[:load_xml_num]:
+#             print(f"Loading from {xml_path}")
+#             self.append(BuildingFacilitySimulator(xml_path, calc_reward))
 
 
-    def step(self, actions: List[BuildingAction]) -> List[tuple[BuildingState, float]]:
-        assert len(actions) == len(self), "len(actions) must be as same as the number of buildings"
+#     def step(self, actions: List[BuildingAction]) -> List[tuple[BuildingState, float]]:
+#         assert len(actions) == len(self), "len(actions) must be as same as the number of buildings"
 
-        return [
-            bfs.step(action) for action, bfs in zip(actions, self)
-        ]
+#         return [
+#             bfs.step(action) for action, bfs in zip(actions, self)
+#         ]

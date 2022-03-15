@@ -1,12 +1,11 @@
-from time import sleep
-import math
+import glob
 import numpy as np
-import torch
 from torch.utils.tensorboard import SummaryWriter
 
-from simulator.bfs import BFSList, BuildingFacilitySimulator
+from simulator.bfs import BuildingFacilitySimulator
 from rl import sac
 from simulator.building import BuildingAction, BuildingState
+from simulator.interfaces.config import SimulatorConfig
 
 
 def write_to_tensorboard(bfs: BuildingFacilitySimulator, action_arr: np.ndarray, reward: float):
@@ -54,7 +53,12 @@ def calc_reward(state: BuildingState, action: BuildingAction) -> np.ndarray:
 
 if __name__ == "__main__":
     writer = SummaryWriter(log_dir="./logs/3federated_only_area1")
-    bfs_list = BFSList(calc_reward, './input_xmls', 3)
+    bfs_list = [
+        BuildingFacilitySimulator(
+            config=SimulatorConfig.parse_file(json_path),
+            calc_reward=calc_reward,
+        ) for json_path in sorted(glob.glob("./data/json/BFS*/*.json"))[:3]
+    ]
 
     agents = [bfs.create_rl_model(sac.SAC, device='cpu') for bfs in bfs_list]
 
