@@ -51,16 +51,24 @@ def start_local_containers(host: str, scale: int=1):
 
 def stop_local_containers(host: str) -> list:
     cli = docker.DockerClient(base_url=f"ssh://{host}")
-    for container in cli.containers.list():
-        container.stop()
-    
-    print(f"Stopped all local containers on {host}", flush=True)
+    containers = cli.containers.list()
+    if len(containers) > 0:
+        print(f"Found {len(containers)} dangling local containers found on {host}.", flush=True)
+        print(f"Trying to stop them...", flush=True)
+        for container in cli.containers.list():
+            container.stop()
+        
+        print(f"Stopped all local containers on {host}", flush=True)
+    else:
+        print(f"No dangling local containers found on {host}", flush=True)
+
 
 
 def experiment(total_clients: int, nodes: int, log_file_path: Path):
     hosts = HOSTS[:nodes]
 
     with Pool() as p:
+        p.map(stop_local_containers, hosts)
         p.map(build_local_container, hosts)
 
     while True:
@@ -88,10 +96,7 @@ def experiment(total_clients: int, nodes: int, log_file_path: Path):
     with log_file_path.open('a') as f:
         f.write(f"{nodes}\t{elapsed_time}\n")
 
-    with Pool() as p:
-        p.map(stop_local_containers, hosts)
-
 
 if __name__ == "__main__":
-    for nodes in [16, 8, 4, 2, 1]:
+    for nodes in [4, 2, 1]: # [16, 8, 4, 2, 1]:
         experiment(128, nodes, Path(f"./experimental_logfiles/7days_4nodes_per_round.tsv"))
