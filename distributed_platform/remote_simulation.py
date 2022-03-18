@@ -1,7 +1,8 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Callable, NamedTuple, Optional
+from itertools import islice
+from typing import Callable, Iterator, NamedTuple, Optional
 
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -10,7 +11,7 @@ from distributed_platform.utils import action_to_ES, action_to_temp, write_to_te
 from simulator.area import Area
 from simulator.bfs import BuildingFacilitySimulator
 from simulator.building import BuildingAction, BuildingState
-from simulator.environment import AreaEnvironment, ExternalEnvironment
+from simulator.environment import AreaEnvironment, BuildingEnvironment, ExternalEnvironment
 from simulator.interfaces.config import BuildingAttributes, SimulatorConfig
 from simulator.interfaces.model import RlModel
 
@@ -23,8 +24,7 @@ class RemoteSimulatonManager:
             summary_dir: Optional[str]):
         bfs = BuildingFacilitySimulator(config=config, calc_reward=calc_reward)
 
-        self.area_envs: list[list[AreaEnvironment]] = bfs.area_envs
-        self.ext_envs: list[ExternalEnvironment] = bfs.ext_envs
+        self.env_iter: Iterator[BuildingEnvironment] = bfs.env_iter
         self.areas: list[Area] = bfs.areas
         self.start_dt: datetime = bfs.start_time
         self.current_dt: datetime = bfs.start_time
@@ -32,24 +32,14 @@ class RemoteSimulatonManager:
         self.summary_writer: Optional[SummaryWriter] = SummaryWriter(summary_dir) if summary_dir else None
 
     def create_agent(self, model: RlModel, train_start_dt: datetime, end_dt: datetime):
-        env_slice = slice(
-            int((self.current_dt - self.start_dt).total_seconds()) // 60,
-            int((end_dt - self.start_dt).total_seconds()) // 60
-        )
-        agent_config = SimulatorConfig(
-            start_time=self.current_dt,
-            building_attributes=BuildingAttributes(areas=[]),
-            external_enviroment_time_series=[]
-        )
-        bfs = BuildingFacilitySimulator(config=agent_config, calc_reward=self.calc_reward)
-        bfs.areas = self.areas
-        bfs.area_envs = [area_env_i[env_slice] for area_env_i in self.area_envs]
-        bfs.ext_envs = self.ext_envs[env_slice]
-        bfs.total_steps = env_slice.stop - env_slice.start
+        total_steps = int((end_dt - self.current_dt).total_seconds()) // 60
 
-        if len(bfs.ext_envs) == 0:
-            print(self.start_dt, self.current_dt, train_start_dt, end_dt, env_slice, len(self.ext_envs), flush=True)
-            assert False
+        bfs = BuildingFacilitySimulator._from_models(
+            areas=self.areas,
+            envs=list(islice(self.env_iter, total_steps)),
+            calc_reward=self.calc_reward,
+            start_time=self.current_dt
+        )
 
         return RemoteSimulaionAgent(bfs=bfs, model=model, train_start_dt=train_start_dt)
 
