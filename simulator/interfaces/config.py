@@ -1,19 +1,34 @@
+from __future__ import annotations
 from csv import DictReader
-from typing import Union
+from itertools import repeat
+from typing import Iterator, Iterator, Type, TypeVar, Union
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional
 from pydantic import BaseModel, Field, validator
 
 from simulator.area import Area
-from simulator.environment import AreaEnvironment, ExternalEnvironment
+from simulator.environment import AreaEnvironment, BuildingEnvironment, ExternalEnvironment
 from simulator.facility.facility_base import Facility
 from simulator.facility.factory import FacilityFactory
 
 
-def read_csv_as_list_of_dicts(csv_path: Path) -> list[dict[str, str]]:
-    with open(csv_path) as f:
-        return [row for row in DictReader(f)]
+def check_at_least_one(target: dict[str, Any], field1: str, field2: str):
+    if field1 not in target and field2 not in target:
+        raise ValueError(f'Either one of {field1} and {field2} is required.')
+
+
+M = TypeVar('M', bound=BaseModel)
+class CsvModelIterator(Iterator[M]):
+    def __init__(self, csv_path: Path, ModelType: Type[M]):
+        self.reader = DictReader(csv_path.open())
+        self.ModelType = ModelType
+    
+    def __iter__(self) -> CsvModelIterator:
+        return self
+    
+    def __next__(self) -> M:
+        return self.ModelType.parse_obj(next(self.reader))
 
 
 class FacilityAttributes(BaseModel):
@@ -37,22 +52,16 @@ class AreaAttributes(BaseModel):
     capacity: Optional[float]
     initial_temperature: float = 25.
     facilities: list[FacilityAttributes]
-    area_environment_time_series: list[AreaEnvironment] = []
+    area_environment_time_series: Optional[list[AreaEnvironment]] = None
     area_environment_csv_path: Optional[Path] = None
-
-    
-    def __init__(self, **data: Any):
-        if (csv_path := data.get('area_environment_csv_path')):
-            data.update(
-                area_environment_time_series=read_csv_as_list_of_dicts(csv_path))
-        super().__init__(**data)
 
 
     def to_area(self) -> Area:
         return Area(
             name=self.name,
             facilities=list(map(FacilityAttributes.to_facility, self.facilities)),
-            simulate_temperature=bool(self.capacity) and bool(self.area_environment_time_series),
+            simulate_temperature=bool(
+                self.capacity and (self.area_environment_time_series or self.area_environment_csv_path)),
             capacity=self.capacity or -1,
             temperature=self.initial_temperature
         )
@@ -65,12 +74,30 @@ class BuildingAttributes(BaseModel):
 class SimulatorConfig(BaseModel):
     start_time: datetime
     building_attributes: BuildingAttributes
-    external_enviroment_time_series: list[ExternalEnvironment] = []
+    external_enviroment_time_series: Optional[list[ExternalEnvironment]] = None
     external_environment_csv_path: Optional[Path] = None
 
     
-    def __init__(self, **data: Any):
-        if (csv_path := data.get('external_environment_csv_path')):
-            data.update(
-                external_enviroment_time_series=read_csv_as_list_of_dicts(csv_path))
-        super().__init__(**data)
+    @validator('external_enviroment_time_series')
+    def check_external_environment(cls, v, values):
+        check_at_least_one(values, 'external_environment_time_series', 'external_environment_csv_path')
+        return v
+
+    
+    def get_env_iter(self) -> Iterator[BuildingEnvironment]:
+        if self.external_enviroment_time_series:
+            ext_env_iter = self.external_enviroment_time_series
+        else:
+            ext_env_iter = CsvModelIterator(self.external_environment_csv_path, ExternalEnvironment)
+        
+        def get_area_env_from_area_attr(area_attr: AreaAttributes) -> Iterator[tuple[Optional[AreaEnvironment], ...]]:
+            if area_attr.area_environment_time_series:
+                return area_attr.area_environment_time_series
+            elif area_attr.area_environment_csv_path:
+                return CsvModelIterator(area_attr.area_environment_csv_path, AreaEnvironment)
+            return repeat(None)
+        
+        area_envs_iter = zip(*map(get_area_env_from_area_attr, self.building_attributes.areas))
+        
+        return map(
+            lambda ext_areas: BuildingEnvironment(external=ext_areas[0], areas=list(ext_areas[1])), zip(ext_env_iter, area_envs_iter))

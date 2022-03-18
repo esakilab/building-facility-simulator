@@ -1,4 +1,4 @@
-from typing import Type, TypeVar
+from typing import Optional, Type, TypeVar
 
 from pydantic import BaseModel
 
@@ -27,11 +27,8 @@ class AreaEnvironment(BaseModel):
         """peopleとheat_sourceから、2.3節の熱量betaのうち、環境による部分を計算する
         """
         return self.heat_source * 60 / 1000
-    
-    @classmethod
-    def empty(cls: Type[A]) -> A:
 
-        return cls(
-            people=0,
-            heat_source=0
-        )
+
+class BuildingEnvironment(BaseModel):
+    external: ExternalEnvironment
+    areas: list[Optional[AreaEnvironment]]
