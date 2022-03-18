@@ -1,9 +1,7 @@
 from __future__ import annotations
 from copy import deepcopy
 from datetime import timedelta, datetime
-from typing import Callable, List, Optional, Type, TypeVar
-import os
-import glob
+from typing import Callable, Type, TypeVar
 
 import numpy as np
 
@@ -29,7 +27,7 @@ class BuildingFacilitySimulator:
         
         self.start_time: datetime = config.start_time
         self.cur_steps: int = 0
-        self.total_steps: int = min(len(self.ext_envs), *filter(None, map(len, self.area_envs)))
+        self.total_steps: int = min(0, len(self.ext_envs), *filter(None, map(len, self.area_envs)))
 
 
     M = TypeVar('M', bound=RlModel)
