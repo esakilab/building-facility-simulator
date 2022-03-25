@@ -54,10 +54,16 @@ class FLServer():
 
 
     def run(self):
+        self._start_selection_thread()
+        self._exec_fl_process()
+    
+
+    def _start_selection_thread(self):
         threading.Thread(target=self.selection_phase, daemon=True).start()
 
         print("Started the Global Server!", flush=True)
-
+    
+    def _exec_fl_proccess(self):
         while self.cur_time < self.end_time:
             time.sleep(0.1)
             if self.selected_client_queue.qsize() < self.round_client_num:
@@ -68,6 +74,7 @@ class FLServer():
 
             self.configuration_phase()
             self.reporting_phase()
+
 
 
     def selection_phase(self):
@@ -136,7 +143,7 @@ class FLServer():
 
     def _init_client(self, client: socket._RetAddress) -> str:
         client_id = len(self.manager_dict)
-        config_path = f"./data/json/BFS_{client_id:02}/simulator_config.json"
+        config_path = f"./data/json/BFS_{(client_id % 100):02}/simulator_config.json"
         config = SimulatorConfig.parse_file(config_path)
         self.manager_dict[client_id] = RemoteSimulatonManager(
             config=config,
