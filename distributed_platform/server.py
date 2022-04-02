@@ -1,5 +1,6 @@
 from __future__ import annotations
 from datetime import datetime, timedelta
+from pathlib import Path
 import socket
 import pickle
 import threading
@@ -26,6 +27,7 @@ class FLServer():
             steps_per_round: int, 
             round_client_num: int, 
             model_aggregation: Callable[[list[M]], M],
+            log_states: bool = False,
             **model_constructor_kwargs):
 
         self.ModelClass: Type[M] = ModelClass
@@ -51,6 +53,8 @@ class FLServer():
         self.reporting_socket.listen()
 
         self.experiment_dt: datetime = datetime.now()
+
+        self.log_states: bool = log_states
 
 
     def run(self):
@@ -148,7 +152,8 @@ class FLServer():
         self.manager_dict[client_id] = RemoteSimulatonManager(
             config=config,
             calc_reward=calc_reward,
-            summary_dir=f"./logs/distributed-platform-on-cluster/{self.experiment_id}/{client_id}"
+            summary_dir=f"./logs/distributed-platform-on-cluster/{self.experiment_id}/{client_id}",
+            state_log_file_path="./experimental_logfiles/rl_correctnes_states.tsv" if self.log_states and client_id == 0 else None
         )
 
         if self.global_model is None:

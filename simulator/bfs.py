@@ -18,6 +18,9 @@ class BuildingFacilitySimulator:
 
     # TODO: モデルが複数になると報酬が複数になりそう
     def __init__(self, config: SimulatorConfig, calc_reward: Callable[[BuildingState, BuildingAction], np.ndarray]):
+        # NOTE: 実験では太陽光パネルとエアコンの部屋一つだけ使用する
+        config.building_attributes.areas = config.building_attributes.areas[:2]
+
         self.areas: list[Area] = list(map(AreaAttributes.to_area, config.building_attributes.areas))
 
         self.env_iter: Iterator[BuildingEnvironment] = config.get_env_iter()

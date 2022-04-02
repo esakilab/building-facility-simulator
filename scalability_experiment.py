@@ -2,6 +2,7 @@ from datetime import datetime
 from pathlib import Path
 from threading import Thread, Condition
 import time
+from typing import Optional
 import docker
 
 from distributed_platform.server import FLServer
@@ -79,7 +80,14 @@ def wait_for_all_clients_to_be_ready(server: FLServer, client_num: int):
     print(f"{server.selected_client_queue.qsize()} clients responded!", flush=True)
 
 
-def experiment(total_clients: int, nodes: int, log_file_path: Path):
+def experiment(
+        total_clients: int, 
+        nodes: int,
+        total_steps: int,
+        round_client_num: int,
+        log_file_path: Optional[Path] = None, 
+        log_states: bool = False):
+
     hosts = HOSTS[:nodes]
 
     stop_local_containers(hosts)
@@ -87,7 +95,7 @@ def experiment(total_clients: int, nodes: int, log_file_path: Path):
 
     while True:
         try:
-            server = FLServer(SAC, datetime(2020, 8, 1), 10080, 60, 10, average_sac, device='cpu')
+            server = FLServer(SAC, datetime(2020, 8, 1), total_steps, 60, round_client_num, average_sac, log_states=log_states, device='cpu')
             break
         except OSError as e:
             print(f"Failed to start server: {e}\nRetry after 5 sec...", flush=True)
@@ -107,10 +115,16 @@ def experiment(total_clients: int, nodes: int, log_file_path: Path):
 
     print(f"Elapsed time: {elapsed_time}", flush=True)
 
-    with log_file_path.open('a') as f:
-        f.write(f"{nodes}\t{elapsed_time}\n")
+    if log_file_path:
+        with log_file_path.open('a') as f:
+            f.write(f"{nodes}\t{elapsed_time}\n")
 
 
 if __name__ == "__main__":
     for nodes in [16, 8, 4, 2, 1]:
-        experiment(128, nodes, Path(f"./experimental_logfiles/7days_10nodes_per_round.tsv"))
+        experiment(
+            total_clients=1024, 
+            nodes=nodes, 
+            total_steps=10080, 
+            round_client_num=10, 
+            log_file_path=Path(f"./experimental_logfiles/1024clis_7days_10npr.tsv"))

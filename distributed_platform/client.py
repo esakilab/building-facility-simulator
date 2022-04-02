@@ -1,3 +1,4 @@
+import gc
 import socket
 import pickle
 import time
@@ -30,6 +31,12 @@ class FLClient:
 
             print("Sending local model to global..", flush=True)
             resp = self._send_request(dict(checkpoint=checkpoint), REPORTING_PORT)
+
+            # NOTE: メモリを解放して節約
+            del resp, agent, checkpoint
+            deleted_count: int = gc.collect()
+            print(f"Deleted {deleted_count} objects!", flush=True)
+
         
 
     def _send_request(self, payload: dict[str, Any], port) -> dict[str, Any]:

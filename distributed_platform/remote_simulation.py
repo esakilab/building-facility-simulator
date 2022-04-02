@@ -1,8 +1,11 @@
 from __future__ import annotations
+from csv import DictWriter
 from dataclasses import dataclass
-from datetime import datetime
-from itertools import islice
-from typing import Callable, Iterator, NamedTuple, Optional
+from datetime import datetime, timedelta
+from io import TextIOWrapper
+from itertools import cycle, islice
+from pathlib import Path
+from typing import Callable, Dict, Iterator, NamedTuple, Optional
 
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -21,15 +24,30 @@ class RemoteSimulatonManager:
             self, 
             config: SimulatorConfig, 
             calc_reward: Callable[[BuildingState, BuildingAction], np.ndarray],
-            summary_dir: Optional[str]):
+            summary_dir: Optional[str],
+            state_log_file_path: Optional[str]):
         bfs = BuildingFacilitySimulator(config=config, calc_reward=calc_reward)
 
-        self.env_iter: Iterator[BuildingEnvironment] = bfs.env_iter
+        # NOTE: 実験用に、cycleをつけて無限ループ可能にしている
+        self.env_iter: Iterator[BuildingEnvironment] = cycle(bfs.env_iter)
         self.areas: list[Area] = bfs.areas
         self.start_dt: datetime = bfs.start_time
         self.current_dt: datetime = bfs.start_time
         self.calc_reward: Callable[[BuildingState, BuildingAction], np.ndarray] = bfs.calc_reward
         self.summary_writer: Optional[SummaryWriter] = SummaryWriter(summary_dir) if summary_dir else None
+
+        if state_log_file_path:
+            self.state_writer: Optional[DictWriter] = DictWriter(
+                Path(state_log_file_path).open('w'),
+                fieldnames=[
+                    'datetime', 'room1_temperature', 'outside_temperature', 
+                    'grid_power', 'room1_power', 'solar_radiation', 'reward'],
+                delimiter='\t'
+            )
+            self.state_writer.writeheader()
+        else: 
+            self.state_writer = None
+
 
     def create_agent(self, model: RlModel, train_start_dt: datetime, end_dt: datetime):
         total_steps = int((end_dt - self.current_dt).total_seconds()) // 60
@@ -46,13 +64,28 @@ class RemoteSimulatonManager:
     def load_checkpoint(self, checkpoint: RemoteSimulaionCheckpoint):
         assert self.current_dt < checkpoint.current_dt
         self.areas = checkpoint.areas
+        prev_start_dt = self.current_dt
         self.current_dt = checkpoint.current_dt
 
         if self.summary_writer:
             for history in checkpoint.history:
                 write_to_tensorboard(
                     self.summary_writer, history.steps, history.state, 
-                    history.reward, history.temp, history.mode)
+                    history.reward, history.temp)
+        
+        if self.state_writer:
+            for history in checkpoint.history:
+                self.state_writer.writerow(
+                    dict(
+                        datetime=prev_start_dt + timedelta(minutes=history.steps),
+                        room1_temperature=history.state.areas[1].temperature,
+                        outside_temperature=history.state.temperature,
+                        grid_power=history.state.power_balance,
+                        room1_power=history.state.areas[1].power_consumption,
+                        solar_radiation=history.state.solar_radiation,
+                        reward=history.reward[0]
+                    )
+                )
 
 
 @dataclass
@@ -91,7 +124,7 @@ class RemoteSimulaionAgent:
             state=self.bfs.get_state(),
             reward=reward,
             temp=action_to_temp(action[1::2]),
-            mode=action_to_ES(action[-1])
+            # mode=action_to_ES(action[-1])
         )
 
 
@@ -108,4 +141,4 @@ class RemoteSimulationHistory(NamedTuple):
     state: BuildingState
     reward: np.ndarray
     temp: float
-    mode: str
+    # mode: str
