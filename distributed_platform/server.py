@@ -1,5 +1,6 @@
 from __future__ import annotations
 from datetime import datetime, timedelta
+import gc
 from pathlib import Path
 import socket
 import pickle
@@ -28,6 +29,8 @@ class FLServer():
             round_client_num: int, 
             model_aggregation: Callable[[list[M]], M],
             log_states: bool = False,
+            write_to_tensorboard: bool = True,
+            cycle_env_iter: bool = False,
             **model_constructor_kwargs):
 
         self.ModelClass: Type[M] = ModelClass
@@ -39,6 +42,7 @@ class FLServer():
         self.steps_per_round: int = steps_per_round
         self.round_client_num: int = round_client_num
         self.model_aggregation: Callable[[list[M]], M] = model_aggregation
+        self.cycle_env_iter: bool = cycle_env_iter
 
         self.manager_dict: dict[str, RemoteSimulatonManager] = dict()
         self.selected_client_queue: Queue[tuple[socket.socket, socket._RetAddress, dict]] = Queue()
@@ -55,6 +59,7 @@ class FLServer():
         self.experiment_dt: datetime = datetime.now()
 
         self.log_states: bool = log_states
+        self.write_to_tensorboard: bool = write_to_tensorboard
 
 
     def run(self):
@@ -79,6 +84,7 @@ class FLServer():
             self.configuration_phase()
             self.reporting_phase()
 
+            print(f"Collected {gc.collect()} objects.", flush=True)
 
 
     def selection_phase(self):
@@ -89,6 +95,8 @@ class FLServer():
 
             print(f"[SELECTOR] Selected {self._to_client_str(req['client_id'], client)} for the next round.", flush=True)
             self.selected_client_queue.put((connection, client, req))
+        
+        print(f"The selection thread exits!", flush=True)
     
 
     def configuration_phase(self):
@@ -152,8 +160,9 @@ class FLServer():
         self.manager_dict[client_id] = RemoteSimulatonManager(
             config=config,
             calc_reward=calc_reward,
-            summary_dir=f"./logs/distributed-platform-on-cluster/{self.experiment_id}/{client_id}",
-            state_log_file_path="./experimental_logfiles/rl_correctnes_states.tsv" if self.log_states and client_id == 0 else None
+            summary_dir=f"./logs/distributed-platform-on-cluster/{self.experiment_id}/{client_id}" if self.write_to_tensorboard else None,
+            state_log_file_path="./experimental_logfiles/rl_correctnes_states.tsv" if self.log_states and client_id == 0 else None,
+            cycle_env_iter=self.cycle_env_iter
         )
 
         if self.global_model is None:

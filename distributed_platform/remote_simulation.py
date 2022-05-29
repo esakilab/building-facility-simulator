@@ -25,11 +25,12 @@ class RemoteSimulatonManager:
             config: SimulatorConfig, 
             calc_reward: Callable[[BuildingState, BuildingAction], np.ndarray],
             summary_dir: Optional[str],
-            state_log_file_path: Optional[str]):
+            state_log_file_path: Optional[str],
+            cycle_env_iter: bool = False):
         bfs = BuildingFacilitySimulator(config=config, calc_reward=calc_reward)
 
         # NOTE: 実験用に、cycleをつけて無限ループ可能にしている
-        self.env_iter: Iterator[BuildingEnvironment] = cycle(bfs.env_iter)
+        self.env_iter: Iterator[BuildingEnvironment] = cycle(bfs.env_iter) if cycle_env_iter else bfs.env_iter
         self.areas: list[Area] = bfs.areas
         self.start_dt: datetime = bfs.start_time
         self.current_dt: datetime = bfs.start_time

@@ -1,0 +1,2410 @@
+No dangling local containers found on 10.17.104.164
+No dangling local containers found on 10.17.104.165
+No dangling local containers found on 10.17.104.166
+No dangling local containers found on 10.17.104.167
+No dangling local containers found on 10.17.104.168
+No dangling local containers found on 10.17.104.170
+No dangling local containers found on 10.17.104.175
+No dangling local containers found on 10.17.104.177
+No dangling local containers found on 10.17.104.178
+No dangling local containers found on 10.17.104.179
+No dangling local containers found on 10.17.108.100
+No dangling local containers found on 10.17.108.101
+No dangling local containers found on 10.17.108.102
+No dangling local containers found on 10.17.108.80
+No dangling local containers found on 10.17.108.81
+No dangling local containers found on 10.17.108.82
+No dangling local containers found on 10.17.108.83
+No dangling local containers found on 10.17.108.84
+No dangling local containers found on 10.17.108.85
+No dangling local containers found on 10.17.108.86
+No dangling local containers found on 10.17.108.87
+No dangling local containers found on 10.17.108.88
+No dangling local containers found on 10.17.108.90
+No dangling local containers found on 10.17.108.91
+No dangling local containers found on 10.17.108.92
+No dangling local containers found on 10.17.108.93
+No dangling local containers found on 10.17.108.94
+No dangling local containers found on 10.17.108.95
+No dangling local containers found on 10.17.108.96
+No dangling local containers found on 10.17.108.97
+No dangling local containers found on 10.17.108.98
+No dangling local containers found on 10.17.108.99
+Build done for 10.17.108.98
+Build done for 10.17.108.99
+Build done for 10.17.108.102
+Build done for 10.17.108.93
+Build done for 10.17.108.92
+Build done for 10.17.104.170
+Build done for 10.17.108.90
+Build done for 10.17.108.91
+Build done for 10.17.108.94
+Build done for 10.17.108.81
+Build done for 10.17.104.166
+Build done for 10.17.108.86
+Build done for 10.17.108.97
+Build done for 10.17.104.167
+Build done for 10.17.104.178
+Build done for 10.17.104.168
+Build done for 10.17.108.100
+Build done for 10.17.108.87
+Build done for 10.17.108.88
+Build done for 10.17.108.80
+Build done for 10.17.104.179
+Build done for 10.17.104.165
+Build done for 10.17.108.84
+Build done for 10.17.104.175
+Build done for 10.17.108.82
+Build done for 10.17.108.101
+Build done for 10.17.108.96
+Build done for 10.17.108.95
+Build done for 10.17.108.85
+Build done for 10.17.104.164
+Build done for 10.17.104.177
+Build done for 10.17.108.83
+Started the Global Server!
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+[SELECTOR] Selected new_client(10.17.104.164) for the next round.
+[SELECTOR] Selected new_client(10.17.104.165) for the next round.
+[SELECTOR] Selected new_client(10.17.104.166) for the next round.
+[SELECTOR] Selected new_client(10.17.104.167) for the next round.
+[SELECTOR] Selected new_client(10.17.104.168) for the next round.
+[SELECTOR] Selected new_client(10.17.104.170) for the next round.
+[SELECTOR] Selected new_client(10.17.104.175) for the next round.
+[SELECTOR] Selected new_client(10.17.104.177) for the next round.
+[SELECTOR] Selected new_client(10.17.104.178) for the next round.
+[SELECTOR] Selected new_client(10.17.104.179) for the next round.
+[SELECTOR] Selected new_client(10.17.108.100) for the next round.
+[SELECTOR] Selected new_client(10.17.108.101) for the next round.
+[SELECTOR] Selected new_client(10.17.108.102) for the next round.
+[SELECTOR] Selected new_client(10.17.108.80) for the next round.
+[SELECTOR] Selected new_client(10.17.108.81) for the next round.
+[SELECTOR] Selected new_client(10.17.108.82) for the next round.
+[SELECTOR] Selected new_client(10.17.108.83) for the next round.
+[SELECTOR] Selected new_client(10.17.108.84) for the next round.
+[SELECTOR] Selected new_client(10.17.108.85) for the next round.
+[SELECTOR] Selected new_client(10.17.108.86) for the next round.
+[SELECTOR] Selected new_client(10.17.108.87) for the next round.
+[SELECTOR] Selected new_client(10.17.108.88) for the next round.
+[SELECTOR] Selected new_client(10.17.108.90) for the next round.
+[SELECTOR] Selected new_client(10.17.108.91) for the next round.
+[SELECTOR] Selected new_client(10.17.108.92) for the next round.
+[SELECTOR] Selected new_client(10.17.108.93) for the next round.
+[SELECTOR] Selected new_client(10.17.108.94) for the next round.
+[SELECTOR] Selected new_client(10.17.108.95) for the next round.
+Started 32 local containers on each host in: ['10.17.104.164', '10.17.104.165', '10.17.104.166', '10.17.104.167', '10.17.104.168', '10.17.104.170', '10.17.104.175', '10.17.104.177', '10.17.104.178', '10.17.104.179', '10.17.108.100', '10.17.108.101', '10.17.108.102', '10.17.108.80', '10.17.108.81', '10.17.108.82', '10.17.108.83', '10.17.108.84', '10.17.108.85', '10.17.108.86', '10.17.108.87', '10.17.108.88', '10.17.108.90', '10.17.108.91', '10.17.108.92', '10.17.108.93', '10.17.108.94', '10.17.108.95', '10.17.108.96', '10.17.108.97', '10.17.108.98', '10.17.108.99']
+[SELECTOR] Selected new_client(10.17.108.96) for the next round.
+Waiting for all the clients to respond...
+[SELECTOR] Selected new_client(10.17.108.97) for the next round.
+[SELECTOR] Selected new_client(10.17.108.98) for the next round.
+[SELECTOR] Selected new_client(10.17.108.99) for the next round.
+1024 clients responded!
+
+
+START NEW ROUND (time: 2020-08-01 00:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client0(10.17.104.164) using ./data/json/BFS_00/simulator_config.json.
+Sending global model to client0(10.17.104.164)...
+- Initialized simulator for client1(10.17.104.165) using ./data/json/BFS_01/simulator_config.json.
+Sending global model to client1(10.17.104.165)...
+- Initialized simulator for client2(10.17.104.166) using ./data/json/BFS_02/simulator_config.json.
+Sending global model to client2(10.17.104.166)...
+- Initialized simulator for client3(10.17.104.167) using ./data/json/BFS_03/simulator_config.json.
+Sending global model to client3(10.17.104.167)...
+- Initialized simulator for client4(10.17.104.168) using ./data/json/BFS_04/simulator_config.json.
+Sending global model to client4(10.17.104.168)...
+- Initialized simulator for client5(10.17.104.170) using ./data/json/BFS_05/simulator_config.json.
+Sending global model to client5(10.17.104.170)...
+- Initialized simulator for client6(10.17.104.175) using ./data/json/BFS_06/simulator_config.json.
+Sending global model to client6(10.17.104.175)...
+- Initialized simulator for client7(10.17.104.177) using ./data/json/BFS_07/simulator_config.json.
+Sending global model to client7(10.17.104.177)...
+- Initialized simulator for client8(10.17.104.178) using ./data/json/BFS_08/simulator_config.json.
+Sending global model to client8(10.17.104.178)...
+- Initialized simulator for client9(10.17.104.179) using ./data/json/BFS_09/simulator_config.json.
+Sending global model to client9(10.17.104.179)...
+
+### Reporting Phase ###
+
+Got report from client3(10.17.104.167).
+Got report from client0(10.17.104.164).
+Got report from client1(10.17.104.165).
+Got report from client7(10.17.104.177).
+Got report from client2(10.17.104.166).
+Got report from client5(10.17.104.170).
+Got report from client6(10.17.104.175).
+Got report from client4(10.17.104.168).
+Got report from client8(10.17.104.178).
+Got report from client9(10.17.104.179).
+Updated global model with FedAvg!
+[SELECTOR] Selected client0(10.17.104.164) for the next round.
+Collected 32 objects.
+[SELECTOR] Selected client2(10.17.104.166) for the next round.
+[SELECTOR] Selected client8(10.17.104.178) for the next round.
+[SELECTOR] Selected client5(10.17.104.170) for the next round.
+[SELECTOR] Selected client3(10.17.104.167) for the next round.
+[SELECTOR] Selected client7(10.17.104.177) for the next round.
+[SELECTOR] Selected client4(10.17.104.168) for the next round.
+[SELECTOR] Selected client9(10.17.104.179) for the next round.
+[SELECTOR] Selected client6(10.17.104.175) for the next round.
+[SELECTOR] Selected client1(10.17.104.165) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 01:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client10(10.17.108.100) using ./data/json/BFS_10/simulator_config.json.
+Sending global model to client10(10.17.108.100)...
+- Initialized simulator for client11(10.17.108.101) using ./data/json/BFS_11/simulator_config.json.
+Sending global model to client11(10.17.108.101)...
+- Initialized simulator for client12(10.17.108.102) using ./data/json/BFS_12/simulator_config.json.
+Sending global model to client12(10.17.108.102)...
+- Initialized simulator for client13(10.17.108.80) using ./data/json/BFS_13/simulator_config.json.
+Sending global model to client13(10.17.108.80)...
+- Initialized simulator for client14(10.17.108.81) using ./data/json/BFS_14/simulator_config.json.
+Sending global model to client14(10.17.108.81)...
+- Initialized simulator for client15(10.17.108.82) using ./data/json/BFS_15/simulator_config.json.
+Sending global model to client15(10.17.108.82)...
+- Initialized simulator for client16(10.17.108.83) using ./data/json/BFS_16/simulator_config.json.
+Sending global model to client16(10.17.108.83)...
+- Initialized simulator for client17(10.17.108.84) using ./data/json/BFS_17/simulator_config.json.
+Sending global model to client17(10.17.108.84)...
+- Initialized simulator for client18(10.17.108.85) using ./data/json/BFS_18/simulator_config.json.
+Sending global model to client18(10.17.108.85)...
+- Initialized simulator for client19(10.17.108.86) using ./data/json/BFS_19/simulator_config.json.
+Sending global model to client19(10.17.108.86)...
+
+### Reporting Phase ###
+
+Got report from client12(10.17.108.102).
+Got report from client13(10.17.108.80).
+Got report from client15(10.17.108.82).
+Got report from client11(10.17.108.101).
+Got report from client10(10.17.108.100).
+Got report from client18(10.17.108.85).
+Got report from client17(10.17.108.84).
+Got report from client14(10.17.108.81).
+Got report from client16(10.17.108.83).
+Got report from client19(10.17.108.86).
+Updated global model with FedAvg!
+[SELECTOR] Selected client12(10.17.108.102) for the next round.
+Collected 8 objects.
+[SELECTOR] Selected client14(10.17.108.81) for the next round.
+[SELECTOR] Selected client13(10.17.108.80) for the next round.
+[SELECTOR] Selected client10(10.17.108.100) for the next round.
+[SELECTOR] Selected client15(10.17.108.82) for the next round.
+[SELECTOR] Selected client19(10.17.108.86) for the next round.
+[SELECTOR] Selected client17(10.17.108.84) for the next round.
+[SELECTOR] Selected client11(10.17.108.101) for the next round.
+[SELECTOR] Selected client18(10.17.108.85) for the next round.
+[SELECTOR] Selected client16(10.17.108.83) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 02:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client20(10.17.108.87) using ./data/json/BFS_20/simulator_config.json.
+Sending global model to client20(10.17.108.87)...
+- Initialized simulator for client21(10.17.108.88) using ./data/json/BFS_21/simulator_config.json.
+Sending global model to client21(10.17.108.88)...
+- Initialized simulator for client22(10.17.108.90) using ./data/json/BFS_22/simulator_config.json.
+Sending global model to client22(10.17.108.90)...
+- Initialized simulator for client23(10.17.108.91) using ./data/json/BFS_23/simulator_config.json.
+Sending global model to client23(10.17.108.91)...
+- Initialized simulator for client24(10.17.108.92) using ./data/json/BFS_24/simulator_config.json.
+Sending global model to client24(10.17.108.92)...
+- Initialized simulator for client25(10.17.108.93) using ./data/json/BFS_25/simulator_config.json.
+Sending global model to client25(10.17.108.93)...
+- Initialized simulator for client26(10.17.108.94) using ./data/json/BFS_26/simulator_config.json.
+Sending global model to client26(10.17.108.94)...
+- Initialized simulator for client27(10.17.108.95) using ./data/json/BFS_27/simulator_config.json.
+Sending global model to client27(10.17.108.95)...
+- Initialized simulator for client28(10.17.108.96) using ./data/json/BFS_28/simulator_config.json.
+Sending global model to client28(10.17.108.96)...
+- Initialized simulator for client29(10.17.108.97) using ./data/json/BFS_29/simulator_config.json.
+Sending global model to client29(10.17.108.97)...
+
+### Reporting Phase ###
+
+Got report from client22(10.17.108.90).
+Got report from client20(10.17.108.87).
+Got report from client24(10.17.108.92).
+Got report from client23(10.17.108.91).
+Got report from client26(10.17.108.94).
+Got report from client21(10.17.108.88).
+Got report from client27(10.17.108.95).
+Got report from client28(10.17.108.96).
+Got report from client25(10.17.108.93).
+Got report from client29(10.17.108.97).
+Updated global model with FedAvg!
+Collected 0 objects.
+[SELECTOR] Selected client29(10.17.108.97) for the next round.
+[SELECTOR] Selected client28(10.17.108.96) for the next round.
+[SELECTOR] Selected client24(10.17.108.92) for the next round.
+[SELECTOR] Selected client27(10.17.108.95) for the next round.
+[SELECTOR] Selected client20(10.17.108.87) for the next round.
+[SELECTOR] Selected client22(10.17.108.90) for the next round.
+[SELECTOR] Selected client25(10.17.108.93) for the next round.
+[SELECTOR] Selected client23(10.17.108.91) for the next round.
+[SELECTOR] Selected client21(10.17.108.88) for the next round.
+[SELECTOR] Selected client26(10.17.108.94) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 03:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client30(10.17.108.98) using ./data/json/BFS_30/simulator_config.json.
+Sending global model to client30(10.17.108.98)...
+- Initialized simulator for client31(10.17.108.99) using ./data/json/BFS_31/simulator_config.json.
+Sending global model to client31(10.17.108.99)...
+- Initialized simulator for client32(10.17.104.164) using ./data/json/BFS_32/simulator_config.json.
+Sending global model to client32(10.17.104.164)...
+- Initialized simulator for client33(10.17.104.165) using ./data/json/BFS_33/simulator_config.json.
+Sending global model to client33(10.17.104.165)...
+- Initialized simulator for client34(10.17.104.166) using ./data/json/BFS_34/simulator_config.json.
+Sending global model to client34(10.17.104.166)...
+- Initialized simulator for client35(10.17.104.167) using ./data/json/BFS_35/simulator_config.json.
+Sending global model to client35(10.17.104.167)...
+- Initialized simulator for client36(10.17.104.168) using ./data/json/BFS_36/simulator_config.json.
+Sending global model to client36(10.17.104.168)...
+- Initialized simulator for client37(10.17.104.170) using ./data/json/BFS_37/simulator_config.json.
+Sending global model to client37(10.17.104.170)...
+- Initialized simulator for client38(10.17.104.175) using ./data/json/BFS_38/simulator_config.json.
+Sending global model to client38(10.17.104.175)...
+- Initialized simulator for client39(10.17.104.177) using ./data/json/BFS_39/simulator_config.json.
+Sending global model to client39(10.17.104.177)...
+
+### Reporting Phase ###
+
+Got report from client30(10.17.108.98).
+Got report from client33(10.17.104.165).
+Got report from client35(10.17.104.167).
+Got report from client32(10.17.104.164).
+Got report from client37(10.17.104.170).
+Got report from client31(10.17.108.99).
+Got report from client39(10.17.104.177).
+Got report from client36(10.17.104.168).
+Got report from client34(10.17.104.166).
+Got report from client38(10.17.104.175).
+Updated global model with FedAvg!
+[SELECTOR] Selected client32(10.17.104.164) for the next round.
+Collected 16 objects.
+[SELECTOR] Selected client38(10.17.104.175) for the next round.
+[SELECTOR] Selected client35(10.17.104.167) for the next round.
+[SELECTOR] Selected client31(10.17.108.99) for the next round.
+[SELECTOR] Selected client39(10.17.104.177) for the next round.
+[SELECTOR] Selected client36(10.17.104.168) for the next round.
+[SELECTOR] Selected client34(10.17.104.166) for the next round.
+[SELECTOR] Selected client37(10.17.104.170) for the next round.
+[SELECTOR] Selected client33(10.17.104.165) for the next round.
+[SELECTOR] Selected client30(10.17.108.98) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 04:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client40(10.17.104.178) using ./data/json/BFS_40/simulator_config.json.
+Sending global model to client40(10.17.104.178)...
+- Initialized simulator for client41(10.17.104.179) using ./data/json/BFS_41/simulator_config.json.
+Sending global model to client41(10.17.104.179)...
+- Initialized simulator for client42(10.17.108.100) using ./data/json/BFS_42/simulator_config.json.
+Sending global model to client42(10.17.108.100)...
+- Initialized simulator for client43(10.17.108.101) using ./data/json/BFS_43/simulator_config.json.
+Sending global model to client43(10.17.108.101)...
+- Initialized simulator for client44(10.17.108.102) using ./data/json/BFS_44/simulator_config.json.
+Sending global model to client44(10.17.108.102)...
+- Initialized simulator for client45(10.17.108.80) using ./data/json/BFS_45/simulator_config.json.
+Sending global model to client45(10.17.108.80)...
+- Initialized simulator for client46(10.17.108.81) using ./data/json/BFS_46/simulator_config.json.
+Sending global model to client46(10.17.108.81)...
+- Initialized simulator for client47(10.17.108.82) using ./data/json/BFS_47/simulator_config.json.
+Sending global model to client47(10.17.108.82)...
+- Initialized simulator for client48(10.17.108.83) using ./data/json/BFS_48/simulator_config.json.
+Sending global model to client48(10.17.108.83)...
+- Initialized simulator for client49(10.17.108.84) using ./data/json/BFS_49/simulator_config.json.
+Sending global model to client49(10.17.108.84)...
+
+### Reporting Phase ###
+
+Got report from client41(10.17.104.179).
+Got report from client40(10.17.104.178).
+Got report from client45(10.17.108.80).
+Got report from client44(10.17.108.102).
+Got report from client42(10.17.108.100).
+Got report from client43(10.17.108.101).
+Got report from client46(10.17.108.81).
+Got report from client47(10.17.108.82).
+Got report from client48(10.17.108.83).
+Got report from client49(10.17.108.84).
+Updated global model with FedAvg!
+[SELECTOR] Selected client44(10.17.108.102) for the next round.
+Collected 16 objects.
+[SELECTOR] Selected client49(10.17.108.84) for the next round.
+[SELECTOR] Selected client40(10.17.104.178) for the next round.
+[SELECTOR] Selected client46(10.17.108.81) for the next round.
+[SELECTOR] Selected client48(10.17.108.83) for the next round.
+[SELECTOR] Selected client47(10.17.108.82) for the next round.
+[SELECTOR] Selected client41(10.17.104.179) for the next round.
+[SELECTOR] Selected client42(10.17.108.100) for the next round.
+[SELECTOR] Selected client45(10.17.108.80) for the next round.
+[SELECTOR] Selected client43(10.17.108.101) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 05:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client50(10.17.108.85) using ./data/json/BFS_50/simulator_config.json.
+Sending global model to client50(10.17.108.85)...
+- Initialized simulator for client51(10.17.108.86) using ./data/json/BFS_51/simulator_config.json.
+Sending global model to client51(10.17.108.86)...
+- Initialized simulator for client52(10.17.108.87) using ./data/json/BFS_52/simulator_config.json.
+Sending global model to client52(10.17.108.87)...
+- Initialized simulator for client53(10.17.108.88) using ./data/json/BFS_53/simulator_config.json.
+Sending global model to client53(10.17.108.88)...
+- Initialized simulator for client54(10.17.108.90) using ./data/json/BFS_54/simulator_config.json.
+Sending global model to client54(10.17.108.90)...
+- Initialized simulator for client55(10.17.108.91) using ./data/json/BFS_55/simulator_config.json.
+Sending global model to client55(10.17.108.91)...
+- Initialized simulator for client56(10.17.108.92) using ./data/json/BFS_56/simulator_config.json.
+Sending global model to client56(10.17.108.92)...
+- Initialized simulator for client57(10.17.108.93) using ./data/json/BFS_57/simulator_config.json.
+Sending global model to client57(10.17.108.93)...
+- Initialized simulator for client58(10.17.108.94) using ./data/json/BFS_58/simulator_config.json.
+Sending global model to client58(10.17.108.94)...
+- Initialized simulator for client59(10.17.108.95) using ./data/json/BFS_59/simulator_config.json.
+Sending global model to client59(10.17.108.95)...
+
+### Reporting Phase ###
+
+Got report from client50(10.17.108.85).
+Got report from client52(10.17.108.87).
+Got report from client51(10.17.108.86).
+Got report from client53(10.17.108.88).
+Got report from client56(10.17.108.92).
+Got report from client57(10.17.108.93).
+Got report from client54(10.17.108.90).
+Got report from client55(10.17.108.91).
+Got report from client58(10.17.108.94).
+Got report from client59(10.17.108.95).
+Updated global model with FedAvg!
+Collected 8 objects.
+[SELECTOR] Selected client58(10.17.108.94) for the next round.
+[SELECTOR] Selected client54(10.17.108.90) for the next round.
+[SELECTOR] Selected client59(10.17.108.95) for the next round.
+[SELECTOR] Selected client55(10.17.108.91) for the next round.
+[SELECTOR] Selected client52(10.17.108.87) for the next round.
+[SELECTOR] Selected client57(10.17.108.93) for the next round.
+[SELECTOR] Selected client53(10.17.108.88) for the next round.
+[SELECTOR] Selected client51(10.17.108.86) for the next round.
+[SELECTOR] Selected client50(10.17.108.85) for the next round.
+[SELECTOR] Selected client56(10.17.108.92) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 06:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client60(10.17.108.96) using ./data/json/BFS_60/simulator_config.json.
+Sending global model to client60(10.17.108.96)...
+- Initialized simulator for client61(10.17.108.97) using ./data/json/BFS_61/simulator_config.json.
+Sending global model to client61(10.17.108.97)...
+- Initialized simulator for client62(10.17.108.98) using ./data/json/BFS_62/simulator_config.json.
+Sending global model to client62(10.17.108.98)...
+- Initialized simulator for client63(10.17.108.99) using ./data/json/BFS_63/simulator_config.json.
+Sending global model to client63(10.17.108.99)...
+- Initialized simulator for client64(10.17.104.164) using ./data/json/BFS_64/simulator_config.json.
+Sending global model to client64(10.17.104.164)...
+- Initialized simulator for client65(10.17.104.165) using ./data/json/BFS_65/simulator_config.json.
+Sending global model to client65(10.17.104.165)...
+- Initialized simulator for client66(10.17.104.166) using ./data/json/BFS_66/simulator_config.json.
+Sending global model to client66(10.17.104.166)...
+- Initialized simulator for client67(10.17.104.167) using ./data/json/BFS_67/simulator_config.json.
+Sending global model to client67(10.17.104.167)...
+- Initialized simulator for client68(10.17.104.168) using ./data/json/BFS_68/simulator_config.json.
+Sending global model to client68(10.17.104.168)...
+- Initialized simulator for client69(10.17.104.170) using ./data/json/BFS_69/simulator_config.json.
+Sending global model to client69(10.17.104.170)...
+
+### Reporting Phase ###
+
+Got report from client60(10.17.108.96).
+Got report from client64(10.17.104.164).
+Got report from client62(10.17.108.98).
+Got report from client65(10.17.104.165).
+Got report from client61(10.17.108.97).
+Got report from client63(10.17.108.99).
+Got report from client67(10.17.104.167).
+Got report from client66(10.17.104.166).
+Got report from client68(10.17.104.168).
+Got report from client69(10.17.104.170).
+Updated global model with FedAvg!
+Collected 0 objects.
+[SELECTOR] Selected client66(10.17.104.166) for the next round.
+[SELECTOR] Selected client62(10.17.108.98) for the next round.
+[SELECTOR] Selected client69(10.17.104.170) for the next round.
+[SELECTOR] Selected client61(10.17.108.97) for the next round.
+[SELECTOR] Selected client63(10.17.108.99) for the next round.
+[SELECTOR] Selected client67(10.17.104.167) for the next round.
+[SELECTOR] Selected client68(10.17.104.168) for the next round.
+[SELECTOR] Selected client65(10.17.104.165) for the next round.
+[SELECTOR] Selected client60(10.17.108.96) for the next round.
+[SELECTOR] Selected client64(10.17.104.164) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 07:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client70(10.17.104.175) using ./data/json/BFS_70/simulator_config.json.
+Sending global model to client70(10.17.104.175)...
+- Initialized simulator for client71(10.17.104.177) using ./data/json/BFS_71/simulator_config.json.
+Sending global model to client71(10.17.104.177)...
+- Initialized simulator for client72(10.17.104.178) using ./data/json/BFS_72/simulator_config.json.
+Sending global model to client72(10.17.104.178)...
+- Initialized simulator for client73(10.17.104.179) using ./data/json/BFS_73/simulator_config.json.
+Sending global model to client73(10.17.104.179)...
+- Initialized simulator for client74(10.17.108.100) using ./data/json/BFS_74/simulator_config.json.
+Sending global model to client74(10.17.108.100)...
+- Initialized simulator for client75(10.17.108.101) using ./data/json/BFS_75/simulator_config.json.
+Sending global model to client75(10.17.108.101)...
+- Initialized simulator for client76(10.17.108.102) using ./data/json/BFS_76/simulator_config.json.
+Sending global model to client76(10.17.108.102)...
+- Initialized simulator for client77(10.17.108.80) using ./data/json/BFS_77/simulator_config.json.
+Sending global model to client77(10.17.108.80)...
+- Initialized simulator for client78(10.17.108.81) using ./data/json/BFS_78/simulator_config.json.
+Sending global model to client78(10.17.108.81)...
+- Initialized simulator for client79(10.17.108.82) using ./data/json/BFS_79/simulator_config.json.
+Sending global model to client79(10.17.108.82)...
+
+### Reporting Phase ###
+
+Got report from client71(10.17.104.177).
+Got report from client76(10.17.108.102).
+Got report from client70(10.17.104.175).
+Got report from client74(10.17.108.100).
+Got report from client73(10.17.104.179).
+Got report from client75(10.17.108.101).
+Got report from client72(10.17.104.178).
+Got report from client77(10.17.108.80).
+Got report from client78(10.17.108.81).
+Got report from client79(10.17.108.82).
+Updated global model with FedAvg!
+Collected 8 objects.
+[SELECTOR] Selected client77(10.17.108.80) for the next round.
+[SELECTOR] Selected client74(10.17.108.100) for the next round.
+[SELECTOR] Selected client76(10.17.108.102) for the next round.
+[SELECTOR] Selected client73(10.17.104.179) for the next round.
+[SELECTOR] Selected client79(10.17.108.82) for the next round.
+[SELECTOR] Selected client75(10.17.108.101) for the next round.
+[SELECTOR] Selected client70(10.17.104.175) for the next round.
+[SELECTOR] Selected client78(10.17.108.81) for the next round.
+[SELECTOR] Selected client72(10.17.104.178) for the next round.
+[SELECTOR] Selected client71(10.17.104.177) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 08:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client80(10.17.108.83) using ./data/json/BFS_80/simulator_config.json.
+Sending global model to client80(10.17.108.83)...
+- Initialized simulator for client81(10.17.108.84) using ./data/json/BFS_81/simulator_config.json.
+Sending global model to client81(10.17.108.84)...
+- Initialized simulator for client82(10.17.108.85) using ./data/json/BFS_82/simulator_config.json.
+Sending global model to client82(10.17.108.85)...
+- Initialized simulator for client83(10.17.108.86) using ./data/json/BFS_83/simulator_config.json.
+Sending global model to client83(10.17.108.86)...
+- Initialized simulator for client84(10.17.108.87) using ./data/json/BFS_84/simulator_config.json.
+Sending global model to client84(10.17.108.87)...
+- Initialized simulator for client85(10.17.108.88) using ./data/json/BFS_85/simulator_config.json.
+Sending global model to client85(10.17.108.88)...
+- Initialized simulator for client86(10.17.108.90) using ./data/json/BFS_86/simulator_config.json.
+Sending global model to client86(10.17.108.90)...
+- Initialized simulator for client87(10.17.108.91) using ./data/json/BFS_87/simulator_config.json.
+Sending global model to client87(10.17.108.91)...
+- Initialized simulator for client88(10.17.108.92) using ./data/json/BFS_88/simulator_config.json.
+Sending global model to client88(10.17.108.92)...
+- Initialized simulator for client89(10.17.108.93) using ./data/json/BFS_89/simulator_config.json.
+Sending global model to client89(10.17.108.93)...
+
+### Reporting Phase ###
+
+Got report from client81(10.17.108.84).
+Got report from client80(10.17.108.83).
+Got report from client82(10.17.108.85).
+Got report from client84(10.17.108.87).
+Got report from client83(10.17.108.86).
+Got report from client85(10.17.108.88).
+Got report from client86(10.17.108.90).
+Got report from client89(10.17.108.93).
+Got report from client88(10.17.108.92).
+Got report from client87(10.17.108.91).
+Updated global model with FedAvg!
+[SELECTOR] Selected client83(10.17.108.86) for the next round.
+[SELECTOR] Selected client84(10.17.108.87) for the next round.
+Collected 0 objects.
+[SELECTOR] Selected client82(10.17.108.85) for the next round.
+[SELECTOR] Selected client87(10.17.108.91) for the next round.
+[SELECTOR] Selected client89(10.17.108.93) for the next round.
+[SELECTOR] Selected client81(10.17.108.84) for the next round.
+[SELECTOR] Selected client85(10.17.108.88) for the next round.
+[SELECTOR] Selected client88(10.17.108.92) for the next round.
+[SELECTOR] Selected client86(10.17.108.90) for the next round.
+[SELECTOR] Selected client80(10.17.108.83) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 09:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client90(10.17.108.94) using ./data/json/BFS_90/simulator_config.json.
+Sending global model to client90(10.17.108.94)...
+- Initialized simulator for client91(10.17.108.95) using ./data/json/BFS_91/simulator_config.json.
+Sending global model to client91(10.17.108.95)...
+- Initialized simulator for client92(10.17.108.96) using ./data/json/BFS_92/simulator_config.json.
+Sending global model to client92(10.17.108.96)...
+- Initialized simulator for client93(10.17.108.97) using ./data/json/BFS_93/simulator_config.json.
+Sending global model to client93(10.17.108.97)...
+- Initialized simulator for client94(10.17.108.98) using ./data/json/BFS_94/simulator_config.json.
+Sending global model to client94(10.17.108.98)...
+- Initialized simulator for client95(10.17.108.99) using ./data/json/BFS_95/simulator_config.json.
+Sending global model to client95(10.17.108.99)...
+- Initialized simulator for client96(10.17.104.164) using ./data/json/BFS_96/simulator_config.json.
+Sending global model to client96(10.17.104.164)...
+- Initialized simulator for client97(10.17.104.165) using ./data/json/BFS_97/simulator_config.json.
+Sending global model to client97(10.17.104.165)...
+- Initialized simulator for client98(10.17.104.166) using ./data/json/BFS_98/simulator_config.json.
+Sending global model to client98(10.17.104.166)...
+- Initialized simulator for client99(10.17.104.167) using ./data/json/BFS_99/simulator_config.json.
+Sending global model to client99(10.17.104.167)...
+
+### Reporting Phase ###
+
+Got report from client90(10.17.108.94).
+Got report from client93(10.17.108.97).
+Got report from client92(10.17.108.96).
+Got report from client95(10.17.108.99).
+Got report from client94(10.17.108.98).
+Got report from client98(10.17.104.166).
+Got report from client91(10.17.108.95).
+Got report from client99(10.17.104.167).
+Got report from client96(10.17.104.164).
+Got report from client97(10.17.104.165).
+Updated global model with FedAvg!
+Collected 8 objects.
+[SELECTOR] Selected client90(10.17.108.94) for the next round.
+[SELECTOR] Selected client96(10.17.104.164) for the next round.
+[SELECTOR] Selected client92(10.17.108.96) for the next round.
+[SELECTOR] Selected client95(10.17.108.99) for the next round.
+[SELECTOR] Selected client91(10.17.108.95) for the next round.
+[SELECTOR] Selected client98(10.17.104.166) for the next round.
+[SELECTOR] Selected client97(10.17.104.165) for the next round.
+[SELECTOR] Selected client99(10.17.104.167) for the next round.
+[SELECTOR] Selected client94(10.17.108.98) for the next round.
+[SELECTOR] Selected client93(10.17.108.97) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 10:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client100(10.17.104.168) using ./data/json/BFS_00/simulator_config.json.
+Sending global model to client100(10.17.104.168)...
+- Initialized simulator for client101(10.17.104.170) using ./data/json/BFS_01/simulator_config.json.
+Sending global model to client101(10.17.104.170)...
+- Initialized simulator for client102(10.17.104.175) using ./data/json/BFS_02/simulator_config.json.
+Sending global model to client102(10.17.104.175)...
+- Initialized simulator for client103(10.17.104.177) using ./data/json/BFS_03/simulator_config.json.
+Sending global model to client103(10.17.104.177)...
+- Initialized simulator for client104(10.17.104.178) using ./data/json/BFS_04/simulator_config.json.
+Sending global model to client104(10.17.104.178)...
+- Initialized simulator for client105(10.17.104.179) using ./data/json/BFS_05/simulator_config.json.
+Sending global model to client105(10.17.104.179)...
+- Initialized simulator for client106(10.17.108.100) using ./data/json/BFS_06/simulator_config.json.
+Sending global model to client106(10.17.108.100)...
+- Initialized simulator for client107(10.17.108.101) using ./data/json/BFS_07/simulator_config.json.
+Sending global model to client107(10.17.108.101)...
+- Initialized simulator for client108(10.17.108.102) using ./data/json/BFS_08/simulator_config.json.
+Sending global model to client108(10.17.108.102)...
+- Initialized simulator for client109(10.17.108.80) using ./data/json/BFS_09/simulator_config.json.
+Sending global model to client109(10.17.108.80)...
+
+### Reporting Phase ###
+
+Got report from client100(10.17.104.168).
+Got report from client101(10.17.104.170).
+Got report from client102(10.17.104.175).
+Got report from client105(10.17.104.179).
+Got report from client104(10.17.104.178).
+Got report from client103(10.17.104.177).
+Got report from client106(10.17.108.100).
+Got report from client107(10.17.108.101).
+Got report from client109(10.17.108.80).
+Got report from client108(10.17.108.102).
+Updated global model with FedAvg!
+[SELECTOR] Selected client106(10.17.108.100) for the next round.
+Collected 8 objects.
+[SELECTOR] Selected client104(10.17.104.178) for the next round.
+[SELECTOR] Selected client108(10.17.108.102) for the next round.
+[SELECTOR] Selected client103(10.17.104.177) for the next round.
+[SELECTOR] Selected client100(10.17.104.168) for the next round.
+[SELECTOR] Selected client101(10.17.104.170) for the next round.
+[SELECTOR] Selected client109(10.17.108.80) for the next round.
+[SELECTOR] Selected client107(10.17.108.101) for the next round.
+[SELECTOR] Selected client102(10.17.104.175) for the next round.
+[SELECTOR] Selected client105(10.17.104.179) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 11:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client110(10.17.108.81) using ./data/json/BFS_10/simulator_config.json.
+Sending global model to client110(10.17.108.81)...
+- Initialized simulator for client111(10.17.108.82) using ./data/json/BFS_11/simulator_config.json.
+Sending global model to client111(10.17.108.82)...
+- Initialized simulator for client112(10.17.108.83) using ./data/json/BFS_12/simulator_config.json.
+Sending global model to client112(10.17.108.83)...
+- Initialized simulator for client113(10.17.108.84) using ./data/json/BFS_13/simulator_config.json.
+Sending global model to client113(10.17.108.84)...
+- Initialized simulator for client114(10.17.108.85) using ./data/json/BFS_14/simulator_config.json.
+Sending global model to client114(10.17.108.85)...
+- Initialized simulator for client115(10.17.108.86) using ./data/json/BFS_15/simulator_config.json.
+Sending global model to client115(10.17.108.86)...
+- Initialized simulator for client116(10.17.108.87) using ./data/json/BFS_16/simulator_config.json.
+Sending global model to client116(10.17.108.87)...
+- Initialized simulator for client117(10.17.108.88) using ./data/json/BFS_17/simulator_config.json.
+Sending global model to client117(10.17.108.88)...
+- Initialized simulator for client118(10.17.108.90) using ./data/json/BFS_18/simulator_config.json.
+Sending global model to client118(10.17.108.90)...
+- Initialized simulator for client119(10.17.108.91) using ./data/json/BFS_19/simulator_config.json.
+Sending global model to client119(10.17.108.91)...
+
+### Reporting Phase ###
+
+Got report from client111(10.17.108.82).
+Got report from client110(10.17.108.81).
+Got report from client112(10.17.108.83).
+Got report from client115(10.17.108.86).
+Got report from client114(10.17.108.85).
+Got report from client113(10.17.108.84).
+Got report from client117(10.17.108.88).
+Got report from client116(10.17.108.87).
+Got report from client118(10.17.108.90).
+Got report from client119(10.17.108.91).
+Updated global model with FedAvg!
+Collected 0 objects.
+[SELECTOR] Selected client111(10.17.108.82) for the next round.
+[SELECTOR] Selected client116(10.17.108.87) for the next round.
+[SELECTOR] Selected client114(10.17.108.85) for the next round.
+[SELECTOR] Selected client112(10.17.108.83) for the next round.
+[SELECTOR] Selected client113(10.17.108.84) for the next round.
+[SELECTOR] Selected client119(10.17.108.91) for the next round.
+[SELECTOR] Selected client110(10.17.108.81) for the next round.
+[SELECTOR] Selected client115(10.17.108.86) for the next round.
+[SELECTOR] Selected client117(10.17.108.88) for the next round.
+[SELECTOR] Selected client118(10.17.108.90) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 12:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client120(10.17.108.92) using ./data/json/BFS_20/simulator_config.json.
+Sending global model to client120(10.17.108.92)...
+- Initialized simulator for client121(10.17.108.93) using ./data/json/BFS_21/simulator_config.json.
+Sending global model to client121(10.17.108.93)...
+- Initialized simulator for client122(10.17.108.94) using ./data/json/BFS_22/simulator_config.json.
+Sending global model to client122(10.17.108.94)...
+- Initialized simulator for client123(10.17.108.95) using ./data/json/BFS_23/simulator_config.json.
+Sending global model to client123(10.17.108.95)...
+- Initialized simulator for client124(10.17.108.96) using ./data/json/BFS_24/simulator_config.json.
+Sending global model to client124(10.17.108.96)...
+- Initialized simulator for client125(10.17.108.97) using ./data/json/BFS_25/simulator_config.json.
+Sending global model to client125(10.17.108.97)...
+- Initialized simulator for client126(10.17.108.98) using ./data/json/BFS_26/simulator_config.json.
+Sending global model to client126(10.17.108.98)...
+- Initialized simulator for client127(10.17.108.99) using ./data/json/BFS_27/simulator_config.json.
+Sending global model to client127(10.17.108.99)...
+- Initialized simulator for client128(10.17.104.164) using ./data/json/BFS_28/simulator_config.json.
+Sending global model to client128(10.17.104.164)...
+- Initialized simulator for client129(10.17.104.165) using ./data/json/BFS_29/simulator_config.json.
+Sending global model to client129(10.17.104.165)...
+
+### Reporting Phase ###
+
+Got report from client120(10.17.108.92).
+Got report from client123(10.17.108.95).
+Got report from client121(10.17.108.93).
+Got report from client122(10.17.108.94).
+Got report from client125(10.17.108.97).
+Got report from client124(10.17.108.96).
+Got report from client127(10.17.108.99).
+Got report from client128(10.17.104.164).
+Got report from client126(10.17.108.98).
+Got report from client129(10.17.104.165).
+Updated global model with FedAvg!
+Collected 0 objects.
+[SELECTOR] Selected client127(10.17.108.99) for the next round.
+[SELECTOR] Selected client120(10.17.108.92) for the next round.
+[SELECTOR] Selected client121(10.17.108.93) for the next round.
+[SELECTOR] Selected client124(10.17.108.96) for the next round.
+[SELECTOR] Selected client129(10.17.104.165) for the next round.
+[SELECTOR] Selected client126(10.17.108.98) for the next round.
+[SELECTOR] Selected client125(10.17.108.97) for the next round.
+[SELECTOR] Selected client123(10.17.108.95) for the next round.
+[SELECTOR] Selected client128(10.17.104.164) for the next round.
+[SELECTOR] Selected client122(10.17.108.94) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 13:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client130(10.17.104.166) using ./data/json/BFS_30/simulator_config.json.
+Sending global model to client130(10.17.104.166)...
+- Initialized simulator for client131(10.17.104.167) using ./data/json/BFS_31/simulator_config.json.
+Sending global model to client131(10.17.104.167)...
+- Initialized simulator for client132(10.17.104.168) using ./data/json/BFS_32/simulator_config.json.
+Sending global model to client132(10.17.104.168)...
+- Initialized simulator for client133(10.17.104.170) using ./data/json/BFS_33/simulator_config.json.
+Sending global model to client133(10.17.104.170)...
+- Initialized simulator for client134(10.17.104.175) using ./data/json/BFS_34/simulator_config.json.
+Sending global model to client134(10.17.104.175)...
+- Initialized simulator for client135(10.17.104.177) using ./data/json/BFS_35/simulator_config.json.
+Sending global model to client135(10.17.104.177)...
+- Initialized simulator for client136(10.17.104.178) using ./data/json/BFS_36/simulator_config.json.
+Sending global model to client136(10.17.104.178)...
+- Initialized simulator for client137(10.17.104.179) using ./data/json/BFS_37/simulator_config.json.
+Sending global model to client137(10.17.104.179)...
+- Initialized simulator for client138(10.17.108.100) using ./data/json/BFS_38/simulator_config.json.
+Sending global model to client138(10.17.108.100)...
+- Initialized simulator for client139(10.17.108.101) using ./data/json/BFS_39/simulator_config.json.
+Sending global model to client139(10.17.108.101)...
+
+### Reporting Phase ###
+
+Got report from client131(10.17.104.167).
+Got report from client130(10.17.104.166).
+Got report from client132(10.17.104.168).
+Got report from client133(10.17.104.170).
+Got report from client135(10.17.104.177).
+Got report from client134(10.17.104.175).
+Got report from client139(10.17.108.101).
+Got report from client136(10.17.104.178).
+Got report from client137(10.17.104.179).
+Got report from client138(10.17.108.100).
+Updated global model with FedAvg!
+Collected 0 objects.
+[SELECTOR] Selected client130(10.17.104.166) for the next round.
+[SELECTOR] Selected client135(10.17.104.177) for the next round.
+[SELECTOR] Selected client136(10.17.104.178) for the next round.
+[SELECTOR] Selected client139(10.17.108.101) for the next round.
+[SELECTOR] Selected client132(10.17.104.168) for the next round.
+[SELECTOR] Selected client133(10.17.104.170) for the next round.
+[SELECTOR] Selected client137(10.17.104.179) for the next round.
+[SELECTOR] Selected client134(10.17.104.175) for the next round.
+[SELECTOR] Selected client138(10.17.108.100) for the next round.
+[SELECTOR] Selected client131(10.17.104.167) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 14:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client140(10.17.108.102) using ./data/json/BFS_40/simulator_config.json.
+Sending global model to client140(10.17.108.102)...
+- Initialized simulator for client141(10.17.108.80) using ./data/json/BFS_41/simulator_config.json.
+Sending global model to client141(10.17.108.80)...
+- Initialized simulator for client142(10.17.108.81) using ./data/json/BFS_42/simulator_config.json.
+Sending global model to client142(10.17.108.81)...
+- Initialized simulator for client143(10.17.108.82) using ./data/json/BFS_43/simulator_config.json.
+Sending global model to client143(10.17.108.82)...
+- Initialized simulator for client144(10.17.108.83) using ./data/json/BFS_44/simulator_config.json.
+Sending global model to client144(10.17.108.83)...
+- Initialized simulator for client145(10.17.108.84) using ./data/json/BFS_45/simulator_config.json.
+Sending global model to client145(10.17.108.84)...
+- Initialized simulator for client146(10.17.108.85) using ./data/json/BFS_46/simulator_config.json.
+Sending global model to client146(10.17.108.85)...
+- Initialized simulator for client147(10.17.108.86) using ./data/json/BFS_47/simulator_config.json.
+Sending global model to client147(10.17.108.86)...
+- Initialized simulator for client148(10.17.108.87) using ./data/json/BFS_48/simulator_config.json.
+Sending global model to client148(10.17.108.87)...
+- Initialized simulator for client149(10.17.108.88) using ./data/json/BFS_49/simulator_config.json.
+Sending global model to client149(10.17.108.88)...
+
+### Reporting Phase ###
+
+Got report from client141(10.17.108.80).
+Got report from client140(10.17.108.102).
+Got report from client142(10.17.108.81).
+Got report from client143(10.17.108.82).
+Got report from client144(10.17.108.83).
+Got report from client145(10.17.108.84).
+Got report from client146(10.17.108.85).
+Got report from client147(10.17.108.86).
+Got report from client149(10.17.108.88).
+Got report from client148(10.17.108.87).
+Updated global model with FedAvg!
+Collected 0 objects.
+[SELECTOR] Selected client141(10.17.108.80) for the next round.
+[SELECTOR] Selected client146(10.17.108.85) for the next round.
+[SELECTOR] Selected client149(10.17.108.88) for the next round.
+[SELECTOR] Selected client142(10.17.108.81) for the next round.
+[SELECTOR] Selected client144(10.17.108.83) for the next round.
+[SELECTOR] Selected client148(10.17.108.87) for the next round.
+[SELECTOR] Selected client145(10.17.108.84) for the next round.
+[SELECTOR] Selected client140(10.17.108.102) for the next round.
+[SELECTOR] Selected client143(10.17.108.82) for the next round.
+[SELECTOR] Selected client147(10.17.108.86) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 15:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client150(10.17.108.90) using ./data/json/BFS_50/simulator_config.json.
+Sending global model to client150(10.17.108.90)...
+- Initialized simulator for client151(10.17.108.91) using ./data/json/BFS_51/simulator_config.json.
+Sending global model to client151(10.17.108.91)...
+- Initialized simulator for client152(10.17.108.92) using ./data/json/BFS_52/simulator_config.json.
+Sending global model to client152(10.17.108.92)...
+- Initialized simulator for client153(10.17.108.93) using ./data/json/BFS_53/simulator_config.json.
+Sending global model to client153(10.17.108.93)...
+- Initialized simulator for client154(10.17.108.94) using ./data/json/BFS_54/simulator_config.json.
+Sending global model to client154(10.17.108.94)...
+- Initialized simulator for client155(10.17.108.95) using ./data/json/BFS_55/simulator_config.json.
+Sending global model to client155(10.17.108.95)...
+- Initialized simulator for client156(10.17.108.96) using ./data/json/BFS_56/simulator_config.json.
+Sending global model to client156(10.17.108.96)...
+- Initialized simulator for client157(10.17.108.97) using ./data/json/BFS_57/simulator_config.json.
+Sending global model to client157(10.17.108.97)...
+- Initialized simulator for client158(10.17.108.98) using ./data/json/BFS_58/simulator_config.json.
+Sending global model to client158(10.17.108.98)...
+- Initialized simulator for client159(10.17.108.99) using ./data/json/BFS_59/simulator_config.json.
+Sending global model to client159(10.17.108.99)...
+
+### Reporting Phase ###
+
+Got report from client150(10.17.108.90).
+Got report from client153(10.17.108.93).
+Got report from client152(10.17.108.92).
+Got report from client154(10.17.108.94).
+Got report from client151(10.17.108.91).
+Got report from client156(10.17.108.96).
+Got report from client155(10.17.108.95).
+Got report from client157(10.17.108.97).
+Got report from client158(10.17.108.98).
+Got report from client159(10.17.108.99).
+Updated global model with FedAvg!
+Collected 0 objects.
+[SELECTOR] Selected client156(10.17.108.96) for the next round.
+[SELECTOR] Selected client158(10.17.108.98) for the next round.
+[SELECTOR] Selected client154(10.17.108.94) for the next round.
+[SELECTOR] Selected client152(10.17.108.92) for the next round.
+[SELECTOR] Selected client150(10.17.108.90) for the next round.
+[SELECTOR] Selected client151(10.17.108.91) for the next round.
+[SELECTOR] Selected client159(10.17.108.99) for the next round.
+[SELECTOR] Selected client153(10.17.108.93) for the next round.
+[SELECTOR] Selected client157(10.17.108.97) for the next round.
+[SELECTOR] Selected client155(10.17.108.95) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 16:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client160(10.17.104.164) using ./data/json/BFS_60/simulator_config.json.
+Sending global model to client160(10.17.104.164)...
+- Initialized simulator for client161(10.17.104.165) using ./data/json/BFS_61/simulator_config.json.
+Sending global model to client161(10.17.104.165)...
+- Initialized simulator for client162(10.17.104.166) using ./data/json/BFS_62/simulator_config.json.
+Sending global model to client162(10.17.104.166)...
+- Initialized simulator for client163(10.17.104.167) using ./data/json/BFS_63/simulator_config.json.
+Sending global model to client163(10.17.104.167)...
+- Initialized simulator for client164(10.17.104.168) using ./data/json/BFS_64/simulator_config.json.
+Sending global model to client164(10.17.104.168)...
+- Initialized simulator for client165(10.17.104.170) using ./data/json/BFS_65/simulator_config.json.
+Sending global model to client165(10.17.104.170)...
+- Initialized simulator for client166(10.17.104.175) using ./data/json/BFS_66/simulator_config.json.
+Sending global model to client166(10.17.104.175)...
+- Initialized simulator for client167(10.17.104.177) using ./data/json/BFS_67/simulator_config.json.
+Sending global model to client167(10.17.104.177)...
+- Initialized simulator for client168(10.17.104.178) using ./data/json/BFS_68/simulator_config.json.
+Sending global model to client168(10.17.104.178)...
+- Initialized simulator for client169(10.17.104.179) using ./data/json/BFS_69/simulator_config.json.
+Sending global model to client169(10.17.104.179)...
+
+### Reporting Phase ###
+
+Got report from client163(10.17.104.167).
+Got report from client162(10.17.104.166).
+Got report from client161(10.17.104.165).
+Got report from client160(10.17.104.164).
+Got report from client164(10.17.104.168).
+Got report from client166(10.17.104.175).
+Got report from client165(10.17.104.170).
+Got report from client168(10.17.104.178).
+Got report from client167(10.17.104.177).
+Got report from client169(10.17.104.179).
+Updated global model with FedAvg!
+Collected 0 objects.
+[SELECTOR] Selected client161(10.17.104.165) for the next round.
+[SELECTOR] Selected client169(10.17.104.179) for the next round.
+[SELECTOR] Selected client164(10.17.104.168) for the next round.
+[SELECTOR] Selected client166(10.17.104.175) for the next round.
+[SELECTOR] Selected client165(10.17.104.170) for the next round.
+[SELECTOR] Selected client167(10.17.104.177) for the next round.
+[SELECTOR] Selected client160(10.17.104.164) for the next round.
+[SELECTOR] Selected client168(10.17.104.178) for the next round.
+[SELECTOR] Selected client163(10.17.104.167) for the next round.
+[SELECTOR] Selected client162(10.17.104.166) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 17:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client170(10.17.108.100) using ./data/json/BFS_70/simulator_config.json.
+Sending global model to client170(10.17.108.100)...
+- Initialized simulator for client171(10.17.108.101) using ./data/json/BFS_71/simulator_config.json.
+Sending global model to client171(10.17.108.101)...
+- Initialized simulator for client172(10.17.108.102) using ./data/json/BFS_72/simulator_config.json.
+Sending global model to client172(10.17.108.102)...
+- Initialized simulator for client173(10.17.108.80) using ./data/json/BFS_73/simulator_config.json.
+Sending global model to client173(10.17.108.80)...
+- Initialized simulator for client174(10.17.108.81) using ./data/json/BFS_74/simulator_config.json.
+Sending global model to client174(10.17.108.81)...
+- Initialized simulator for client175(10.17.108.82) using ./data/json/BFS_75/simulator_config.json.
+Sending global model to client175(10.17.108.82)...
+- Initialized simulator for client176(10.17.108.83) using ./data/json/BFS_76/simulator_config.json.
+Sending global model to client176(10.17.108.83)...
+- Initialized simulator for client177(10.17.108.84) using ./data/json/BFS_77/simulator_config.json.
+Sending global model to client177(10.17.108.84)...
+- Initialized simulator for client178(10.17.108.85) using ./data/json/BFS_78/simulator_config.json.
+Sending global model to client178(10.17.108.85)...
+- Initialized simulator for client179(10.17.108.86) using ./data/json/BFS_79/simulator_config.json.
+Sending global model to client179(10.17.108.86)...
+
+### Reporting Phase ###
+
+Got report from client172(10.17.108.102).
+Got report from client170(10.17.108.100).
+Got report from client173(10.17.108.80).
+Got report from client171(10.17.108.101).
+Got report from client175(10.17.108.82).
+Got report from client176(10.17.108.83).
+Got report from client178(10.17.108.85).
+Got report from client174(10.17.108.81).
+Got report from client179(10.17.108.86).
+Got report from client177(10.17.108.84).
+Updated global model with FedAvg!
+[SELECTOR] Selected client175(10.17.108.82) for the next round.
+Collected 0 objects.
+[SELECTOR] Selected client170(10.17.108.100) for the next round.
+[SELECTOR] Selected client171(10.17.108.101) for the next round.
+[SELECTOR] Selected client173(10.17.108.80) for the next round.
+[SELECTOR] Selected client177(10.17.108.84) for the next round.
+[SELECTOR] Selected client172(10.17.108.102) for the next round.
+[SELECTOR] Selected client176(10.17.108.83) for the next round.
+[SELECTOR] Selected client179(10.17.108.86) for the next round.
+[SELECTOR] Selected client178(10.17.108.85) for the next round.
+[SELECTOR] Selected client174(10.17.108.81) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 18:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client180(10.17.108.87) using ./data/json/BFS_80/simulator_config.json.
+Sending global model to client180(10.17.108.87)...
+- Initialized simulator for client181(10.17.108.88) using ./data/json/BFS_81/simulator_config.json.
+Sending global model to client181(10.17.108.88)...
+- Initialized simulator for client182(10.17.108.90) using ./data/json/BFS_82/simulator_config.json.
+Sending global model to client182(10.17.108.90)...
+- Initialized simulator for client183(10.17.108.91) using ./data/json/BFS_83/simulator_config.json.
+Sending global model to client183(10.17.108.91)...
+- Initialized simulator for client184(10.17.108.92) using ./data/json/BFS_84/simulator_config.json.
+Sending global model to client184(10.17.108.92)...
+- Initialized simulator for client185(10.17.108.93) using ./data/json/BFS_85/simulator_config.json.
+Sending global model to client185(10.17.108.93)...
+- Initialized simulator for client186(10.17.108.94) using ./data/json/BFS_86/simulator_config.json.
+Sending global model to client186(10.17.108.94)...
+- Initialized simulator for client187(10.17.108.95) using ./data/json/BFS_87/simulator_config.json.
+Sending global model to client187(10.17.108.95)...
+- Initialized simulator for client188(10.17.108.96) using ./data/json/BFS_88/simulator_config.json.
+Sending global model to client188(10.17.108.96)...
+- Initialized simulator for client189(10.17.108.97) using ./data/json/BFS_89/simulator_config.json.
+Sending global model to client189(10.17.108.97)...
+
+### Reporting Phase ###
+
+Got report from client181(10.17.108.88).
+Got report from client180(10.17.108.87).
+Got report from client182(10.17.108.90).
+Got report from client183(10.17.108.91).
+Got report from client184(10.17.108.92).
+Got report from client186(10.17.108.94).
+Got report from client187(10.17.108.95).
+Got report from client185(10.17.108.93).
+Got report from client188(10.17.108.96).
+Got report from client189(10.17.108.97).
+Updated global model with FedAvg!
+[SELECTOR] Selected client188(10.17.108.96) for the next round.
+Collected 0 objects.
+[SELECTOR] Selected client180(10.17.108.87) for the next round.
+[SELECTOR] Selected client183(10.17.108.91) for the next round.
+[SELECTOR] Selected client185(10.17.108.93) for the next round.
+[SELECTOR] Selected client184(10.17.108.92) for the next round.
+[SELECTOR] Selected client182(10.17.108.90) for the next round.
+[SELECTOR] Selected client189(10.17.108.97) for the next round.
+[SELECTOR] Selected client186(10.17.108.94) for the next round.
+[SELECTOR] Selected client187(10.17.108.95) for the next round.
+[SELECTOR] Selected client181(10.17.108.88) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 19:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client190(10.17.108.98) using ./data/json/BFS_90/simulator_config.json.
+Sending global model to client190(10.17.108.98)...
+- Initialized simulator for client191(10.17.108.99) using ./data/json/BFS_91/simulator_config.json.
+Sending global model to client191(10.17.108.99)...
+- Initialized simulator for client192(10.17.104.164) using ./data/json/BFS_92/simulator_config.json.
+Sending global model to client192(10.17.104.164)...
+- Initialized simulator for client193(10.17.104.165) using ./data/json/BFS_93/simulator_config.json.
+Sending global model to client193(10.17.104.165)...
+- Initialized simulator for client194(10.17.104.166) using ./data/json/BFS_94/simulator_config.json.
+Sending global model to client194(10.17.104.166)...
+- Initialized simulator for client195(10.17.104.167) using ./data/json/BFS_95/simulator_config.json.
+Sending global model to client195(10.17.104.167)...
+- Initialized simulator for client196(10.17.104.168) using ./data/json/BFS_96/simulator_config.json.
+Sending global model to client196(10.17.104.168)...
+- Initialized simulator for client197(10.17.104.170) using ./data/json/BFS_97/simulator_config.json.
+Sending global model to client197(10.17.104.170)...
+- Initialized simulator for client198(10.17.104.175) using ./data/json/BFS_98/simulator_config.json.
+Sending global model to client198(10.17.104.175)...
+- Initialized simulator for client199(10.17.104.177) using ./data/json/BFS_99/simulator_config.json.
+Sending global model to client199(10.17.104.177)...
+
+### Reporting Phase ###
+
+Got report from client194(10.17.104.166).
+Got report from client191(10.17.108.99).
+Got report from client192(10.17.104.164).
+Got report from client195(10.17.104.167).
+Got report from client190(10.17.108.98).
+Got report from client193(10.17.104.165).
+Got report from client196(10.17.104.168).
+Got report from client197(10.17.104.170).
+Got report from client198(10.17.104.175).
+Got report from client199(10.17.104.177).
+Updated global model with FedAvg!
+[SELECTOR] Selected client195(10.17.104.167) for the next round.
+Collected 0 objects.
+[SELECTOR] Selected client193(10.17.104.165) for the next round.
+[SELECTOR] Selected client191(10.17.108.99) for the next round.
+[SELECTOR] Selected client199(10.17.104.177) for the next round.
+[SELECTOR] Selected client190(10.17.108.98) for the next round.
+[SELECTOR] Selected client198(10.17.104.175) for the next round.
+[SELECTOR] Selected client192(10.17.104.164) for the next round.
+[SELECTOR] Selected client196(10.17.104.168) for the next round.
+[SELECTOR] Selected client197(10.17.104.170) for the next round.
+[SELECTOR] Selected client194(10.17.104.166) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 20:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client200(10.17.104.178) using ./data/json/BFS_00/simulator_config.json.
+Sending global model to client200(10.17.104.178)...
+- Initialized simulator for client201(10.17.104.179) using ./data/json/BFS_01/simulator_config.json.
+Sending global model to client201(10.17.104.179)...
+- Initialized simulator for client202(10.17.108.100) using ./data/json/BFS_02/simulator_config.json.
+Sending global model to client202(10.17.108.100)...
+- Initialized simulator for client203(10.17.108.101) using ./data/json/BFS_03/simulator_config.json.
+Sending global model to client203(10.17.108.101)...
+- Initialized simulator for client204(10.17.108.102) using ./data/json/BFS_04/simulator_config.json.
+Sending global model to client204(10.17.108.102)...
+- Initialized simulator for client205(10.17.108.80) using ./data/json/BFS_05/simulator_config.json.
+Sending global model to client205(10.17.108.80)...
+- Initialized simulator for client206(10.17.108.81) using ./data/json/BFS_06/simulator_config.json.
+Sending global model to client206(10.17.108.81)...
+- Initialized simulator for client207(10.17.108.82) using ./data/json/BFS_07/simulator_config.json.
+Sending global model to client207(10.17.108.82)...
+- Initialized simulator for client208(10.17.108.83) using ./data/json/BFS_08/simulator_config.json.
+Sending global model to client208(10.17.108.83)...
+- Initialized simulator for client209(10.17.108.84) using ./data/json/BFS_09/simulator_config.json.
+Sending global model to client209(10.17.108.84)...
+
+### Reporting Phase ###
+
+Got report from client200(10.17.104.178).
+Got report from client203(10.17.108.101).
+Got report from client202(10.17.108.100).
+Got report from client201(10.17.104.179).
+Got report from client204(10.17.108.102).
+Got report from client205(10.17.108.80).
+Got report from client207(10.17.108.82).
+Got report from client206(10.17.108.81).
+Got report from client208(10.17.108.83).
+Got report from client209(10.17.108.84).
+Updated global model with FedAvg!
+[SELECTOR] Selected client202(10.17.108.100) for the next round.
+[SELECTOR] Selected client203(10.17.108.101) for the next round.
+[SELECTOR] Selected client208(10.17.108.83) for the next round.
+Collected 0 objects.
+[SELECTOR] Selected client206(10.17.108.81) for the next round.
+[SELECTOR] Selected client204(10.17.108.102) for the next round.
+[SELECTOR] Selected client209(10.17.108.84) for the next round.
+[SELECTOR] Selected client200(10.17.104.178) for the next round.
+[SELECTOR] Selected client201(10.17.104.179) for the next round.
+[SELECTOR] Selected client207(10.17.108.82) for the next round.
+[SELECTOR] Selected client205(10.17.108.80) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 21:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client210(10.17.108.85) using ./data/json/BFS_10/simulator_config.json.
+Sending global model to client210(10.17.108.85)...
+- Initialized simulator for client211(10.17.108.86) using ./data/json/BFS_11/simulator_config.json.
+Sending global model to client211(10.17.108.86)...
+- Initialized simulator for client212(10.17.108.87) using ./data/json/BFS_12/simulator_config.json.
+Sending global model to client212(10.17.108.87)...
+- Initialized simulator for client213(10.17.108.88) using ./data/json/BFS_13/simulator_config.json.
+Sending global model to client213(10.17.108.88)...
+- Initialized simulator for client214(10.17.108.90) using ./data/json/BFS_14/simulator_config.json.
+Sending global model to client214(10.17.108.90)...
+- Initialized simulator for client215(10.17.108.91) using ./data/json/BFS_15/simulator_config.json.
+Sending global model to client215(10.17.108.91)...
+- Initialized simulator for client216(10.17.108.92) using ./data/json/BFS_16/simulator_config.json.
+Sending global model to client216(10.17.108.92)...
+- Initialized simulator for client217(10.17.108.93) using ./data/json/BFS_17/simulator_config.json.
+Sending global model to client217(10.17.108.93)...
+- Initialized simulator for client218(10.17.108.94) using ./data/json/BFS_18/simulator_config.json.
+Sending global model to client218(10.17.108.94)...
+- Initialized simulator for client219(10.17.108.95) using ./data/json/BFS_19/simulator_config.json.
+Sending global model to client219(10.17.108.95)...
+
+### Reporting Phase ###
+
+Got report from client211(10.17.108.86).
+Got report from client210(10.17.108.85).
+Got report from client212(10.17.108.87).
+Got report from client214(10.17.108.90).
+Got report from client213(10.17.108.88).
+Got report from client215(10.17.108.91).
+Got report from client216(10.17.108.92).
+Got report from client217(10.17.108.93).
+Got report from client218(10.17.108.94).
+Got report from client219(10.17.108.95).
+Updated global model with FedAvg!
+[SELECTOR] Selected client214(10.17.108.90) for the next round.
+Collected 0 objects.
+[SELECTOR] Selected client216(10.17.108.92) for the next round.
+[SELECTOR] Selected client211(10.17.108.86) for the next round.
+[SELECTOR] Selected client217(10.17.108.93) for the next round.
+[SELECTOR] Selected client215(10.17.108.91) for the next round.
+[SELECTOR] Selected client210(10.17.108.85) for the next round.
+[SELECTOR] Selected client212(10.17.108.87) for the next round.
+[SELECTOR] Selected client213(10.17.108.88) for the next round.
+[SELECTOR] Selected client218(10.17.108.94) for the next round.
+[SELECTOR] Selected client219(10.17.108.95) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 22:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client220(10.17.108.96) using ./data/json/BFS_20/simulator_config.json.
+Sending global model to client220(10.17.108.96)...
+- Initialized simulator for client221(10.17.108.97) using ./data/json/BFS_21/simulator_config.json.
+Sending global model to client221(10.17.108.97)...
+- Initialized simulator for client222(10.17.108.98) using ./data/json/BFS_22/simulator_config.json.
+Sending global model to client222(10.17.108.98)...
+- Initialized simulator for client223(10.17.108.99) using ./data/json/BFS_23/simulator_config.json.
+Sending global model to client223(10.17.108.99)...
+- Initialized simulator for client224(10.17.104.164) using ./data/json/BFS_24/simulator_config.json.
+Sending global model to client224(10.17.104.164)...
+- Initialized simulator for client225(10.17.104.165) using ./data/json/BFS_25/simulator_config.json.
+Sending global model to client225(10.17.104.165)...
+- Initialized simulator for client226(10.17.104.166) using ./data/json/BFS_26/simulator_config.json.
+Sending global model to client226(10.17.104.166)...
+- Initialized simulator for client227(10.17.104.167) using ./data/json/BFS_27/simulator_config.json.
+Sending global model to client227(10.17.104.167)...
+- Initialized simulator for client228(10.17.104.168) using ./data/json/BFS_28/simulator_config.json.
+Sending global model to client228(10.17.104.168)...
+- Initialized simulator for client229(10.17.104.170) using ./data/json/BFS_29/simulator_config.json.
+Sending global model to client229(10.17.104.170)...
+
+### Reporting Phase ###
+
+Got report from client220(10.17.108.96).
+Got report from client221(10.17.108.97).
+Got report from client223(10.17.108.99).
+Got report from client222(10.17.108.98).
+Got report from client224(10.17.104.164).
+Got report from client225(10.17.104.165).
+Got report from client227(10.17.104.167).
+Got report from client226(10.17.104.166).
+Got report from client228(10.17.104.168).
+Got report from client229(10.17.104.170).
+Updated global model with FedAvg!
+[SELECTOR] Selected client226(10.17.104.166) for the next round.
+Collected 0 objects.
+[SELECTOR] Selected client224(10.17.104.164) for the next round.
+[SELECTOR] Selected client221(10.17.108.97) for the next round.
+[SELECTOR] Selected client222(10.17.108.98) for the next round.
+[SELECTOR] Selected client220(10.17.108.96) for the next round.
+[SELECTOR] Selected client225(10.17.104.165) for the next round.
+[SELECTOR] Selected client229(10.17.104.170) for the next round.
+[SELECTOR] Selected client227(10.17.104.167) for the next round.
+[SELECTOR] Selected client223(10.17.108.99) for the next round.
+[SELECTOR] Selected client228(10.17.104.168) for the next round.
+
+
+START NEW ROUND (time: 2020-08-01 23:00:00, qsize: 1024)
+
+
+### Configuration Phase ###
+
+- Initialized simulator for client230(10.17.104.175) using ./data/json/BFS_30/simulator_config.json.
+Sending global model to client230(10.17.104.175)...
+- Initialized simulator for client231(10.17.104.177) using ./data/json/BFS_31/simulator_config.json.
+Sending global model to client231(10.17.104.177)...
+- Initialized simulator for client232(10.17.104.178) using ./data/json/BFS_32/simulator_config.json.
+Sending global model to client232(10.17.104.178)...
+- Initialized simulator for client233(10.17.104.179) using ./data/json/BFS_33/simulator_config.json.
+Sending global model to client233(10.17.104.179)...
+- Initialized simulator for client234(10.17.108.100) using ./data/json/BFS_34/simulator_config.json.
+Sending global model to client234(10.17.108.100)...
+- Initialized simulator for client235(10.17.108.101) using ./data/json/BFS_35/simulator_config.json.
+Sending global model to client235(10.17.108.101)...
+- Initialized simulator for client236(10.17.108.102) using ./data/json/BFS_36/simulator_config.json.
+Sending global model to client236(10.17.108.102)...
+- Initialized simulator for client237(10.17.108.80) using ./data/json/BFS_37/simulator_config.json.
+Sending global model to client237(10.17.108.80)...
+- Initialized simulator for client238(10.17.108.81) using ./data/json/BFS_38/simulator_config.json.
+Sending global model to client238(10.17.108.81)...
+- Initialized simulator for client239(10.17.108.82) using ./data/json/BFS_39/simulator_config.json.
+Sending global model to client239(10.17.108.82)...
+
+### Reporting Phase ###
+
+Got report from client230(10.17.104.175).
+Got report from client231(10.17.104.177).
+Got report from client232(10.17.104.178).
+Got report from client233(10.17.104.179).
+Got report from client234(10.17.108.100).
+Got report from client235(10.17.108.101).
+Got report from client237(10.17.108.80).
+Got report from client236(10.17.108.102).
+Got report from client238(10.17.108.81).
+Got report from client239(10.17.108.82).
+Updated global model with FedAvg!
+Collected 0 objects.
+Elapsed time: 146.876901266005
+[SELECTOR] Selected client235(10.17.108.101) for the next round.
+The selection thread exits!
+[ Top 10 differences ]
+1800016 memory blocks: 174321.7 KiB
+  File "/home/mdxuser/building-facility-simulator/scalability_experiment.py", line 146
+    experiment(
+  File "/home/mdxuser/building-facility-simulator/scalability_experiment.py", line 130
+    server._exec_fl_proccess()
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/server.py", line 82
+    self.configuration_phase()
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/server.py", line 113
+    agent=self.manager_dict[client_id].create_agent(self.global_model, self.cur_time, end_time)
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/remote_simulation.py", line 57
+    envs=list(islice(self.env_iter, total_steps)),
+  File "/home/mdxuser/building-facility-simulator/simulator/interfaces/config.py", line 31
+    return self.ModelType.parse_obj(next(self.reader))
+1421956 memory blocks: 116570.7 KiB
+  File "/home/mdxuser/building-facility-simulator/scalability_experiment.py", line 146
+    experiment(
+  File "/home/mdxuser/building-facility-simulator/scalability_experiment.py", line 130
+    server._exec_fl_proccess()
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/server.py", line 82
+    self.configuration_phase()
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/server.py", line 113
+    agent=self.manager_dict[client_id].create_agent(self.global_model, self.cur_time, end_time)
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/remote_simulation.py", line 57
+    envs=list(islice(self.env_iter, total_steps)),
+  File "/home/mdxuser/building-facility-simulator/simulator/interfaces/config.py", line 103
+    lambda ext_areas: BuildingEnvironment(external=ext_areas[0], areas=list(ext_areas[1])), zip(ext_env_iter, area_envs_iter))
+2867 memory blocks: 9458.5 KiB
+  File "/home/mdxuser/building-facility-simulator/scalability_experiment.py", line 146
+    experiment(
+  File "/home/mdxuser/building-facility-simulator/scalability_experiment.py", line 130
+    server._exec_fl_proccess()
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/server.py", line 82
+    self.configuration_phase()
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/server.py", line 108
+    client_id = req['client_id'] if req['client_id'] != None else self._init_client(client)
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/server.py", line 158
+    self.manager_dict[client_id] = RemoteSimulatonManager(
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/remote_simulation.py", line 29
+    bfs = BuildingFacilitySimulator(config=config, calc_reward=calc_reward)
+  File "/home/mdxuser/building-facility-simulator/simulator/bfs.py", line 28
+    self.next_env: Optional[BuildingEnvironment] = next(self.env_iter, None)
+  File "/home/mdxuser/building-facility-simulator/simulator/interfaces/config.py", line 31
+    return self.ModelType.parse_obj(next(self.reader))
+  File "/home/mdxuser/miniconda3/envs/bfs/lib/python3.9/csv.py", line 110
+    self.fieldnames
+  File "/home/mdxuser/miniconda3/envs/bfs/lib/python3.9/csv.py", line 97
+    self._fieldnames = next(self.reader)
+1 memory blocks: 2560.0 KiB
+  File "/home/mdxuser/building-facility-simulator/scalability_experiment.py", line 146
+    experiment(
+  File "/home/mdxuser/building-facility-simulator/scalability_experiment.py", line 130
+    server._exec_fl_proccess()
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/server.py", line 82
+    self.configuration_phase()
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/server.py", line 108
+    client_id = req['client_id'] if req['client_id'] != None else self._init_client(client)
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/server.py", line 157
+    config = SimulatorConfig.parse_file(config_path)
+  File "/home/mdxuser/miniconda3/envs/bfs/lib/python3.9/pathlib.py", line 1082
+    self = cls._from_parts(args, init=False)
+  File "/home/mdxuser/miniconda3/envs/bfs/lib/python3.9/pathlib.py", line 707
+    drv, root, parts = self._parse_args(args)
+  File "/home/mdxuser/miniconda3/envs/bfs/lib/python3.9/pathlib.py", line 700
+    return cls._flavour.parse_parts(parts)
+  File "/home/mdxuser/miniconda3/envs/bfs/lib/python3.9/pathlib.py", line 79
+    parsed.append(sys.intern(x))
+12528 memory blocks: 2056.4 KiB
+  File "/home/mdxuser/building-facility-simulator/scalability_experiment.py", line 146
+    experiment(
+  File "/home/mdxuser/building-facility-simulator/scalability_experiment.py", line 130
+    server._exec_fl_proccess()
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/server.py", line 82
+    self.configuration_phase()
+  File "/home/mdxuser/building-facility-simulator/distributed_platform/server.py", line 118
+    send_all(pickle.dumps(resp), conn)
+Traced memory: (6813138, 339601422)
