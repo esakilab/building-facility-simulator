@@ -21,14 +21,18 @@ def check_at_least_one(target: dict[str, Any], field1: str, field2: str):
 M = TypeVar('M', bound=BaseModel)
 class CsvModelIterator(Iterator[M]):
     def __init__(self, csv_path: Path, ModelType: Type[M]):
-        self.reader = DictReader(csv_path.open())
+        self.file = csv_path.open()
         self.ModelType = ModelType
+        self.header = self.file.readline().strip('\n').split(',')
     
     def __iter__(self) -> CsvModelIterator:
         return self
     
     def __next__(self) -> M:
-        return self.ModelType.parse_obj(next(self.reader))
+        row = self.file.readline().split(',')
+        return self.ModelType.parse_obj(
+            {key: value for key, value in zip(self.header, row)}
+        )
 
 
 class FacilityAttributes(BaseModel):
