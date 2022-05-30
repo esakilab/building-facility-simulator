@@ -13,7 +13,7 @@ class FacilityEffect(NamedTuple):
     """設備によるエリアの働きかけ(2.2節)を表すオブジェクト
     """
 
-    power: float # [W/m^2]
+    power: float # [kW]
     heat: float  # [kJ/s = kW]
 
 
