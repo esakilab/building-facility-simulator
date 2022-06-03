@@ -58,5 +58,6 @@ class BuildingAction():
             area_action = AreaAction.from_ndarray(src, area.facilities)
             
             area_actions.append(area_action)
+            src = src[area_action.consumed_ndarray_len:]
         
         return BuildingAction(areas=area_actions)
