@@ -1,0 +1,80 @@
+{
+    "start_time": "2020-08-10T00:00:00",
+    "building_attributes": {
+        "areas": [
+            {
+                "name": "roof",
+                "facilities": [
+                    {
+                        "type": "PV",
+                        "parameters": {
+                            "max_power": 100
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "room 101",
+                "capacity": 2160.0,
+                "facilities": [
+                    {
+                        "type": "HVAC",
+                        "parameters": {
+                            "cool_max_power": 6,
+                            "heat_max_power": 8,
+                            "cool_cop": 5,
+                            "heat_cop": 5
+                        }
+                    }
+                ],
+                "area_environment_csv_path": "data/json/example/room-101_area_env.csv"
+            },
+            {
+                "name": "room 102",
+                "capacity": 360.0,
+                "facilities": [
+                    {
+                        "type": "HVAC",
+                        "parameters": {
+                            "cool_max_power": 2,
+                            "heat_max_power": 2,
+                            "cool_cop": 5,
+                            "heat_cop": 5
+                        }
+                    }
+                ],
+                "area_environment_csv_path": "data/json/example/room-102_area_env.csv"
+            },
+            {
+                "name": "room 103",
+                "capacity": 360.0,
+                "facilities": [
+                    {
+                        "type": "HVAC",
+                        "parameters": {
+                            "cool_max_power": 2,
+                            "heat_max_power": 2,
+                            "cool_cop": 5,
+                            "heat_cop": 5
+                        }
+                    }
+                ],
+                "area_environment_csv_path": "data/json/example/room-103_area_env.csv"
+            },
+            {
+                "name": "cubicle",
+                "facilities": [
+                    {
+                        "type": "ES",
+                        "parameters": {
+                            "charge_power": 10,
+                            "discharge_power": 10,
+                            "capacity": 1000
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "external_environment_csv_path": "data/json/example/ext_env.csv"
+}

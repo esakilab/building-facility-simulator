@@ -1,11 +1,10 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import NamedTuple, Type, TypeVar
-from xml.etree.ElementTree import Element
 
 import numpy as np
 
-from simulator.facility import Facility, xml_element_to_facility
+from simulator.facility import Facility
 from simulator.environment import ExternalEnvironment, AreaEnvironment
 from simulator.facility.facility_base import FacilityActionFactory, FacilityState
 
@@ -69,29 +68,6 @@ class Area:
             temperature=self.temperature,
             people=self.people,
             facilities=[facility.get_state() for facility in self.facilities]
-        )
-
-
-    @classmethod
-    def from_xml_element(cls: Type[T], elem: Element) -> T:
-        assert elem.tag == "area", f"invalid element for {cls}"
-
-        facility_elems = filter(lambda child: child.tag == 'facility', elem)
-
-        facilities = []
-
-        for facility_elem in sorted(facility_elems, key=lambda elem: elem.attrib['id']):
-            assert int(facility_elem.attrib['id']) == len(facilities), \
-                "Area IDs must start from 0 and must be consecutive."
-
-            facilities.append(xml_element_to_facility(facility_elem))
-
-        return cls(
-            name=elem.attrib['name'],
-            facilities=facilities,
-            simulate_temperature=('capacity' in elem.attrib),
-            capacity=float(elem.attrib.get('capacity', "-1")),
-            temperature=float(elem.attrib.get('temperature', "25"))
         )
 
 

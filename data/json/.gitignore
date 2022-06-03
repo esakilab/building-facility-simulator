@@ -1,0 +1,4 @@
+*.json
+*.csv
+!example/*.json
+!example/*.csv

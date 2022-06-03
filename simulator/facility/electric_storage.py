@@ -2,11 +2,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 import enum
 from typing import Type
-from xml.etree.ElementTree import Element
 
 import numpy as np
 
 from simulator.facility.facility_base import Facility, FacilityAction, FacilityEffect, FacilityState, T
+from simulator.facility.factory import FacilityFactory
 
 
 class ESMode(enum.Enum):
@@ -43,15 +43,14 @@ class ESAction(FacilityAction):
         return cls(mode=ESMode.from_int(int(src[0])))
 
 
-@dataclass
+@FacilityFactory.register("ES")
 class ElectricStorage(Facility):
-    TYPE_STR = "ES"
     ACTION_TYPE = ESAction
 
     # static settings
-    charge_power: float = 0 # [kW]
-    discharge_power: float = 0 # [kW]
-    capacity: float = 0 # [kWh]
+    charge_power: float # [kW]
+    discharge_power: float # [kW]
+    capacity: float # [kWh]
     
     # internal state
     charge_ratio: float = 0
@@ -90,18 +89,7 @@ class ElectricStorage(Facility):
 
     def get_state(self) -> FacilityState:
         return ESState(charge_ratio=self.charge_ratio)
-    
-    
-    @classmethod
-    def from_xml_element(cls: Type[T], elem: Element) -> T:
-        facility = super(ElectricStorage, cls).from_xml_element(elem)
-
-        facility.charge_power = float(facility.params['charge-power'])
-        facility.discharge_power = float(facility.params['discharge-power'])
-        facility.capacity = float(facility.params['capacity'])
-
-        return facility
 
 
-    def __repr__(self) -> str:
+    def __str__(self) -> str:
         return f"ES(charge_ratio={self.charge_ratio:.3f}, mode={self.mode})"
