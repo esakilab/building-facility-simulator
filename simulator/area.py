@@ -1,8 +1,9 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import NamedTuple, Type, TypeVar
+from typing import NamedTuple, Optional, Type, TypeVar
 
 import numpy as np
+from simulator import facility
 
 from simulator.facility import Facility
 from simulator.environment import ExternalEnvironment, AreaEnvironment
@@ -31,28 +32,29 @@ class Area:
         self, 
         action: AreaAction,
         ext_env: ExternalEnvironment, 
-        area_env: AreaEnvironment = AreaEnvironment.empty(),
+        area_env: Optional[AreaEnvironment] = None,
     ) -> AreaState:
         """ext_envとarea_envに応じて温度と消費電力を更新する
 
         2.6節の2,3に対応
         """
-        self.people = area_env.people
+        self.people = area_env.people if area_env else 0
 
-        beta = area_env.calc_beta()
+        beta = area_env.calc_beta() if area_env else 0
         self.power_consumption = 0.
 
         for fid, facility in enumerate(self.facilities):
             state, effect = facility.update(
                 action=action.facilities[fid],
-                ext_env=ext_env, 
-                area_env=area_env, 
+                ext_env=ext_env,
                 area_temperature=self.temperature)
 
             beta += effect.heat * 60
             self.power_consumption += effect.power
 
         if self.simulate_temperature:
+            assert area_env
+            
             temp_dif = self.temperature - ext_env.temperature
             self.temperature += -ALPHA * temp_dif + beta / (self.capacity * 1.189)
 
@@ -69,11 +71,16 @@ class Area:
             people=self.people,
             facilities=[facility.get_state() for facility in self.facilities]
         )
+    
+
+    def get_state_shape(self) -> tuple[int]:
+        return (AreaState.NDARRAY_ELEMS + sum(f.STATE_TYPE.NDARRAY_SHAPE[0] for f in self.facilities),)
 
 
 class AreaState(NamedTuple):
     """エリアの状態を表すオブジェクト
     """
+    NDARRAY_ELEMS = 3
 
     power_consumption: float
     temperature: float

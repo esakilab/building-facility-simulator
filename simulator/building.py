@@ -11,12 +11,14 @@ class BuildingState(NamedTuple):
     """ビル設備全体の状態を表すオブジェクト
     2.5節 AIがアクセスできるもの に対応
     """
+    NDARRAY_ELEMS = 4
 
     areas: list[AreaState]
     power_balance: float
     electric_price_unit: float
     solar_radiation: float
     temperature: float
+    
 
 
     def to_ndarray(self) -> np.ndarray:

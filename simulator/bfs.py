@@ -1,15 +1,13 @@
 from __future__ import annotations
-from copy import deepcopy
 from datetime import timedelta, datetime
-from typing import Callable, List, Optional, Type, TypeVar
-import os
-import glob
+from itertools import chain, count
+from typing import Callable, Iterator, Optional, Type, TypeVar
 
 import numpy as np
 
 from simulator.area import Area
 from simulator.building import BuildingAction, BuildingState
-from simulator.environment import AreaEnvironment, ExternalEnvironment
+from simulator.environment import AreaEnvironment, BuildingEnvironment, ExternalEnvironment
 from simulator.interfaces.config import AreaAttributes, SimulatorConfig
 from simulator.interfaces.model import RlModel
 
@@ -21,15 +19,15 @@ class BuildingFacilitySimulator:
     # TODO: モデルが複数になると報酬が複数になりそう
     def __init__(self, config: SimulatorConfig, calc_reward: Callable[[BuildingState, BuildingAction], np.ndarray]):
         self.areas: list[Area] = list(map(AreaAttributes.to_area, config.building_attributes.areas))
-        self.ext_envs: list[ExternalEnvironment] = config.external_enviroment_time_series
-        self.area_envs: list[list[AreaEnvironment]] = \
-            list(map(lambda area: area.area_environment_time_series, config.building_attributes.areas))
+
+        self.env_iter: Iterator[BuildingEnvironment] = config.get_env_iter()
+        self.prev_env: Optional[BuildingEnvironment] = None
+        self.next_env: Optional[BuildingEnvironment] = next(self.env_iter, None)
 
         self.calc_reward: Callable[[BuildingState, BuildingAction], float] = calc_reward
         
         self.start_time: datetime = config.start_time
         self.cur_steps: int = 0
-        self.total_steps: int = min(len(self.ext_envs), *filter(None, map(len, self.area_envs)))
 
 
     M = TypeVar('M', bound=RlModel)
@@ -42,17 +40,19 @@ class BuildingFacilitySimulator:
         )
 
 
-    def get_area_env(self, area_id: int, timestamp: int):
-        if area_id in self.area_envs:
-            return self.area_envs[area_id][timestamp]
+    def _next_step(self) -> Optional[BuildingEnvironment]:
+        if self.next_env:
+            self.prev_env = self.next_env
+            self.next_env = next(self.env_iter, None)
+            return self.prev_env
         else:
-            return AreaEnvironment.empty()
+            return None
 
-    
-    def has_finished(self):
-        return self.cur_steps == self.total_steps
 
-        
+    def has_finished(self) -> bool:
+        return not bool(self.next_env)
+
+
     def step(self, action: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         """2.6節のシミュレーションを1サイクル分進めるメソッド
         while not bfs.has_finished():
@@ -67,13 +67,11 @@ class BuildingFacilitySimulator:
 
         action: BuildingAction = BuildingAction.from_ndarray(action, self.areas)
 
-        if self.has_finished():
+        if (cur_env := self._next_step()) is None:
             return (None, None)
 
-        ext_env = self.ext_envs[self.cur_steps]
-
-        for area_id, area in enumerate(self.areas):
-            area.update(action.areas[area_id], ext_env, self.get_area_env(area_id, self.cur_steps))
+        for area_id, area, area_env in zip(count(), self.areas, cur_env.areas):
+            area.update(action.areas[area_id], cur_env.external, area_env)
 
         state = self.get_state()
 
@@ -91,7 +89,7 @@ class BuildingFacilitySimulator:
         action = model.select_action(state)
         next_state, reward = self.step(action)
 
-        if train_model:
+        if next_state is not None and reward is not None and train_model:
             model.add_to_buffer(state, action, next_state, reward)
 
         return next_state, action, reward
@@ -103,16 +101,14 @@ class BuildingFacilitySimulator:
 
     def get_state(self) -> BuildingState:
         area_states = [area.get_state() for area in self.areas]
-        if self.cur_steps < len(self.ext_envs):
-            ext_env = self.ext_envs[self.cur_steps]
-        else:
-            ext_env = self.ext_envs[-1]
-            
-        return BuildingState.create(area_states, ext_env)
+
+        cur_env = self.next_env or self.prev_env
+
+        return BuildingState.create(area_states, cur_env.external)
 
 
     def get_state_shape(self) -> tuple[int]:
-        return self.get_state().to_ndarray().shape
+        return (BuildingState.NDARRAY_ELEMS + sum(a.get_state_shape()[0] for a in self.areas),)
 
     
     def get_action_shape(self) -> tuple[int]:
@@ -126,8 +122,8 @@ class BuildingFacilitySimulator:
 
     def print_cur_state(self):
         print(f"\niteration {self.cur_steps} ({self.get_current_datetime()})")
-        if not self.has_finished():
-            print(self.ext_envs[self.cur_steps])
+        if self.prev_env:
+            print(self.prev_env.external)
 
         for aid, (area, st) in enumerate(zip(self.areas, self.last_state.areas)):
             print(f"area {aid}: temp={area.temperature:.2f}, power={st.power_consumption:.2f}, {area.facilities[0]}")
@@ -135,24 +131,24 @@ class BuildingFacilitySimulator:
         print(f"total power consumption: {self.last_state.power_balance:.2f}", flush=True)
     
 
-    def __add__(self, other: BuildingFacilitySimulator) -> BuildingFacilitySimulator:
-        assert self.area_envs.keys() == other.area_envs.keys()
-        result = deepcopy(self)
+    # TODO: __init__とのコードのダブりをどうにかする
+    @staticmethod
+    def _from_models(
+        areas: list[Area], 
+        envs: list[BuildingEnvironment], 
+        calc_reward: Callable[[BuildingState, BuildingAction], np.ndarray],
+        start_time: datetime
+    ) -> BuildingFacilitySimulator:
+        bfs = BuildingFacilitySimulator.__new__(BuildingFacilitySimulator)
+        bfs.areas = areas
 
-        result.total_steps += other.total_steps
-        result.ext_envs += other.ext_envs
-        for key in result.area_envs:
-            result.area_envs[key] += other.area_envs[key]
+        bfs.env_iter = iter(envs)
+        bfs.prev_env = None
+        bfs.next_env = next(bfs.env_iter, None)
 
-        return result
-    
+        bfs.calc_reward = calc_reward
 
-    def __mul__(self, other: int) -> BuildingFacilitySimulator:
-        result = deepcopy(self)
+        bfs.start_time = start_time
+        bfs.cur_steps = 0
 
-        result.total_steps *= other
-        result.ext_envs *= other
-        for key in result.area_envs:
-            result.area_envs[key] *= other
-        
-        return result
+        return bfs

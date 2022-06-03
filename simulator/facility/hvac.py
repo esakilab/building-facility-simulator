@@ -99,6 +99,7 @@ class HVACAction(FacilityAction):
 
 @FacilityFactory.register("HVAC")
 class HVAC(Facility):
+    STATE_TYPE = EmptyFacilityState
     ACTION_TYPE = HVACAction
 
     EFFICIENCY_THRESH_TEMPERATURE: ClassVar[int] = 10

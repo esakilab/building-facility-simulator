@@ -13,7 +13,7 @@ class FacilityEffect(NamedTuple):
     """設備によるエリアの働きかけ(2.2節)を表すオブジェクト
     """
 
-    power: float # [W/m^2]
+    power: float # [kW]
     heat: float  # [kJ/s = kW]
 
 
@@ -27,8 +27,7 @@ class Facility(ABC, BaseModel):
     def update(
         self, 
         action: FacilityAction,
-        ext_env: ExternalEnvironment, 
-        area_env: AreaEnvironment, 
+        ext_env: ExternalEnvironment,
         area_temperature: float,
     ) -> tuple[FacilityState, FacilityEffect]:
 
@@ -45,6 +44,14 @@ class Facility(ABC, BaseModel):
         
         raise NotImplementedError()
 
+
+    @property
+    @classmethod
+    @abstractmethod
+    def STATE_TYPE(cls) -> type[FacilityState]:
+        raise NotImplementedError()
+
+
     @property
     @classmethod
     @abstractmethod
@@ -60,7 +67,15 @@ class FacilityState(ABC):
         raise NotImplementedError()
 
 
+    @property
+    @abstractclassmethod
+    def NDARRAY_SHAPE(cls) -> tuple[int]:
+        raise NotImplementedError()
+
+
 class EmptyFacilityState(FacilityState):
+    NDARRAY_SHAPE = (0,)
+    
     def to_ndarray(self) -> np.ndarray:
         return np.array([])
 

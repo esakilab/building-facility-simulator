@@ -25,6 +25,8 @@ class ESMode(enum.Enum):
 
 @dataclass
 class ESState(FacilityState):
+    NDARRAY_SHAPE = (1,)
+    
     charge_ratio: float
 
 
@@ -45,6 +47,7 @@ class ESAction(FacilityAction):
 
 @FacilityFactory.register("ES")
 class ElectricStorage(Facility):
+    STATE_TYPE = ESState
     ACTION_TYPE = ESAction
 
     # static settings

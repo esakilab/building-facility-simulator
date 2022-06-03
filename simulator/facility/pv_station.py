@@ -7,6 +7,7 @@ from simulator.facility.factory import FacilityFactory
 
 @FacilityFactory.register("PV")
 class PVStation(Facility):
+    STATE_TYPE = EmptyFacilityState
     ACTION_TYPE = EmptyFacilityAction
 
     # static settings
