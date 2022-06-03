@@ -5,32 +5,39 @@ import pickle
 import threading
 from queue import Queue
 import time
-from typing import Callable, Optional, TypeVar
+from typing import Any, Callable, Optional, Type, TypeVar
 
 from torch.utils.tensorboard import SummaryWriter
 
 from distributed_platform.utils import SELECTION_PORT, REPORTING_PORT, calc_reward, recv_all, send_all, write_to_tensorboard
 from simulator.bfs import BuildingFacilitySimulator
-from rl.sac import SAC
+from simulator.model_interface import RlModel
 
-T = TypeVar('T')
+M = TypeVar('M', bound=RlModel)
 
-class FLServer:
+class FLServer():
+    # TODO: サーバを建てるportを指定できるようにすることで、
+    #     : ModelClassごとに複数建てられるようにすれば良さそう
     def __init__(
             self, 
+            ModelClass: Type[M],
             start_time: datetime, 
             steps_per_round: int, 
             round_client_num: int, 
-            model_aggregation: Callable[[list[T]], T]):
+            model_aggregation: Callable[[list[M]], M],
+            **model_constructor_kwargs):
+
+        self.ModelClass: Type[M] = ModelClass
+        self.model_constructor_kwargs: dict[str, Any] = model_constructor_kwargs
 
         self.cur_time: datetime = start_time
         self.steps_per_round: int = steps_per_round
         self.round_client_num: int = round_client_num
-        self.model_aggregation: Callable[[list[T]], T] = model_aggregation
+        self.model_aggregation: Callable[[list[M]], M] = model_aggregation
 
         self.client_writer_dict: dict[str, SummaryWriter] = dict()
         self.selected_client_queue: Queue[tuple[socket.socket, socket._RetAddress, dict]] = Queue()
-        self.global_model: Optional[T] = None
+        self.global_model: Optional[M] = None
 
         self.selection_socket: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.selection_socket.bind(('0.0.0.0', SELECTION_PORT))
@@ -90,8 +97,7 @@ class FLServer:
                 resp.update({
                     'client_id': client_id,
                     'simulator': bfs,
-                    # TODO: ここも設定できるようにする
-                    'model': SAC(state_shape=bfs.get_state_shape(), action_shape=bfs.get_action_shape(), device="cpu"),
+                    'model': bfs.create_rl_model(self.ModelClass, **self.model_constructor_kwargs),
                 })
                 
                 if self.global_model is None:

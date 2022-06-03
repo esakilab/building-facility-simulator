@@ -44,10 +44,10 @@ def calc_reward(state: BuildingState, action: BuildingAction) -> np.ndarray:
     area_temp = state.areas[1].temperature
     
     reward = np.exp(-LAMBDA1 * (area_temp - T_TARGET) ** 2).sum()
-    reward += - LAMBDA2 * (np.where((T_MIN - area_temp) < 0, 0, (T_MIN - area_temp)).sum())
-    reward += - LAMBDA2 * (np.where((area_temp - T_MAX) < 0, 0, (area_temp - T_MAX)).sum())
-    reward += - LAMBDA3 * state.electric_price_unit * state.power_balance
-    reward += LAMBDA4 * state.areas[4].facilities[0].charge_ratio
+    # reward += - LAMBDA2 * (np.where((T_MIN - area_temp) < 0, 0, (T_MIN - area_temp)).sum())
+    # reward += - LAMBDA2 * (np.where((area_temp - T_MAX) < 0, 0, (area_temp - T_MAX)).sum())
+    # reward += - LAMBDA3 * state.electric_price_unit * state.power_balance
+    # reward += LAMBDA4 * state.areas[4].facilities[0].charge_ratio
 
     return np.array([reward])
 
@@ -56,49 +56,22 @@ if __name__ == "__main__":
     writer = SummaryWriter(log_dir="./logs/3federated_only_area1")
     bfs_list = BFSList(calc_reward, './input_xmls', 3)
 
-    Agents = [sac.SAC(state_shape=bfs_list[i].get_state_shape(),
-                      action_shape=bfs_list[i].get_action_shape(), 
-                      device='cpu') for i in range(len(bfs_list))]
-
-    states = [np.zeros(*bfs_list[i].get_state_shape()) for i in range(len(bfs_list))]
-    actions = [np.zeros(*bfs_list[i].get_action_shape()) for i in range(len(bfs_list))]
-
-    reward = np.zeros(1)
-    temp = np.zeros(3)
-    charge_ratio = 0
-
+    agents = [bfs.create_rl_model(sac.SAC, device='cpu') for bfs in bfs_list]
 
     while True:
         for _ in range(60 * 24):
-            # print(Agents[0].critic.output1.weight[0, :3].data, Agents[1].critic.output1.weight[0, :3].data)
-
-            for i in range(len(bfs_list)):
-                if bfs_list[i].has_finished():
-                    continue
-            
-                (next_state, reward) = bfs_list[i].step(actions[i])
-
-                if bfs_list[i].cur_steps >= 1:
-                    Agents[i].replay_buffer.add(
-                        states[i], actions[i], next_state, reward[0], done=False)
-                states[i] = next_state
-
-                if bfs_list[i].cur_steps == 0:
+            for i, (bfs, model) in enumerate(zip(bfs_list, agents)):
+                if bfs.has_finished():
                     continue
 
-                if bfs_list[i].cur_steps >= 100:
-                    actions[i], _ = Agents[i].choose_action(states[i])
-                else:
-                    actions[i] = np.random.uniform(low=-1, high=1, size=bfs_list[i].get_action_shape()[0])
-
-                Agents[i].update()
+                state, action, reward = bfs.step_with_model(model)
 
                 if i == 0:
-                    write_to_tensorboard(bfs_list[i], actions[i], reward[0])
+                    write_to_tensorboard(bfs, action, reward[0])
                     
-                    if bfs_list[i].cur_steps % 60 == 0:
-                        bfs_list[i].print_cur_state()
+                    if bfs.cur_steps % 60 == 0:
+                        bfs.print_cur_state()
             
-        sac.average_sac(Agents)
+        sac.average_sac(agents)
 
         print("merged models!")

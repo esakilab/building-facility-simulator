@@ -1,7 +1,7 @@
 from __future__ import annotations
 from copy import deepcopy
 from datetime import timedelta, datetime
-from typing import Callable, List, Optional
+from typing import Callable, List, Optional, Type, TypeVar
 import os
 import glob
 import xml.etree.ElementTree as ET
@@ -11,6 +11,7 @@ import numpy as np
 from simulator.area import Area
 from simulator.building import BuildingAction, BuildingState
 from simulator.environment import AreaEnvironment, ExternalEnvironment
+from simulator.model_interface import RlModel
 
 
 class BuildingFacilitySimulator:
@@ -54,6 +55,16 @@ class BuildingFacilitySimulator:
         self.start_time = datetime.strptime(ext_env_elem[0].attrib["time"], "%Y-%m-%d %H:%M")
 
         self.total_steps = len(self.ext_envs)
+
+
+    M = TypeVar('M', bound=RlModel)
+
+    def create_rl_model(self, ModelClass: Type[M], **kwargs) -> M:
+        return ModelClass(
+            state_shape=self.get_state_shape(),
+            action_shape=self.get_action_shape(),
+            **kwargs
+        )
 
 
     def get_area_env(self, area_id: int, timestamp: int):
@@ -100,13 +111,29 @@ class BuildingFacilitySimulator:
         )
 
     
+    def step_with_model(self, model: RlModel, train_model: bool = True) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        state = self.get_state().to_ndarray()
+        action = model.select_action(state)
+        next_state, reward = self.step(action)
+
+        if train_model:
+            model.add_to_buffer(state, action, next_state, reward)
+
+        return next_state, action, reward
+
+    
     def get_current_datetime(self):
         return self.start_time + timedelta(minutes=self.cur_steps)
 
 
     def get_state(self) -> BuildingState:
         area_states = [area.get_state() for area in self.areas]
-        return BuildingState.create(area_states, self.ext_envs[self.cur_steps])
+        if self.cur_steps < len(self.ext_envs):
+            ext_env = self.ext_envs[self.cur_steps]
+        else:
+            ext_env = self.ext_envs[-1]
+            
+        return BuildingState.create(area_states, ext_env)
 
 
     def get_state_shape(self) -> tuple[int]:
