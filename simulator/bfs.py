@@ -1,7 +1,7 @@
 from __future__ import annotations
 from copy import deepcopy
 from datetime import timedelta, datetime
-from typing import List, Optional
+from typing import Callable, List, Optional
 import os
 import glob
 import xml.etree.ElementTree as ET
@@ -11,18 +11,19 @@ import numpy as np
 from simulator.area import Area
 from simulator.building import BuildingAction, BuildingState
 from simulator.environment import AreaEnvironment, ExternalEnvironment
-from simulator.io.reward import Reward
 
 
 class BuildingFacilitySimulator:
     """シミュレータを表すオブジェクトで、外部プログラムとのやり取りを担当
     """
 
-    def __init__(self, cfg_path: str):
+    # TODO: モデルが複数になると報酬が複数になりそう
+    def __init__(self, cfg_path: str, calc_reward: Callable[[BuildingState, BuildingAction], np.ndarray]):
         self.cur_steps = 0
         self.areas: list[Area] = []
         self.ext_envs: list[ExternalEnvironment] = []
         self.area_envs: dict[int, AreaEnvironment] = {}
+        self.calc_reward: Callable[[BuildingState, BuildingAction], float] = calc_reward
         
         root = ET.parse(cfg_path).getroot()
         
@@ -66,7 +67,7 @@ class BuildingFacilitySimulator:
         return self.cur_steps == self.total_steps
 
         
-    def step(self, action: np.ndarray) -> tuple[np.ndarray, Reward]:
+    def step(self, action: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         """2.6節のシミュレーションを1サイクル分進めるメソッド
         while not bfs.has_finished():
             for i in range(10):
@@ -95,7 +96,7 @@ class BuildingFacilitySimulator:
 
         return (
             state.to_ndarray(),
-            Reward.from_state(state)
+            self.calc_reward(state, action)
         )
 
     
@@ -157,6 +158,7 @@ class BuildingFacilitySimulator:
 
 class BFSList(list[BuildingFacilitySimulator]):
     def __init__(self, 
+            calc_reward: Callable[[BuildingState, BuildingAction], float],
             xml_dir_path: Optional[str] = None,
             load_xml_num: Optional[int] = None,
             xml_pathes: list[str] = []):
@@ -171,10 +173,10 @@ class BFSList(list[BuildingFacilitySimulator]):
 
         for xml_path in sorted(xml_pathes)[:load_xml_num]:
             print(f"Loading from {xml_path}")
-            self.append(BuildingFacilitySimulator(xml_path))
+            self.append(BuildingFacilitySimulator(xml_path, calc_reward))
 
 
-    def step(self, actions: List[BuildingAction]) -> List[tuple[BuildingState, Reward]]:
+    def step(self, actions: List[BuildingAction]) -> List[tuple[BuildingState, float]]:
         assert len(actions) == len(self), "len(actions) must be as same as the number of buildings"
 
         return [
