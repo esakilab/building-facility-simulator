@@ -22,32 +22,6 @@ def send_all(data, conn):
     conn.send(len(data).to_bytes(4, 'little'))
     conn.sendall(data)
 
-STATE_SHAPE = (4,)
-ACTION_SHAPE = (4,)
-
-def cvt_state_to_ndarray(state, step):
-    state_arr = []
-    for area_id, area_state in enumerate(state.areas):
-        # 状態を獲得
-        if area_id == 1:
-            state_arr.extend([
-                # area_state.people, 
-                area_state.temperature, 
-                # area_state.power_consumption
-            ])
-
-    #     if area_id == 4:
-    #         state_arr.append(area_state.facilities[0].charge_ratio)
-    # price = state.electric_price_unit
-
-    # state_arr.append(price)
-
-    state_arr.append(state.temperature)
-    state_arr.append(state.solar_radiation)
-    state_arr.append(step % (60 * 24)) # time
-    # state_arr.append((step // (60 * 24)) % 7) # day of week
-    
-    return np.array(state_arr)
 
 def action_to_temp(action):
     # action = [-1,1] -> temp = [15, 30]

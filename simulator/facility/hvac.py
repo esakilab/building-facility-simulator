@@ -1,11 +1,13 @@
+from __future__ import annotations
 from dataclasses import dataclass
 import enum
-from typing import NamedTuple, Type
+from typing import Type
 from xml.etree.ElementTree import Element
 
+import numpy as np
+
 from simulator.environment import ExternalEnvironment
-from simulator.facility.facility_base import Facility, FacilityEffect, T
-from simulator.io import FacilityAction, FacilityState
+from simulator.facility.facility_base import EmptyFacilityState, Facility, FacilityAction, FacilityEffect, T, FacilityState
 
 
 class HVACMode(enum.Enum):
@@ -78,11 +80,28 @@ class HVACStateInternal:
     
     def is_running(self):
         return (self.mode != HVACMode.Off and not self.stand_by)
-        
+
+
+@dataclass
+class HVACAction(FacilityAction):
+    NDARRAY_SHAPE = (2,)
+
+    status: bool
+    set_temperature: float
+    
+    @classmethod
+    def from_ndarray(cls, src: np.ndarray) -> HVACAction:
+        return cls(
+            status=(src[0] > 0.), 
+            set_temperature=int(src[1] * 7.5 + 22.5)
+        )
+
 
 @dataclass
 class HVAC(Facility):
     TYPE_STR = "HVAC"
+    ACTION_TYPE = HVACAction
+
     EFFICIENCY_THRESH_TEMPERATURE = 10
 
     # static settings
@@ -99,12 +118,12 @@ class HVAC(Facility):
     set_temperature: float = 0 # [℃]
 
 
-    def update_setting(self, action: FacilityAction):
-        self.status = bool(action.get("status", self.status))
-        self.set_temperature = float(action.get("temperature", self.set_temperature))
+    def update_setting(self, action: HVACAction):
+        self.status = action.status
+        self.set_temperature = action.set_temperature
 
 
-    def update(self, action: FacilityAction, ext_env: ExternalEnvironment, 
+    def update(self, action: HVACAction, ext_env: ExternalEnvironment, 
             area_temperature: float, **_) -> tuple[FacilityState, FacilityEffect]:
 
         self.update_setting(action)
@@ -139,8 +158,8 @@ class HVAC(Facility):
         return (self.get_state(), effect)
 
 
-    def get_state(self) -> FacilityState:
-        return FacilityState.empty()
+    def get_state(self) -> EmptyFacilityState:
+        return EmptyFacilityState()
 
     
     @classmethod

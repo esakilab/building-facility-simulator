@@ -1,10 +1,13 @@
+from __future__ import annotations
 from dataclasses import dataclass
-from typing import Type, TypeVar
+from typing import NamedTuple, Type, TypeVar
 from xml.etree.ElementTree import Element
+
+import numpy as np
 
 from simulator.facility import Facility, xml_element_to_facility
 from simulator.environment import ExternalEnvironment, AreaEnvironment
-from simulator.io import AreaAction, AreaState
+from simulator.facility.facility_base import FacilityActionFactory, FacilityState
 
 
 ALPHA = 0.02
@@ -42,7 +45,7 @@ class Area:
 
         for fid, facility in enumerate(self.facilities):
             state, effect = facility.update(
-                action=action[fid],
+                action=action.facilities[fid],
                 ext_env=ext_env, 
                 area_env=area_env, 
                 area_temperature=self.temperature)
@@ -89,4 +92,50 @@ class Area:
             simulate_temperature=('capacity' in elem.attrib),
             capacity=float(elem.attrib.get('capacity', "-1")),
             temperature=float(elem.attrib.get('temperature', "25"))
+        )
+
+
+class AreaState(NamedTuple):
+    """エリアの状態を表すオブジェクト
+    """
+
+    power_consumption: float
+    temperature: float
+    people: int
+    facilities: list[FacilityState]
+
+
+    def to_ndarray(self) -> np.ndarray:
+        facility_states_ndarray = np.concatenate([
+            facility_state.to_ndarray() for facility_state in self.facilities
+        ])
+
+        return np.concatenate([
+            facility_states_ndarray,
+            np.array([
+                self.power_consumption, 
+                self.temperature, 
+                float(self.people)])
+        ])
+
+
+@dataclass
+class AreaAction:
+    facilities: list[FacilityActionFactory]
+    consumed_ndarray_len: int
+
+    def from_ndarray(src: np.ndarray, facilities: list[Facility]) -> AreaAction:
+        facility_actions = []
+        cursor = 0
+        for facility in facilities:
+            next_cursor = cursor + facility.ACTION_TYPE.NDARRAY_SHAPE[0]
+            cut = src[cursor:next_cursor]
+            cursor = next_cursor
+
+            facility_actions.append(
+                FacilityActionFactory.create_facility_action(cut, facility))
+        
+        return AreaAction(
+            facilities=facility_actions,
+            consumed_ndarray_len=cursor
         )

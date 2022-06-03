@@ -6,9 +6,12 @@ import os
 import glob
 import xml.etree.ElementTree as ET
 
+import numpy as np
+
 from simulator.area import Area
+from simulator.building import BuildingAction, BuildingState
 from simulator.environment import AreaEnvironment, ExternalEnvironment
-from simulator.io import BuildingAction, BuildingState, Reward
+from simulator.io.reward import Reward
 
 
 class BuildingFacilitySimulator:
@@ -17,9 +20,9 @@ class BuildingFacilitySimulator:
 
     def __init__(self, cfg_path: str):
         self.cur_steps = 0
-        self.areas = []
-        self.ext_envs = []
-        self.area_envs = {}
+        self.areas: list[Area] = []
+        self.ext_envs: list[ExternalEnvironment] = []
+        self.area_envs: dict[int, AreaEnvironment] = {}
         
         root = ET.parse(cfg_path).getroot()
         
@@ -63,7 +66,7 @@ class BuildingFacilitySimulator:
         return self.cur_steps == self.total_steps
 
         
-    def step(self, action: BuildingAction) -> tuple[BuildingState, Reward]:
+    def step(self, action: np.ndarray) -> tuple[np.ndarray, Reward]:
         """2.6節のシミュレーションを1サイクル分進めるメソッド
         while not bfs.has_finished():
             for i in range(10):
@@ -74,13 +77,16 @@ class BuildingFacilitySimulator:
 
         みたいにすると、10stepごとにモデルの更新を行える
         """
+
+        action: BuildingAction = BuildingAction.from_ndarray(action, self.areas)
+
         if self.has_finished():
             return (None, None)
 
         ext_env = self.ext_envs[self.cur_steps]
 
         for area_id, area in enumerate(self.areas):
-            area.update(action[area_id], ext_env, self.get_area_env(area_id, self.cur_steps))
+            area.update(action.areas[area_id], ext_env, self.get_area_env(area_id, self.cur_steps))
 
         state = self.get_state()
 
@@ -88,7 +94,7 @@ class BuildingFacilitySimulator:
         self.last_state = state
 
         return (
-            state,
+            state.to_ndarray(),
             Reward.from_state(state)
         )
 
@@ -100,6 +106,19 @@ class BuildingFacilitySimulator:
     def get_state(self) -> BuildingState:
         area_states = [area.get_state() for area in self.areas]
         return BuildingState.create(area_states, self.ext_envs[self.cur_steps])
+
+
+    def get_state_shape(self) -> tuple[int]:
+        return self.get_state().to_ndarray().shape
+
+    
+    def get_action_shape(self) -> tuple[int]:
+        size = 0
+        for area in self.areas:
+            for facility in area.facilities:
+                size += facility.ACTION_TYPE.NDARRAY_SHAPE[0]
+        
+        return (size,)
 
 
     def print_cur_state(self):
