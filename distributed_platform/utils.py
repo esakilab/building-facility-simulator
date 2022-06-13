@@ -3,10 +3,10 @@ import numpy as np
 
 from simulator.building import BuildingAction, BuildingState
 
-GLOBAL_HOSTNAME = os.environ.get("GLOBAL_HOSTNAME", 'global')
 BUFF_SIZE = 65536
-SELECTION_PORT = 11113
-REPORTING_PORT = 11114
+GLOBAL_HOSTNAME = os.environ.get("GLOBAL_HOSTNAME", 'global')
+SELECTION_PORT = int(os.environ.get("SELECTION_PORT", '11113'))
+REPORTING_PORT = int(os.environ.get("REPORTING_PORT", '11114'))
 
 def recv_all(conn):
     data_len = int.from_bytes(conn.recv(4), 'little')
