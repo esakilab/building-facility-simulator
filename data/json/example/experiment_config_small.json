@@ -1,0 +1,11 @@
+{
+    "global_node_ip": "10.17.104.157", 
+    "selection_port": 11113,
+    "reporting_port": 11114,
+    "local_node_urls": ["ssh://10.17.104.164", "ssh://10.17.104.165"], 
+    "total_client_num": 4, 
+    "round_client_num": 2, 
+    "start_time": "2020-08-01T00:00:00",
+    "steps_per_round": 60,
+    "total_steps": 1440
+}
