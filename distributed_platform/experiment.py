@@ -1,13 +1,14 @@
 from datetime import datetime
 import os
+from pathlib import Path
 import time
 from typing import Callable, Type, TypeVar
 import docker
 from itertools import cycle, islice
 import numpy as np
-from pydantic import BaseModel, stricturl, validator
+from pydantic import BaseModel, DirectoryPath, stricturl, validator
 
-from distributed_platform.server import FLServer
+from distributed_platform.server import CalcReward, FLServer
 from simulator.building import BuildingAction, BuildingState
 from simulator.interfaces.model import RlModel
 
@@ -25,25 +26,34 @@ class ExperimentConfig(BaseModel):
     start_time: datetime
     steps_per_round: int
     total_steps: int
+    model_tag_to_config_dir_path: dict[str, DirectoryPath]
     
     @validator('reporting_port')
     def check_port_conflict(cls, value, values):
         if value == values['selection_port']:
             raise ValueError(f'`selection_port` and `reporting_port` cannot have the same value ({value}).')
         return value
+    
+    def get_config_paths_with_tag(self) -> list[tuple[Path, str]]:
+        result = []
+        for tag, dir_path in self.model_tag_to_config_dir_path.items():
+            for config_path in dir_path.glob("*.json"):
+                result.append((config_path, tag))
+        
+        return result
 
 
 M = TypeVar('M', bound=RlModel)
 class Experiment:
     def __init__(
             self, ModelClass: Type[M], model_aggregation: Callable[[list[M]], M], 
-            calc_reward: Callable[[BuildingState, BuildingAction], np.ndarray], config: ExperimentConfig):
+            tag_to_calc_reward: dict[str, CalcReward], config: ExperimentConfig):
             
         print(f"Expermient Configuration: {config.json(indent=4, separators=(',', ': '))}", flush=True)
 
         self.ModelClass = ModelClass
         self.model_aggregation = model_aggregation
-        self.calc_reward = calc_reward
+        self.tag_to_calc_reward = tag_to_calc_reward
 
         self.env: dict[str, str] = {
             "GLOBAL_HOSTNAME": config.global_node_ip,
@@ -63,6 +73,8 @@ class Experiment:
         self.start_time: datetime = config.start_time
         self.steps_per_round: int = config.steps_per_round
         self.total_steps: int = config.total_steps
+
+        self.config_paths_with_tag: list[tuple[Path, str]] = config.get_config_paths_with_tag()
 
         self._build_local_containers()
     
@@ -130,7 +142,8 @@ class Experiment:
                     self.steps_per_round, 
                     self.round_client_num, 
                     self.model_aggregation,
-                    self.calc_reward,
+                    self.config_paths_with_tag,
+                    self.tag_to_calc_reward,
                     device='cpu')
 
             except OSError as e:

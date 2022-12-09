@@ -15,3 +15,8 @@ class RlModel(ABC):
     @abstractmethod
     def add_to_buffer(self, state: np.ndarray, action: np.ndarray, next_state: np.ndarray, reward: np.ndarray):
         pass
+
+    # clientのモデルのうち、global共有したい部分だけを抜き出す
+    # @abstractmethod
+    # def get_checkpoint(self) -> RlModel:
+    #     pass

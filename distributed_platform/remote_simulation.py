@@ -7,12 +7,11 @@ from typing import Callable, Iterator, NamedTuple, Optional
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
 
-from distributed_platform.utils import action_to_ES, action_to_temp, write_to_tensorboard
-from simulator.area import Area
+from simulator.area import Area, AreaState
 from simulator.bfs import BuildingFacilitySimulator
 from simulator.building import BuildingAction, BuildingState
-from simulator.environment import AreaEnvironment, BuildingEnvironment, ExternalEnvironment
-from simulator.interfaces.config import BuildingAttributes, SimulatorConfig
+from simulator.environment import BuildingEnvironment
+from simulator.interfaces.config import SimulatorConfig
 from simulator.interfaces.model import RlModel
 
 
@@ -49,10 +48,7 @@ class RemoteSimulatonManager:
         self.current_dt = checkpoint.current_dt
 
         if self.summary_writer:
-            for history in checkpoint.history:
-                write_to_tensorboard(
-                    self.summary_writer, history.steps, history.state, 
-                    history.reward, history.temp, history.mode)
+            checkpoint.write_to_tensorboard(self.summary_writer)
 
 
 @dataclass
@@ -83,15 +79,14 @@ class RemoteSimulaionAgent:
 
     def _simulate_1step(self, train_model: bool = True) -> RemoteSimulationHistory:
 
-        state, action, reward = self.bfs.step_with_model(self.model, train_model)
+        _, action, reward = self.bfs.step_with_model(self.model, train_model)
+        building_action = BuildingAction.from_ndarray(action, self.bfs.areas)
 
-        # TODO: この辺りをより柔軟にする　 & sliceのハードコーディングをやめる
         return RemoteSimulationHistory(
             steps=self.bfs.cur_steps,
             state=self.bfs.get_state(),
             reward=reward,
-            temp=action_to_temp(action[1::2]),
-            mode=action_to_ES(action[-1])
+            action=building_action
         )
 
 
@@ -103,9 +98,18 @@ class RemoteSimulaionCheckpoint:
     history: list[RemoteSimulationHistory]
 
 
+    def write_to_tensorboard(self, writer: SummaryWriter):
+        for history in self.history:
+            writer.add_scalar("reward", history.reward, history.steps)
+
+            for area, area_state, area_action in zip(self.areas, history.state.areas, history.action.areas):
+
+                writer.add_scalar(f"temperature_{area.name}", area_state.temperature, history.steps)
+                writer.add_scalar(f"power_consumption_{area.name}", area_state.power_consumption, history.steps)
+
+
 class RemoteSimulationHistory(NamedTuple):
     steps: int
     state: BuildingState
     reward: np.ndarray
-    temp: float
-    mode: str
+    action: BuildingAction
