@@ -1,13 +1,12 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import NamedTuple, Optional, Type, TypeVar
+from typing import NamedTuple, Optional, TypeVar
 
 import numpy as np
-from simulator import facility
 
 from simulator.facility import Facility
 from simulator.environment import ExternalEnvironment, AreaEnvironment
-from simulator.facility.facility_base import FacilityActionFactory, FacilityState
+from simulator.facility.facility_base import FacilityAction, FacilityActionFactory, FacilityState
 
 
 ALPHA = 0.02
@@ -104,7 +103,7 @@ class AreaState(NamedTuple):
 
 @dataclass
 class AreaAction:
-    facilities: list[FacilityActionFactory]
+    facilities: list[FacilityAction]
     consumed_ndarray_len: int
 
     def from_ndarray(src: np.ndarray, facilities: list[Facility]) -> AreaAction:
