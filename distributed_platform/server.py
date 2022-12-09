@@ -1,5 +1,8 @@
 from __future__ import annotations
+from collections import defaultdict, deque
 from datetime import datetime, timedelta
+from pathlib import Path
+from random import shuffle
 import socket
 import pickle
 import threading
@@ -16,6 +19,7 @@ from simulator.building import BuildingAction, BuildingState
 from simulator.interfaces.config import SimulatorConfig
 from simulator.interfaces.model import RlModel
 
+CalcReward = Callable[[BuildingState, BuildingAction], np.ndarray]
 M = TypeVar('M', bound=RlModel)
 
 class FLServer():
@@ -29,7 +33,8 @@ class FLServer():
             steps_per_round: int, 
             round_client_num: int, 
             model_aggregation: Callable[[list[M]], M],
-            calc_reward: Callable[[BuildingState, BuildingAction], np.ndarray],
+            config_paths_with_tag: list[tuple[Path, str]],
+            tag_to_calc_reward: dict[str, CalcReward],
             **model_constructor_kwargs):
 
         self.ModelClass: Type[M] = ModelClass
@@ -42,9 +47,12 @@ class FLServer():
         self.round_client_num: int = round_client_num
         self.model_aggregation: Callable[[list[M]], M] = model_aggregation
 
-        self.manager_dict: dict[str, RemoteSimulatonManager] = dict()
-        self.selected_client_queue: Queue[tuple[socket.socket, socket._RetAddress, dict]] = Queue()
-        self.global_model: Optional[M] = None
+        self.managers: list[RemoteSimulatonManager] = list()
+        self.client_id_to_tag: list[str] = list()
+        self.config_paths_with_tag: deque[tuple[Path, str]] = deque(config_paths_with_tag)
+        shuffle(self.config_paths_with_tag)
+        self.tag_to_selected_client_queue: defaultdict[str, Queue[tuple[socket.socket, socket._RetAddress, dict]]] = defaultdict(Queue)
+        self.tag_to_global_model: dict[str, Optional[M]] = dict()
 
         self.selection_socket: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.selection_socket.bind(('0.0.0.0', SELECTION_PORT))
@@ -54,7 +62,7 @@ class FLServer():
         self.reporting_socket.bind(('0.0.0.0', REPORTING_PORT))
         self.reporting_socket.listen()
 
-        self.calc_reward = calc_reward
+        self.tag_to_calc_reward = tag_to_calc_reward
 
 
     def run(self):
@@ -71,10 +79,11 @@ class FLServer():
     def _exec_fl_proccess(self):
         while self.cur_time < self.end_time:
             time.sleep(0.1)
-            if self.selected_client_queue.qsize() < self.round_client_num:
+
+            if any(qsize < self.round_client_num for qsize in self._get_all_queue_sizes()):
                 continue
 
-            print(f"\n\nSTART NEW ROUND (time: {self.cur_time}, qsize: {self.selected_client_queue.qsize()})\n", flush=True)
+            print(f"\n\nSTART NEW ROUND (time: {self.cur_time}, tags: {list(self.tag_to_selected_client_queue.keys())})\n", flush=True)
 
             self.configuration_phase()
             self.reporting_phase()
@@ -85,9 +94,11 @@ class FLServer():
             (connection, client) = self.selection_socket.accept()
                 
             req = pickle.loads(recv_all(connection))
+            req['client_id'] = req['client_id'] if req['client_id'] != None else self._init_client(client)
+            tag = self.client_id_to_tag[req['client_id']]
 
             print(f"[SELECTOR] Selected {self._to_client_str(req['client_id'], client)} for the next round.", flush=True)
-            self.selected_client_queue.put((connection, client, req))
+            self.tag_to_selected_client_queue[tag].put((connection, client, req))
     
 
     def configuration_phase(self):
@@ -96,19 +107,24 @@ class FLServer():
         end_time = self.cur_time + timedelta(minutes=self.steps_per_round)
 
         for _ in range(self.round_client_num):
-            conn, client, req = self.selected_client_queue.get()
+            for tag in set(self.client_id_to_tag):
+                conn, client, req = self.tag_to_selected_client_queue[tag].get()
 
-            client_id = req['client_id'] if req['client_id'] != None else self._init_client(client)
-            
-            # TODO: 選択しなかった場合は、何分後にretryしてねという情報を入れる
-            resp = dict(
-                client_id=client_id,
-                agent=self.manager_dict[client_id].create_agent(self.global_model, self.cur_time, end_time)
-            )
-            
-            print(f"Sending global model to {self._to_client_str(client_id, client)}...", flush=True)
-            
-            send_all(pickle.dumps(resp), conn)
+                client_id: int = req['client_id']
+                
+                # TODO: 選択しなかった場合は、何分後にretryしてねという情報を入れる
+                resp = dict(
+                    client_id=client_id,
+                    agent=self.managers[client_id].create_agent(
+                        model=self.tag_to_global_model[tag], 
+                        train_start_dt=self.cur_time, 
+                        end_dt=end_time
+                    )
+                )
+                
+                print(f"Sending global model to {self._to_client_str(client_id, client)}...", flush=True)
+                
+                send_all(pickle.dumps(resp), conn)
         
         self.cur_time = end_time
     
@@ -119,25 +135,28 @@ class FLServer():
         # TODO: 遅すぎるクライアントへの対応
 
         connections = []
-        models = []
+        tag_to_models: defaultdict[str, list[RlModel]] = defaultdict(list)
 
-        for _ in range(self.round_client_num):
+        for _ in range(self.round_client_num * len(self.tag_to_global_model)):
             (connection, client) = self.reporting_socket.accept()
                 
             req = pickle.loads(recv_all(connection))
 
             client_id = req['client_id']
+            tag = self.client_id_to_tag[client_id]
 
             print(f"Got report from {self._to_client_str(client_id, client)}.", flush=True)
 
             checkpoint: RemoteSimulaionCheckpoint = req['checkpoint']
-            self.manager_dict[client_id].load_checkpoint(checkpoint)
+            self.managers[client_id].load_checkpoint(checkpoint)
             
             connections.append(connection)
-            models.append(checkpoint.model)
+            tag_to_models[tag].append(checkpoint.model)
         
         print("Updated global model with FedAvg!", flush=True)
-        self.global_model = self.model_aggregation(models)
+        for tag, models in tag_to_models.items():
+            self.tag_to_global_model[tag] = self.model_aggregation(models)
+            print(f"Aggregated into global model for tag: {tag}!", flush=True)
 
         for conn in connections:
             send_all(pickle.dumps({'success': True}), conn)
@@ -147,33 +166,43 @@ class FLServer():
     def _wait_for_clients(self, client_num: int):
         print(f"Waiting for {client_num} clients to respond...", flush=True)
         
-        while self.selected_client_queue.qsize() < client_num:
+        while sum(self._get_all_queue_sizes()) < client_num:
             time.sleep(0.1)
 
-        print(f"{self.selected_client_queue.qsize()} clients responded!", flush=True)
+        print(f"{sum(self._get_all_queue_sizes())} clients responded!", flush=True)
     
 
-    def _init_client(self, client: socket._RetAddress) -> str:
-        client_id = len(self.manager_dict)
-        config_path = f"./data/json/BFS_{client_id:02}/simulator_config.json"
-        config = SimulatorConfig.parse_file(config_path)
-        self.manager_dict[client_id] = RemoteSimulatonManager(
-            config=config,
-            calc_reward=self.calc_reward,
-            summary_dir=f"./logs/distributed-platform-on-cluster/{self.experiment_id}/{client_id}"
-        )
+    def _init_client(self, client: socket._RetAddress) -> int:
+        config_path, tag = self.config_paths_with_tag.popleft()
+        # TODO: queueに戻すのをやめ、空になった場合にエラーを返すようにする
+        self.config_paths_with_tag.append((config_path, tag))
 
-        if self.global_model is None:
-            self.global_model = BuildingFacilitySimulator(config, self.calc_reward)\
+        client_id = len(self.managers)
+        self.client_id_to_tag.append(tag)
+        
+        config = SimulatorConfig.parse_file(config_path)
+        self.managers.append(
+            RemoteSimulatonManager(
+                config=config,
+                calc_reward=self.tag_to_calc_reward[tag],
+                summary_dir=f"./logs/distributed-platform-on-cluster/{self.experiment_id}/{tag}/{config_path.stem}"
+            ))
+
+        if tag not in self.tag_to_global_model:
+            self.tag_to_global_model[tag] = BuildingFacilitySimulator(config, self.tag_to_calc_reward[tag])\
                 .create_rl_model(self.ModelClass, **self.model_constructor_kwargs)
 
-        print(f"- Initialized simulator for {self._to_client_str(client_id, client)} using {config_path}.", flush=True)
+        print(f"- Initialized simulator for {self._to_client_str(client_id, client)} (tag: {tag}) using {config_path}.", flush=True)
 
         return client_id
 
     
     def _to_client_str(self, client_id: str, client: socket._RetAddress) -> str:
         if client_id != None:
-            return f"client{client_id}({client[0]})"
+            return f"client{client_id}(addr: {client[0]}, tag: {self.client_id_to_tag[client_id]})"
         else:
             return f"new_client({client[0]})"
+
+    
+    def _get_all_queue_sizes(self) -> list[int]:
+        return [q.qsize() for q in self.tag_to_selected_client_queue.values()]

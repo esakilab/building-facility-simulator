@@ -5,7 +5,7 @@ from typing import Iterator, Iterator, Type, TypeVar, Union
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, FilePath, validator
 
 from simulator.area import Area
 from simulator.environment import AreaEnvironment, BuildingEnvironment, ExternalEnvironment
@@ -57,7 +57,7 @@ class AreaAttributes(BaseModel):
     initial_temperature: float = 25.
     facilities: list[FacilityAttributes]
     area_environment_time_series: Optional[list[AreaEnvironment]] = None
-    area_environment_csv_path: Optional[Path] = None
+    area_environment_csv_path: Optional[FilePath] = None
 
 
     def to_area(self) -> Area:
@@ -79,7 +79,7 @@ class SimulatorConfig(BaseModel):
     start_time: datetime
     building_attributes: BuildingAttributes
     external_enviroment_time_series: Optional[list[ExternalEnvironment]] = None
-    external_environment_csv_path: Optional[Path] = None
+    external_environment_csv_path: Optional[FilePath] = None
 
     
     @validator('external_enviroment_time_series')
