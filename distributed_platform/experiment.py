@@ -37,7 +37,7 @@ class ExperimentConfig(BaseModel):
     def get_config_paths_with_tag(self) -> list[tuple[Path, str]]:
         result = []
         for tag, dir_path in self.model_tag_to_config_dir_path.items():
-            for config_path in dir_path.glob("*.json"):
+            for config_path in dir_path.glob("BFS_*/simulator_config.json"):
                 result.append((config_path, tag))
         
         return result
@@ -79,7 +79,7 @@ class Experiment:
         self._build_local_containers()
     
 
-    def run(self):
+    def run(self) -> float:
         server: FLServer = self._start_global_server()
 
         server._start_selection_thread()
@@ -92,6 +92,7 @@ class Experiment:
         elapsed_time: float = time.perf_counter() - start_time
 
         print(f"Elapsed time: {elapsed_time}", flush=True)
+        return elapsed_time
 
     
     def _build_local_containers(self):

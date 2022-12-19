@@ -29,9 +29,12 @@ class CsvModelIterator(Iterator[M]):
         return self
     
     def __next__(self) -> M:
-        row = self.file.readline().split(',')
+        row = self.file.readline()
+        if row == "":
+            raise StopIteration
+
         return self.ModelType.parse_obj(
-            {key: value for key, value in zip(self.header, row)}
+            {key: value for key, value in zip(self.header, row.split(','))}
         )
 
 
