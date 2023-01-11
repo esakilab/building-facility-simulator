@@ -35,8 +35,13 @@ class FLClient:
     def _send_request(self, payload: dict[str, Any], port) -> dict[str, Any]:
         payload['client_id'] = self.client_id
 
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect((GLOBAL_HOSTNAME, port))
-            send_all(pickle.dumps(payload), s)
+        while True:
+            try:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.connect((GLOBAL_HOSTNAME, port))
+                    send_all(pickle.dumps(payload), s)
 
-            return pickle.loads(recv_all(s))
+                    return pickle.loads(recv_all(s))
+
+            except ConnectionResetError:
+                continue

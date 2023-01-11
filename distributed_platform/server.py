@@ -185,7 +185,7 @@ class FLServer():
             RemoteSimulatonManager(
                 config=config,
                 calc_reward=self.tag_to_calc_reward[tag],
-                summary_dir=f"./logs/distributed-platform-on-cluster/{self.experiment_id}/{tag}/{config_path.stem}"
+                summary_dir=None # f"./logs/distributed-platform-on-cluster/{self.experiment_id}/{tag}/{config_path.stem}"
             ))
 
         if tag not in self.tag_to_global_model:

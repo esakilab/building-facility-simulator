@@ -131,7 +131,7 @@ class Algorithm(ABC):
 
 class SAC(Algorithm, RlModel):
     def __init__(self, state_shape, action_shape,  device,  seed=0,
-                 batch_size=256, gamma=0.99, lr=3e-4, alpha=0.2, buff_size=10**4, start_steps=2*10**3, tau=5e-3, reward_scale=1.0):
+                 batch_size=32, gamma=0.99, lr=3e-4, alpha=0.2, buff_size=10**4, start_steps=2*10**3, tau=5e-3, reward_scale=1.0):
 
         np.random.seed(seed)
         torch.manual_seed(seed)

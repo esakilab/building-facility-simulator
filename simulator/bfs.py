@@ -1,6 +1,7 @@
 from __future__ import annotations
 from datetime import timedelta, datetime
 from itertools import chain, count
+import time
 from typing import Callable, Iterator, Optional, Type, TypeVar
 
 import numpy as np
@@ -85,12 +86,21 @@ class BuildingFacilitySimulator:
 
     
     def step_with_model(self, model: RlModel, train_model: bool = True) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        start: float = time.perf_counter()
         state = self.get_state().to_ndarray()
+        after_state: float = time.perf_counter()
         action = model.select_action(state)
+        after_action: float = time.perf_counter()
         next_state, reward = self.step(action)
+        after_step: float = time.perf_counter()
 
         if next_state is not None and reward is not None and train_model:
             model.add_to_buffer(state, action, next_state, reward)
+            after_buffer: float = time.perf_counter()
+            # print(f"sim.get_state: {after_state-start}, mod.select_action: {after_action-after_state}, sim.step: {after_step-after_action}, mod.add_to_buffer: {after_buffer-after_step}")
+            total = after_buffer - start
+            model_time = (after_action - after_state) + (after_buffer - after_step)
+            # print(f"model: {model_time}, sim: {total-model_time}", flush=True)
 
         return next_state, action, reward
 
