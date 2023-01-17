@@ -24,7 +24,7 @@ BASE_CONFIG_DICT = dict(
     selection_port=11113,
     reporting_port=11114,
     local_node_urls=LOCAL_NODE_URLS, 
-    total_client_num=4, 
+    total_client_num=128, 
     round_client_num=4, 
     start_time="2020-08-01T00:00:00",
     steps_per_round=60,
@@ -57,6 +57,10 @@ def compare_elapsed_time_with_diffs(config_diffs: list[dict[str, Any]], experime
     for diff in config_diffs:
         exp_dict = BASE_CONFIG_DICT | diff
 
+        layer_num = exp_dict.pop("model_layer_num", None)
+        if layer_num:
+            SAC.LAYER_NUM = layer_num
+
         exp_dict["elapsed_time"] = Experiment(
             SAC, 
             average_sac, 
@@ -68,6 +72,8 @@ def compare_elapsed_time_with_diffs(config_diffs: list[dict[str, Any]], experime
             url_list = exp_dict.pop("local_node_urls")
             exp_dict["local_node_num"] = len(url_list)
 
+        if layer_num:
+            exp_dict.update(model_layer_num=layer_num)
 
         with log_file_path.open('a') as f:
             row_values = [str(exp_dict[key]) for key in log_columns]

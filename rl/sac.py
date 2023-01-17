@@ -9,7 +9,6 @@ from abc import ABC, abstractmethod
 from rl import buffer
 from simulator.interfaces.model import RlModel
 
-
 def caluculate_log_pi(log_stds, noises, actions):
     gaussian_log_probs = (-0.5 * noises.pow(2) - log_stds).sum(dim=-1, keepdim=True)\
         - 0.5*math.log(2*math.pi)*log_stds.size(-1)
@@ -55,22 +54,32 @@ class Critic_network(nn.Module):
     def __init__(self, state_shape, action_shape):
         super().__init__()
         self.fc1 = nn.Linear(state_shape[0] + action_shape[0], 256)
-        self.fc2 = nn.Linear(256, 256)
+
+        fc2_layers: list[nn.Module] = [nn.Linear(256, 256)]
+        for _ in range(1, SAC.LAYER_NUM):
+            fc2_layers.append(nn.ReLU())
+            fc2_layers.append(nn.Linear(256, 256))
+
         self.output1 = nn.Linear(256, 1)
 
         self.fc3 = nn.Linear(state_shape[0] + action_shape[0], 256)
-        self.fc4 = nn.Linear(256, 256)
+
+        fc4_layers: list[nn.Module] = [nn.Linear(256, 256)]
+        for _ in range(1, SAC.LAYER_NUM):
+            fc4_layers.append(nn.ReLU())
+            fc4_layers.append(nn.Linear(256, 256))
+        
         self.output2 = nn.Linear(256, 1)
 
         self.net1 = nn.Sequential(self.fc1,
                                   nn.ReLU(),
-                                  self.fc2,
+                                  *fc2_layers,
                                   nn.ReLU(),
                                   self.output1)
 
         self.net2 = nn.Sequential(self.fc3,
                                   nn.ReLU(),
-                                  self.fc4,
+                                  *fc4_layers,
                                   nn.ReLU(),
                                   self.output2)
 
@@ -87,11 +96,16 @@ class Actor_network(nn.Module):
         super().__init__()
 
         self.fc1 = nn.Linear(state_shape[0], 256)
-        self.fc2 = nn.Linear(256, 256)
+
+        fc2_layers: list[nn.Module] = [nn.Linear(256, 256)]
+        for _ in range(1, SAC.LAYER_NUM):
+            fc2_layers.append(nn.ReLU())
+            fc2_layers.append(nn.Linear(256, 256))
+
         self.output = nn.Linear(256, action_shape[0] * 2)
         self.net = nn.Sequential(self.fc1,
                                  nn.ReLU(),
-                                 self.fc2,
+                                 *fc2_layers,
                                  nn.ReLU(),
                                  self.output)
 
@@ -130,6 +144,8 @@ class Algorithm(ABC):
 
 
 class SAC(Algorithm, RlModel):
+    LAYER_NUM = 1
+
     def __init__(self, state_shape, action_shape,  device,  seed=0,
                  batch_size=32, gamma=0.99, lr=3e-4, alpha=0.2, buff_size=10**4, start_steps=2*10**3, tau=5e-3, reward_scale=1.0):
 
