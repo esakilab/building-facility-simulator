@@ -6,7 +6,7 @@ from typing import ClassVar
 import numpy as np
 
 from simulator.environment import ExternalEnvironment
-from simulator.facility.facility_base import EmptyFacilityState, Facility, FacilityAction, FacilityEffect, T, FacilityState
+from simulator.facility.facility_base import EmptyFacilityState, Facility, FacilityAction, FacilityEffect, FacilityState
 from simulator.facility.factory import FacilityFactory
 
 
@@ -15,7 +15,7 @@ class HVACMode(enum.Enum):
     Cool = enum.auto()
     Heat = enum.auto()
 
-    def switch(self):
+    def switch(self) -> HVACMode:
         return {
             HVACMode.Cool: HVACMode.Heat,
             HVACMode.Heat: HVACMode.Cool,

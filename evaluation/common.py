@@ -24,8 +24,8 @@ BASE_CONFIG_DICT = dict(
     selection_port=11113,
     reporting_port=11114,
     local_node_urls=LOCAL_NODE_URLS, 
-    total_client_num=128, 
-    round_client_num=4, 
+    total_client_num=256, 
+    round_client_num=32, 
     start_time="2020-08-01T00:00:00",
     steps_per_round=60,
     total_steps=10080,
@@ -60,6 +60,8 @@ def compare_elapsed_time_with_diffs(config_diffs: list[dict[str, Any]], experime
         layer_num = exp_dict.pop("model_layer_num", None)
         if layer_num:
             SAC.LAYER_NUM = layer_num
+        else:
+            SAC.LAYER_NUM = 1
 
         exp_dict["elapsed_time"] = Experiment(
             SAC, 
